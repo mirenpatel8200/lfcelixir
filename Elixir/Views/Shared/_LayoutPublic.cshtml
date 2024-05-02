@@ -1,0 +1,130 @@
+﻿@using Elixir.Models.Utils
+@using System.Web.Configuration;
+@{
+    Layout = "_Layout.cshtml";
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/WebPagePage.css")
+    @RenderSection("Styles", false)
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/App/Views/webpage.js")
+    @RenderSection("Scripts", false)
+}
+
+<div class="content-wrapper">
+    <div class="content" style="width:inherit;">
+        @RenderBody()
+    </div>
+    <div class="sidebar">
+        <div class="section share">
+            Share This Page
+            <div class="shares-wrapper">
+                <div id="fb" class="share">
+                    <div class="fb-share-button" data-href="@Request.Url.AbsoluteUri" data-layout="button_count"></div>
+                </div>
+                <div id="tw" class="share">
+                    @if (!CompilationUtils.IsProfilingMode)
+                    {
+                        <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-via="liveforeverclub"></a>
+                        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    }
+                </div>
+                <div id="in" class="share">
+                    @if (!CompilationUtils.IsProfilingMode)
+                    {
+                        <script src="//platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
+                        <script type="IN/Share" data-url="@Request.Url.AbsoluteUri">
+                        </script>
+                    }
+                </div>
+                <div id="mail" class="share">
+                    <a href="mailto:?subject=@ViewBag.Title;body=From the Live Forever Club website @Request.Url.AbsoluteUri" title="Share by Email"><i class="fa fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            @*INTERNAL ADVERT - displayed to all users*@
+            @*see also Live Forever Manual internal advert below skyscraper*@
+            @*<a href="https://www.amazon.com/dp/B07LB17TNW/ref=as_li_ss_tl?ie=UTF8&tag=lfcamzn-20" target="_blank"><img src="@Url.Content("~/Content/Adverts/live-forever-manual-250x200.png")" alt="Live Forever Manual" /></a><p>Now available on <a href="https://www.amazon.com/dp/B07LB17TNW/ref=as_li_ss_tl?ie=UTF8&tag=lfcamzn-20" target="_blank">Amazon*</a></p>*@
+            @*Shop internal advert*@
+            <a href="/shop"><img src="@Url.Content("~/Content/Adverts/shop-t-shirt-flow-250x200.jpg")" alt="Live Forever Club Shop" /></a><p>Club <a href="/shop">shop</a> now open!</p>
+        </div>
+        @*3rd Party Ad - RHS Box - Start*@
+        @if (!User.IsInRole(Elixir.Models.Enums.Roles.Longevist.ToString()))
+        {
+            if (Convert.ToBoolean(WebConfigurationManager.AppSettings["IsLoadGoogleAds"].ToString()))
+            {
+                <div class="section">
+
+                    @switch ((int)(DateTime.Now.Second / 15))
+                    {
+                        case 0:<a href="https://www.medichecks.com/cancer-markers?tap_a=19003-322321&tap_s=377927-cde093" target="_BLANK" rel="nofollow"><img src="https://static.tapfiliate.com/58da80b7ecd0f.png?a=19003-322321&s=377927-cde093" border="0"></a>
+                            break;
+                        case 1: <a href="https://www.medichecks.com/?tap_a=18995-98ce3d&tap_s=377927-cde093" target="_BLANK" rel="nofollow"><img src="https://static.tapfiliate.com/58da331947668.png?a=18995-98ce3d&s=377927-cde093" border="0"></a>
+                            break;
+                        case 2: <a href="https://www.medichecks.com/thyroid-health?tap_a=19005-ba9bd8&tap_s=377927-cde093" target="_BLANK" rel="nofollow"><img src="https://static.tapfiliate.com/58da81f3b1b24.png?a=19005-ba9bd8&s=377927-cde093" border="0"></a>
+                            break;
+                        default: <a href="https://www.medichecks.com/?tap_a=18995-98ce3d&tap_s=377927-cde093" target="_BLANK" rel="nofollow"><img src="/images/adverts/medichecks/gold-buttons-190409.png" border="0"></a>
+                            break;
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="section" style="width:300px; min-height: 250px; background-image: url(/Images/adverts/placeholders/300x250.png)"></div>
+            }
+        }
+        else
+        {
+            <!-- 3rd Party Ad - RHS Box omitted -->
+        }
+        @*3rd Party Ad - RHS Box - End*@
+        <div class="section latest-blog-posts">
+            @Html.Action("RenderLatestBlogPosts", "WebPageVisual")
+        </div>
+        <div class="section social">
+            Connect with us
+            <div class="links-wrapper">
+                <a href="https://www.facebook.com/liveforeverclub/" target="_blank"><i class="fab fa-facebook-square"></i></a>
+                <a href="https://twitter.com/liveforeverclub" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/company/live-forever-club/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="http://eepurl.com/_eboX" target="_blank"><i class="fa fa-envelope"></i></a>
+                <a href="https://www.youtube.com/channel/UC6hPuefAFNDr9F2IlqOyoLw" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        @*3rd Party Ad - RHS Skyscraper - Start*@
+        @if (!User.IsInRole(Elixir.Models.Enums.Roles.Longevist.ToString()))
+        {
+
+            if (Convert.ToBoolean(WebConfigurationManager.AppSettings["IsLoadGoogleAds"].ToString()))
+            {
+                <div class="section">
+                    @if (!CompilationUtils.IsProfilingMode)
+                    {
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- LFC-Sidebar-responsive -->
+                        <ins class="adsbygoogle" style="display: block" data-ad-client="ca-pub-1923796702115669" data-ad-slot="4116555515" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="section" style="width:300px; min-height: 600px; background-image: url(/Images/adverts/placeholders/300x600.png)"></div>
+            }
+        }
+        else
+        {
+            <!-- 3rd Party Ad - RHS Skyscraper omitted -->
+        }
+        @*3rd Party Ad - RHS Skyscraper - End*@
+        <div class="section">
+            @*internal advert - Live Forever Manual *@
+            <a href="https://www.amazon.com/dp/B07LB17TNW/ref=as_li_ss_tl?ie=UTF8&tag=lfcamzn-20" target="_blank"><img src="@Url.Content("~/Content/Adverts/live-forever-manual-250x200.png")" alt="Live Forever Manual" /></a><p>Now available on <a href="https://www.amazon.com/dp/B07LB17TNW/ref=as_li_ss_tl?ie=UTF8&tag=lfcamzn-20" target="_blank">Amazon*</a></p>
+        </div>
+    </div>

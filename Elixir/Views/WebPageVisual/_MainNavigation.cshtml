@@ -1,0 +1,59 @@
+﻿@model Elixir.ViewModels.Navigation.NavigationViewModel
+
+
+@foreach (var item in Model.Items)
+{
+    <li>
+        @if (!item.HasChildItems)
+        {
+            <a href="@item.Url">@item.Text</a>
+        }
+        else
+        {
+            <a href="@item.Url">@item.Text</a> @*<i class="fas fa-chevron-down fa-xs pl-2"></i>*@
+            <ul>
+                @foreach (var childItem in item.ChildItems)
+                {
+                    <li>
+                        <a href="@childItem.Url">@childItem.Text</a>
+                    </li>
+                }
+            </ul>
+        }
+    </li>
+}
+
+@*@foreach (var item in Model.Items)
+{
+    if (!item.HasChildItems)
+    {
+        <li class="nav-item">
+            <a class="nav-link" href="@item.Url">@item.Text</a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item dropdown">*@
+            @*<a href="@item.Url" class="nav-link dropdown-toggle" id="navbarDropdown" role="button">@item.Text</a>*@
+
+            @*<a class="nav-link" href="@item.Url" id="navbarDropdown" role="button">@item.Text<i class="fas fa-chevron-down fa-xs"></i></a>*@
+
+            @*<i class="fa fa-chevron-down mobile-caret"></i>*@
+
+            @*<span  class="dropdown-toggle caret" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></span>*@
+            @*<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span></a>*@
+            @*<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                @foreach (var childItem in item.ChildItems)
+                {*@
+                    @*<a class="dropdown-item" href="@childItem.Url">@childItem.Text</a>*@
+
+                    @*<li><a class="dropdown-item" href="@childItem.Url">@childItem.Text</a></li>
+                }
+            </ul>
+        </li>
+    }
+}
+
+<li class="nav-item">
+    @Html.ActionLink("Blog", "Index", "PublicBlog", null, new { @class = "nav-link" })
+</li>*@

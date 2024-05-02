@@ -1,0 +1,79 @@
+﻿@using Elixir.Models.Enums
+@model Elixir.Areas.Admin.ViewModels.CreatePostViewModel
+
+@{
+    ViewBag.Title = "Create Social Post";
+    bool isSocialPostOlderThan2Weeks = Model.Model.EntityId.HasValue && Model.Model.SocialPostDate.HasValue && Convert.ToDateTime(Model.Model.SocialPostDate).Date < DateTime.Now.Date.AddDays(-14);
+}
+
+@section Styles
+{
+    <style>
+        /* Chrome, Safari, Edge, Opera */
+        #txtTwitterCharacterCount::-webkit-outer-spin-button,
+        #txtTwitterCharacterCount::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        #txtTwitterCharacterCount[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+}
+
+@section Scripts
+{
+    @Scripts.Render(
+        "~/Scripts/App/Core/buffer-client.js",
+        "~/Scripts/App/Views/social-create-post.js"
+        )
+    @Scripts.Render("~/Scripts/App/leaveDirtyForm.js")
+    @Scripts.Render("~/Scripts/App/Views/tagsControl.js")
+    @Scripts.Render("~/Scripts/App/Views/customAutocomplete.js")
+}
+
+<h1 class="head-title">@ViewBag.Title</h1>
+
+@using (Html.BeginForm("CreatePost", "Social", FormMethod.Post))
+{
+    @Html.Partial("_BufferPostEditor", Model)
+
+    <br />
+    <br />
+    <div class="form-group row">
+        <div class="offset-2 col-2">
+            @if (Model.Model.EntityType == EntityType.Article)
+            {
+                @Html.ActionLink("Cancel", "Index", "Article", null, new { @class = "btn btn-light" })
+            }
+            else if (Model.Model.EntityType == EntityType.BlogPost)
+            {
+                @Html.ActionLink("Cancel", "Index", "Blog", null, new { @class = "btn btn-light" })
+            }
+            else if (Model.Model.EntityType == EntityType.Resource)
+            {
+                @Html.ActionLink("Cancel", "Index", "Resource", null, new { @class = "btn btn-light" })
+            }
+            else
+            {
+                @Html.ActionLink("Cancel", "Dashboard", "Social", null, new { @class = "btn btn-light" })
+            }
+        </div>
+        <div class="col-2">
+            <input type="button" id="send-post" value="Post" class="btn btn-success
+                   skipWarnUnsavedChanges confirm-social-post-old-article" />
+        </div>
+    </div>
+
+    if (Model.Model.HasImagePreview)
+    {
+        <div class="og-image-preview">
+            <img class="img-fluid" src="https://liveforever.club/images/@Model.Model.ImagePreview" />
+        </div>
+    }
+}
+@Html.Hidden("isOldSocialPost", isSocialPostOlderThan2Weeks)
+@Html.Hidden("socialPostDate", Model.Model.SocialPostDate.HasValue ? Convert.ToDateTime(Model.Model.SocialPostDate).Date.ToString("dd-MM-yyyy") : null)
+@Html.Hidden("backToListUrl", Model.Model.BackUrl)

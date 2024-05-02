@@ -1,0 +1,53 @@
+﻿@model int
+@* int = page number. -1 if out of range *@
+@{
+    int PageNumber = (Model);
+    string prevUrl = "";
+    if ((PageNumber > 0) && (PageNumber <= 172)) // page 172 = back cover
+    {
+        prevUrl = (PageNumber - 1).ToString();
+    } // else leave blank and link is disabled
+    string nextUrl = "";
+    if ((PageNumber >= 0) && (PageNumber < 172)) // page 172 = back cover
+    {
+        nextUrl = (PageNumber + 1).ToString();
+    } // else leave blank and link is disabled
+}
+@*<div class="nav-links">
+        <a href="@prevUrl" class="@(string.IsNullOrEmpty(prevUrl) ? "disabled" : "")">&lt; Previous</a>
+
+        <a href="/manual/2018/5">Contents</a>
+
+        <a href="@nextUrl" class="@(string.IsNullOrEmpty(nextUrl) ? "disabled" : "")">Next &gt;</a>
+    </div>*@
+
+<section class="section-pb">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 d-flex justify-content-center">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            @*<a class="page-link prev" href="#"><i class="fas fa-chevron-left"></i> Previous</a>*@
+                            <a href="@prevUrl" class="@(string.IsNullOrEmpty(prevUrl) ? "disabled" : "page-link prev")"><i class="fas fa-chevron-left"></i> Previous</a>
+                        </li>
+                        <li class="page-item">
+                            @*<a class="page-link" href="#">Contents</a>*@
+                            <a href="/manual/2018/5" class="page-link">Contents</a>
+                        </li>
+                        <li class="page-item">
+                            @*<a class="page-link next" href="#">Next <i class="fas fa-chevron-right"></i></a>*@
+                            <a href="@nextUrl" class="@(string.IsNullOrEmpty(nextUrl) ? "disabled" : "page-link next")">Next <i class="fas fa-chevron-right"></i></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+@*@if (!Request.IsAuthenticated)
+    {
+        <div class="nav-links">
+            <p>You must be a member to view all contents of the Live Forever Manual – <a href="/page/membership">find out more about membership</a></p>
+        </div>
+    }*@

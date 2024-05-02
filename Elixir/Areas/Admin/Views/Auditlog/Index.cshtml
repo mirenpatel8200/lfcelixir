@@ -1,0 +1,252 @@
+﻿@using Elixir.Helpers
+@using Elixir.Models.Enums
+@model Elixir.Areas.Admin.ViewModels.AuditLogViewModel
+
+@{
+    ViewBag.Title = "Audit Log";
+    string currentFilter = Request.QueryString["Filter"];
+    string currentSortBy = Request.QueryString["sortBy"];
+    string currentDirection = Request.QueryString["direction"];
+    string currentUserId = Request.QueryString["UserId"];
+    string currentEntity = Request.QueryString["Entity"];
+    string currentEntityId = Request.QueryString["EntityId"];
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Components/datagrid.css")
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/App/tooltip.js")
+}
+
+<h1 class="head-title">Audit Log</h1>
+
+
+@using (Html.BeginForm("Index", "Auditlog", FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-12 input-group ">
+
+            <input type="number" min="0" placeholder="User Id" class="form-control col-2" name="UserId" value="@currentUserId" aria-describedby="basic-addon2">
+            &nbsp;
+           
+            <select class="form-control  col-2" name="Entity">
+                <option value="0">All Entities</option>
+                @foreach (int i in (AuditLogEntityType[])Enum.GetValues(typeof(AuditLogEntityType)))
+                {
+                    if (currentEntity == i.ToString())
+                    {
+                        <option value="@i" selected>@Enum.GetName(typeof(AuditLogEntityType), i)</option>
+                    }
+                    else
+                    {
+                        <option value="@i">@Enum.GetName(typeof(AuditLogEntityType), i)</option>
+                    }
+                }
+            </select>
+            &nbsp;
+            <input type="number" min="0" placeholder="Entity Id" class="form-control  col-2" name="EntityId" value="@currentEntityId" aria-describedby="basic-addon2">
+            &nbsp;
+            <div class="input-group-append">
+                <input type="submit" class="btn btn-outline-secondary" value="Filter" />
+                <a href="@Url.Action("Index", "Auditlog" ,
+                   new { sortBy = @currentSortBy, direction = @currentDirection })"
+                   class="btn btn-outline-secondary">Clear</a>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row table-wrapper">
+    <div class="col-12">
+        <table class="table table-bordered data-grid">
+            <thead>
+                <tr>
+                    <th>
+                        <span class="table-header-text">ID</span>
+                        <a href="@Url.Action("Index", new { sortBy=(int)ArticlesSortField.ArticleID, direction=(int)Model.SortDirection, filter = currentFilter })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Created</span>
+                    </th>
+                    <th>
+                        <span class="table-header-text">IP Address</span>
+                    </th>
+                    <th class="medium" id="article-date">
+                        <span class="table-header-text">User ID</span>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Entity</span>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Entity ID</span>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Action</span>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Notes</span>
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var auditLogModel in Model.Models)
+                {
+                    <tr>
+                        <td>
+                            @auditLogModel.AuditLogID
+                        </td>
+                        <td>
+                            @auditLogModel.CreatedDT.FormatDdMmYyyyHHmmS()
+                        </td>
+                        <td>
+                            @auditLogModel.IpAddressString
+                        </td>
+                        <td>@auditLogModel.UserID</td>
+                        <td>
+                            @if (auditLogModel.EntityTypeID == 10)
+                            {
+                                <span>Article</span>
+                            }
+                            else if (auditLogModel.EntityTypeID == 20)
+                            {
+                                <span>Audit Log</span>
+                            }
+                            else if (auditLogModel.EntityTypeID == 30)
+                            {
+                                <span>Blog Post</span>
+                            }
+                            else if (auditLogModel.EntityTypeID == 32)
+                            {
+                                <span>Blog Post Tag</span>
+                            }
+                            else if (auditLogModel.EntityTypeID == 40)
+                            {
+                                <span>Book Chapter</span>
+                            }
+                            else if (auditLogModel.EntityTypeID == 41)
+                            {
+                                <span>Book Section</span>
+                            }
+                            else if (auditLogModel.EntityTypeID == 42)
+                            {
+                                <span>Book Page</span>
+                            }
+                            else if (auditLogModel.EntityTypeID == 44)
+                            {
+                                <span>Book Manual Page</span>
+                            }
+                            else if (auditLogModel.EntityTypeID == 80)
+                            {
+                                <span>Go Link</span>
+                            }
+                            else if (auditLogModel.EntityTypeID == 81)
+                            {
+                                <span>Go Link Log</span>
+                            }
+                            else if (auditLogModel.EntityTypeID == 110)
+                            {
+                                <span>Payment</span>
+                            }
+                            else if (auditLogModel.EntityTypeID == 121)
+                            {
+                                <span>Report Dashboard</span>
+                            }
+                            else if (auditLogModel.EntityTypeID == 130)
+                            {
+                                <span>Resource</span>
+                            }
+                            else if (auditLogModel.EntityTypeID == 131)
+                            {
+                                <span>Resource Resource</span>
+                            }
+                            else if (auditLogModel.EntityTypeID == 150)
+                            {
+                                <span>Search Log</span>
+                            }
+                            else if (auditLogModel.EntityTypeID == 160)
+                            {
+                                <span>Settings</span>
+                            }
+                            else if (auditLogModel.EntityTypeID == 190)
+                            {
+                                <span>Social Post</span>
+                            }
+                            else if (auditLogModel.EntityTypeID == 210)
+                            {
+                                <span>Topic</span>
+                            }
+                            else if (auditLogModel.EntityTypeID == 220)
+                            {
+                                <span>User</span>
+                            }
+                            else if (auditLogModel.EntityTypeID == 221)
+                            {
+                                <span>User Role</span>
+                            }
+                            else if (auditLogModel.EntityTypeID == 230)
+                            {
+                                <span>Web Page</span>
+                            }
+                            else if (auditLogModel.EntityTypeID == 231)
+                            {
+                                <span>Web Page Topic</span>
+                            }
+                            else if (auditLogModel.EntityTypeID == 232)
+                            {
+                                <span>Web Page Type</span>
+                            }
+                            else
+                            {
+                                <span>Unknown</span>
+                            }
+
+                        </td>
+                        <td>@auditLogModel.EntityID</td>
+                        <td>
+                            @switch (auditLogModel.ActionTypeID)
+                            {
+                                case 10:<span>Login Success</span>
+                                    break;
+                                case 11: <span>Login Failure</span>
+                                    break;
+                                case 12: <span>Logout</span>
+                                    break;
+                                case 13: <span>Login Restricted</span>
+                                    break;
+                                case 15: <span>Authenticate - Cookie Refresh</span>
+                                    break;
+                                case 20: <span>Authorisation – Success</span>
+                                    break;
+                                case 21: <span>Authorisation - Failure</span>
+                                    break;
+                                case 30: <span>Create</span>
+                                    break;
+                                case 31: <span>Create Failure</span>
+                                    break;
+                                case 40: <span>Delete</span>
+                                    break;
+                                case 70: <span>Update</span>
+                                    break;
+                                case 71: <span>Update Failure</span>
+                                    break;
+                                case 80: <span>View</span>
+                                    break;
+                                default: <span>Unknown</span>
+                                    break;
+                            }
+                        </td>
+                        <td>@auditLogModel.NotesLog</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

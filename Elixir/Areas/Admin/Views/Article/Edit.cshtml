@@ -1,0 +1,57 @@
+﻿@model Elixir.Areas.Admin.ViewModels.EditArticleViewModel
+
+@{
+                ViewBag.Title = "Edit Article";
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/summernote/js")
+    @Scripts.Render("~/Scripts/App/confirmation.js")
+    @Scripts.Render("~/Scripts/App/Views/add-edit-article.js")
+    @Scripts.Render("~/Scripts/App/leaveDirtyForm.js")
+    @Scripts.Render("~/Scripts/App/Views/tagsControl.js")
+    @Scripts.Render("~/Scripts/App/Views/customAutocomplete.js")
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Components/Controls/Inputs.css")
+    @Styles.Render("~/bundles/summernote/css")
+}
+
+<h1 class="head-title">Edit Article</h1>
+
+@using (@Html.BeginForm("Edit", "Article", FormMethod.Post))
+{
+    @Html.Partial("_ArticleEditor", Model)
+
+    <br />
+    <br />
+
+    <div class="form-group row">
+        <div class="offset-2 col-2">
+            @Html.ActionLink("Cancel", "Index", "Article", null, new { @class = "btn btn-light skipWarnUnsavedChanges" })
+        </div>
+        <div class="col-2">
+            @Html.ActionLink("Delete", "Delete", "Article", new { id = Model.Model.Id }, new { @class = "btn btn-danger confirmable-action" })
+        </div>
+        <div class="col-6">
+            <input type="submit" name="method" value="@Model.SubmitName_SaveAndSocial" class="btn btn-primary" id="btn-create-article-and-post" />
+            <input type="submit" name="method" value="@Model.SubmitName_Save" class="btn btn-success" />
+        </div>
+    </div>
+}
+@Html.Hidden("suggestionsOrgs", Url.Action("FetchAutocompleteForTags", "Resource", new { resourceType = "Organisation" }),
+    new { @id = "getOrganisationSuggestionsUrl" })
+
+@Html.Hidden("suggestionsPeople", Url.Action("FetchAutocompleteForTags", "Resource", new { resourceType = "Person" }),
+    new { @id = "getPeopleSuggestionsUrl" })
+
+@Html.Hidden("suggestionsCreations", Url.Action("FetchAutocompleteForTags", "Resource", new { resourceType = "Creation" }),
+    new { @id = "getCreationSuggestionsUrl" })
+
+@Html.Hidden("createCustomImageUrl", Url.Action("SaveWithAjax", "Dev"),
+    new { @id = "createCustomImageUrl" })
+@Html.Hidden("verifyDuplicatesUrl", Url.Action("VerifyDuplicates", "Article"),
+    new { @id = "verifyDuplicatesUrl" })

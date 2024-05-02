@@ -1,0 +1,15 @@
+﻿@model Elixir.ViewModels.BlogsByYearViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+    ViewBag.Title = $"{Model.Year} Blog Posts";
+     var MetaDescription = "Blog posts from "+Model.Year+" listed by date";
+    ViewBag.MetaDescription = MetaDescription;
+}
+
+<h1>@Model.Year Blog Posts</h1>
+
+<p>Live Forever Club blog archive - life extension, medical technology and survival.</p>
+
+@Html.Partial("_BlogPostSummaries", Model.BlogPosts)
+
+@Html.ActionLink("Back to blog home", "Index")

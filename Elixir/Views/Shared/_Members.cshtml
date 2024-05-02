@@ -1,0 +1,39 @@
+﻿@model List<Elixir.Models.BookUser>
+
+@foreach (var user in Model)
+{
+    <p>
+        @if (user.ProfileIsPublic)
+        {
+            <a href="/members/@user.IdHashCode" class="member-name">@(!string.IsNullOrEmpty(user.UserNameDisplay) ? user.UserNameDisplay : $"{user.UserName[0].ToString().ToUpper()}*" + (!string.IsNullOrEmpty(user.UserNameLast) ? $" {user.UserNameLast[0].ToString().ToUpper()}*" : "")) </a>
+        }
+        else if (user.ProfileIsMembersOnly)
+        {
+            if (Request.IsAuthenticated && (User.IsInRole(Elixir.Models.Enums.Roles.Administrator.ToString()) || User.IsInRole(Elixir.Models.Enums.Roles.Longevist.ToString()) || User.IsInRole(Elixir.Models.Enums.Roles.Supporter.ToString())))
+            {
+                <a href="/members/@user.IdHashCode" class="member-name">@(!string.IsNullOrEmpty(user.UserNameDisplay) ? user.UserNameDisplay : $"{user.UserName[0].ToString().ToUpper()}*" + (!string.IsNullOrEmpty(user.UserNameLast) ? $" {user.UserNameLast[0].ToString().ToUpper()}*" : "")) </a>
+            }
+            else
+            {
+                <span class="member-name">@(!string.IsNullOrEmpty(user.UserNameDisplay) ? user.UserNameDisplay : $"{user.UserName[0].ToString().ToUpper()}*" + (!string.IsNullOrEmpty(user.UserNameLast) ? $" {user.UserNameLast[0].ToString().ToUpper()}*" : ""))</span>
+            }
+        }
+        else
+        {
+            <span class="member-name">@(!string.IsNullOrEmpty(user.UserNameDisplay) ? user.UserNameDisplay : $"{user.UserName[0].ToString().ToUpper()}*" + (!string.IsNullOrEmpty(user.UserNameLast) ? $" {user.UserNameLast[0].ToString().ToUpper()}*" : ""))</span>
+        }
+        @if (user.IsFoundingMember)
+        {
+            <img src="~/Images/icons/founding-member-16.png" title="Founding Member" />
+        }
+        @if (!string.IsNullOrEmpty(user.DescriptionPublic))
+        {
+            <span>- @user.DescriptionPublic</span>
+        }
+        @if (user.IsFoundingMember && !string.IsNullOrEmpty(user.WebsiteUrl))
+        {
+            <br />
+            <a id="aWebsiteUrl" href="@user.WebsiteUrl" target="_blank">@user.WebsiteUrl</a>
+        }
+    </p>
+}

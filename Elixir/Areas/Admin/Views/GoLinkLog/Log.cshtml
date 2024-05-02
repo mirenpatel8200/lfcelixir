@@ -1,0 +1,70 @@
+﻿@using Elixir.BusinessLogic.Core.Utils
+@using Elixir.Helpers
+@model Elixir.Areas.Admin.Views.GoLinkLog.GoLinkLogsViewModel
+
+@{
+    ViewBag.Title = "Go Links Log";
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Components/datagrid.css")
+}
+
+<h1 class="head-title">@ViewBag.Title</h1>
+
+<div class="row">
+    <div class="col-12">
+
+        @Html.ActionLink("Go Links", "Index", "GoLink", null, new { @class = "btn btn-primary" })
+    </div>
+</div>
+
+
+<div class="row table-wrapper">
+    <div class="col-12">
+        <table class="table table-bordered data-grid">
+            <thead>
+                <tr>
+                    <th class="date-time">
+                        <span class="table-header-text">Created</span>
+                    </th>
+                    <th class="small">
+                        <span class="table-header-text">Id</span>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Short Code</span>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Title</span>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">IP</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var logModel in Model.Models)
+                {
+                    <tr>
+                        <td class="date-time">
+                            @logModel.Created.FormatDdMmYyyyHHmmS()
+                        </td>
+                        <td class="small">
+                            @logModel.Id
+                        </td>
+                        <td>
+                            @logModel.GoLinkShortCode
+                        </td>
+                        <td>
+                            @logModel.GoLinkTitle.SubstringSafe(0, 50)
+                        </td>
+                        <td class="medium">
+                            @logModel.IPAddress
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

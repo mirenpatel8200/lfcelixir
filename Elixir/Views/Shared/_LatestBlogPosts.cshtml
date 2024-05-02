@@ -1,0 +1,11 @@
+﻿@model Elixir.ViewModels.SidebarViewModel
+
+Latest blog posts:
+<ul class="blog-post-list">
+    @foreach (var blogPost in Model.LatestBlogPosts)
+    {
+        <li class="blog-post-item">
+            - @Html.ActionLink(blogPost.Text, "ViewBlog", "PublicBlog", new { name = blogPost.Url }, null)
+        </li>
+    }
+</ul>

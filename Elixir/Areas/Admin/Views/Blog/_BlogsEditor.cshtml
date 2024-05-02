@@ -1,0 +1,194 @@
+﻿@using Elixir.Models.Utils
+@model Elixir.ViewModels.Base.BaseCUWithMultipleSelectViewModel<Elixir.Areas.Admin.Models.AdminBlogPostModel>
+
+@Html.ValidationSummary(true)
+@{
+    bool isEdit = Model.Model.Id.HasValue;
+}
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.Id, "ID", new { @class = "col-2 col-form-label" })
+    <div class="col-2">
+        @Html.EditorFor(x => x.Model.Id, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        @Html.ValidationMessageFor(x => x.Model.Id)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.PreviousBlogPostUrlName, "Previous Blog Post", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.PreviousBlogPostUrlName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        @Html.ValidationMessageFor(x => x.Model.PreviousBlogPostUrlName)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.NextBlogPostUrlName, "Next Blog Post", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.NextBlogPostUrlName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        @Html.ValidationMessageFor(x => x.Model.NextBlogPostUrlName)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.BlogPostTitle, "Title *", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.BlogPostTitle, new { htmlAttributes = new { @class = "form-control", spellcheck = "true" } })
+        @Html.ValidationMessageFor(x => x.Model.BlogPostTitle)
+    </div>
+</div>
+
+<div class="form-group row input-with-right-action">
+    @Html.LabelFor(x => x.Model.UrlName, "URL Name *", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @if (isEdit)
+        {
+            @Html.EditorFor(x => x.Model.UrlName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        }
+        else
+        {
+            @Html.EditorFor(x => x.Model.UrlName, new { htmlAttributes = new { @class = "form-control" } })
+        }
+        @Html.ValidationMessageFor(x => x.Model.UrlName)
+
+        @if (isEdit == false)
+        {
+            <a href="#">
+                <i class="fas fa-arrow-alt-circle-down"></i>
+            </a>
+        }
+
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.PrimaryTopicId, "Primary Topic *", new { @class = "col-2 col-form-label" })
+    <div class="col-10 editor-field">
+        @Html.DropDownListFor(x => x.Model.PrimaryTopicId, Model.GetSelectList(nameof(Model.Model.PrimaryTopic)), new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.PrimaryTopicId)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.SecondaryTopicId, "Secondary Topic", new { @class = "col-2 col-form-label" })
+    <div class="col-10 editor-field">
+        @Html.DropDownListFor(x => x.Model.SecondaryTopicId, Model.GetSelectList(nameof(Model.Model.SecondaryTopic)), new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.SecondaryTopicId)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.BlogPostDescriptionPublic, "Description (public)", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.BlogPostDescriptionPublic, new { htmlAttributes = new { @class = "form-control", spellcheck = "true" } })
+        @Html.ValidationMessageFor(x => x.Model.BlogPostDescriptionPublic)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ContentMain, "Main Content", new { @class = "col-2 col-form-label" })
+    <div class="col-10 editor-field">
+        @Html.TextAreaFor(x => x.Model.ContentMain, 5, 10, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.ContentMain)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.OrgsMentioned, "Organisations mentioned", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        <div id="tags-orgs-container" class="div-tag-box">
+
+            @Html.EditorFor(x => x.Model.OrgsMentioned,
+                new { htmlAttributes = new { @id = "inputOrgs", @type = "text", @class = "input-simple", @placeholder = "add more...",
+                data_autocomplete_url = Url.Action("FetchAutocomplete", "Resource", new { resourceTypes = "Organisation" })
+       } })
+        </div>
+    </div>
+    @Html.HiddenFor(x => x.Model.OrgsMentionedString, new { @id = "orgsToSend" })
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.PeopleMentioned, "People mentioned", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        <div id="tags-people-container" class="div-tag-box">
+
+            @Html.EditorFor(x => x.Model.PeopleMentioned,
+                new { htmlAttributes = new { @id = "inputPeople", @type = "text", @class = "input-simple", @placeholder = "add more...",
+                data_autocomplete_url = Url.Action("FetchAutocomplete", "Resource", new { resourceTypes = "Person" })
+       } })
+        </div>
+    </div>
+    @Html.HiddenFor(x => x.Model.PeopleMentionedString, new { @id = "peopleToSend" })
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.CreationsMentioned, "Creations mentioned", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        <div id="tags-creations-container" class="div-tag-box">
+
+            @Html.EditorFor(x => x.Model.CreationsMentioned,
+                new { htmlAttributes = new { @id = "inputCreations", @type = "text", @class = "input-simple", @placeholder = "add more...",
+                data_autocomplete_url = Url.Action("FetchAutocomplete", "Resource", new { resourceTypes = "Creation" })
+       } })
+        </div>
+    </div>
+    @Html.HiddenFor(x => x.Model.CreationsMentionedString, new { @id = "creationsToSend" })
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.SocialImageFilename, "Social Image Path", new { @class = "col-2 col-form-label" })
+    <div class="col-8">
+        @Html.EditorFor(x => x.Model.SocialImageFilename, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.SocialImageFilename)
+    </div>
+    <div class="col-2">
+        <button id="select-image-file" class="btn btn-block btn-default">Select image</button>
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ThumbnailImageFilename, "Thumbnail Image Path", new { @class = "col-2 col-form-label" })
+    <div class="col-8">
+        @Html.EditorFor(x => x.Model.ThumbnailImageFilename, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.ThumbnailImageFilename)
+    </div>
+    <div class="col-2">
+        <button type="button" id="select-thumbnail-image-file" class="btn btn-block btn-default">Select image</button>
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsEnabled, "Is Enabled", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsEnabled)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.NotesInternal, "Notes (Internal)", new { @class = "col-2 col-form-label" })
+    <div class="col-10 editor-field">
+        @Html.TextAreaFor(x => x.Model.NotesInternal, 5, 10, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.NotesInternal)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.PublishedOnDT, "Published On *", new { @class = "col-2 col-form-label" })
+    <div class="col-10 editor-field">
+        @Html.TextBoxFor(x => x.Model.PublishedOnDT, $"{{0:{DateUtils.DateFormat}}}", new { @class = "form-control datepicker" })
+        @Html.ValidationMessageFor(x => x.Model.PublishedOnDT)
+    </div>
+</div>
+@if (isEdit)
+{
+    <div align="right">
+        @Html.CheckBoxFor(x => x.Model.IsSignificantChange)
+        <label>Significant change (update PublishedUpdatedDT)</label>
+    </div>
+}
+@Html.HiddenFor(x => x.Model.PreviousBlogPostTitle)
+@Html.HiddenFor(x => x.Model.NextBlogPostTitle)
+
+@Html.HiddenFor(x => x.Model.IsOrgsMentionedChanged, new { @id = "orgsChanged" })
+@Html.HiddenFor(x => x.Model.IsPeopleMentionedChanged, new { @id = "peopleChanged" })
+@Html.HiddenFor(x => x.Model.IsCreationsMentionedChanged, new { @id = "creationsChanged" })
+@Html.Hidden("autocompleteResources", @Url.Action("FetchAutocomplete", "Resource"), new { @id = "autocompleteResources" })

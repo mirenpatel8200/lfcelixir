@@ -1,0 +1,30 @@
+﻿
+.blog-post-date {
+    margin-bottom: 10px;
+}
+
+.blog-post-update-date {
+    margin-top: 10px;
+}
+
+.blog-navigation {
+    margin-top: 20px;
+    display: flex;
+
+    i {
+        font-size: 17px;
+    }
+
+    .blog-prev {
+        flex-shrink: 0;
+    }
+
+    .blog-next {
+        margin-top: 50px;
+        flex-shrink: 0;
+    }
+}
+
+.more-web-page {
+    padding-top: 10px;
+}

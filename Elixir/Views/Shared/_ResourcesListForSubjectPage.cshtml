@@ -1,0 +1,135 @@
+﻿@model List<Elixir.Models.Resource>
+
+@if (Model.Count > 0)
+{
+    for (int i = 0; i < Model.Count; i++)
+    {
+        @* Oct20: AC: I don't see any difference between odd and even layout - classes are the same - remove modulo check *@
+        @*if (i % 2 == 0)
+            { *@
+        <div class="col-md-6">
+            <div class="resource-list" data-id="tooltip-text@(i)">
+                <div class="resource-icon">
+                    <img src="../Images/icons/@Model[i].IconImage" alt="@Model[i].IconImageAltText" />
+                </div>
+                <div class="resource-text">
+                    <h5>
+                        <a href="/resources/@Model[i].UrlName">
+                            @Model[i].ResourceName
+                            @if (Model[i].IsPinnedPrimaryTopic || Model[i].IsPinnedSecondaryTopic)
+                            {
+                                <img src="~/Images/icons/pinned-16.png" />
+                            }
+                        </a>
+                    </h5>
+                    @if (Model[i].IsEvent && Model[i].ProductionDate.HasValue)
+                    {
+                    <span>
+                        @Model[i].ProductionDate.Value.ToString("dd-MMM-yyyy") @(Model[i].EndDate.HasValue ? $" to {Model[i].EndDate.Value.ToString("dd-MMM-yyyy")}" : "")
+                        <br />
+                    </span>
+                    }
+                    @if (Model[i].IsClubDiscount)
+                    {
+                        <span>
+                            <a href="/page/members-discounts">Club discount available - click here</a>
+                            <br />
+                        </span>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model[i].AmazonProductCode))
+                    {
+                        string amazonLink = "https://www.amazon.com/dp/" + @Model[i].AmazonProductCode + "/ref=as_li_ss_tl?ie=UTF8&tag=lfcamzn-20";
+
+                        <span>
+                            <a href="@amazonLink" target="_blank">
+                                <img src="../Images/icons/amazon-view-on-16.png" alt="Amazon" />
+                            </a>
+                        </span>
+                    }
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model[i].ResourceDescriptionPublic))
+                {
+                    <div id="tooltip-text@(i)" class="arrow_box">
+                        <p class="mb-0">
+
+                            @Model[i].ResourceDescriptionPublic
+
+
+                        </p>
+                        <span class="down-arrow"></span>
+                    </div>
+                }
+
+
+
+
+            </div>
+        </div>
+        @* }
+            else
+            {
+                <div class="col-md-6">
+                    <div class="resource-list" data-id="tooltip-text@(i)">
+                        <div class="resource-icon">
+                            <img src="../Images/icons/@Model[i].IconImage" alt="@Model[i].IconImageAltText" />
+                        </div>
+                        <div class="resource-text">
+                            <h5>
+                                <a href="/resources/@Model[i].UrlName">@Model[i].ResourceName</a>
+                            </h5>
+                            @if (!string.IsNullOrEmpty(Model[i].ResourceDescriptionPublic))
+                            {
+                                <span>- @Model[i].ResourceDescriptionPublic</span>
+                            }
+                            @if (!string.IsNullOrEmpty(Model[i].AmazonProductCode))
+                            {
+                                string amazonLink = "https://www.amazon.com/dp/" + @Model[i].AmazonProductCode + "/ref=as_li_ss_tl?ie=UTF8&tag=lfcamzn-20";
+                                <span>
+                                    - <a href="@amazonLink" target="_blank">
+                                        <img src="../Images/icons/amazon-view-on-16.png" alt="Amazon" />
+                                    </a>
+                                </span>
+                            }
+                            @if (Model[i].IsEventCalendar && Model[i].ProductionDate.HasValue)
+                            {
+                                <br /><span>
+                                    @Model[i].ProductionDate.Value.ToString("dd-MMM-yyyy") @(Model[i].EndDate.HasValue? $" to {Model[i].EndDate.Value.ToString("dd-MMM-yyyy")}":"")
+                                </span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }   *@
+
+
+
+        @*<p>
+                <img src="../Images/icons/@Model[i].IconImage" alt="@Model[i].IconImageAltText" />
+
+                <a href="/resources/@Model[i].UrlName">@Model[i].ResourceName</a>
+
+                @if (!string.IsNullOrEmpty(Model[i].ResourceDescriptionPublic))
+                {
+                    <span>- @Model[i].ResourceDescriptionPublic</span>
+                }
+
+                @if (!string.IsNullOrEmpty(Model[i].AmazonProductCode))
+                {
+                    string amazonLink = "https://www.amazon.com/dp/" + @Model[i].AmazonProductCode + "/ref=as_li_ss_tl?ie=UTF8&tag=lfcamzn-20";
+                    <span>
+                        - <a href="@amazonLink" target="_blank">
+                            <img src="../Images/icons/amazon-view-on-16.png" alt="Amazon" />
+                        </a>
+                    </span>
+                }
+            </p>
+            if (Model[i].IsEventCalendar && Model[i].ProductionDate.HasValue)
+            {
+                <p>
+                    @Model[i].ProductionDate.Value.ToString("dd-MMM-yyyy") @(Model[i].EndDate.HasValue? $" to {Model[i].EndDate.Value.ToString("dd-MMM-yyyy")}":"")
+                </p>
+            }*@
+    } @* end of for Model.Count loop *@
+}

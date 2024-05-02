@@ -1,0 +1,96 @@
+﻿
+.page-navigation {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.content-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+    .content {
+        flex: 1;
+        padding: 15px;
+
+        h1 {
+            margin-bottom: 20px;
+        }
+    }
+
+    .sidebar {
+        flex-grow: 0;
+        padding: 15px;
+
+        .section {
+            width: 300px;
+            margin: 15px 0 15px 10px;
+            padding: 8px 15px;
+            border-radius: 3px;
+            border: 1px solid rgba(0,0,0,.15);
+
+            @media (max-width: 1199px) {
+                width: auto !important;
+                margin: 15px 0 15px 0 !important;
+                padding: 8px 10px;
+            }
+
+            &.share {
+                .shares-wrapper {
+                    .share {
+                        display: inline-block;
+                        vertical-align: middle;
+
+                        &#fb {
+                        }
+
+                        &#tw {
+                            padding-top: 11px;
+                        }
+
+                        &#in {
+                            padding-top: 11px;
+                        }
+
+                        &#mail {
+                            padding-top: 3px;
+                            margin-left: 5px;
+                        }
+                    }
+                }
+            }
+
+            &.latest-blog-posts {
+                .blog-post-list {
+                    padding: 0;
+                    margin: 0;
+                    list-style: none;
+                }
+            }
+
+            &.social {
+                .links-wrapper {
+                    a {
+                        font-size: 25px;
+                        margin: 0 5px;
+                        color: black;
+                        transition: all 0.2s ease-in;
+
+                        &:hover {
+                            color: #007bff;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.flex-row {
+    display: flex;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}

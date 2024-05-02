@@ -1,0 +1,38 @@
+﻿.head-title {
+  margin-bottom: 50px;
+  margin-top: 40px; }
+
+.form-control.inline-control {
+  margin-left: 20px;
+  width: 120px; }
+
+.book-sections .book-section {
+  margin-bottom: 30px; }
+  .book-sections .book-section .column-title {
+    margin-top: 4px; }
+  .book-sections .book-section .title {
+    margin-bottom: 20px; }
+    .book-sections .book-section .title .section-name {
+      margin: 0;
+      font-weight: bold; }
+    .book-sections .book-section .title .section-pages-count {
+      display: inline-block;
+      margin-top: 3px; }
+
+.info .today-date {
+  display: inline-block;
+  margin-left: 5px; }
+
+@media (min-width: 1200px) {
+    #searchFromMobile {
+        display: none;
+    }
+}
+
+@media (max-width: 1199px) {
+    #searchFromMobile {
+        display: block;
+        position: absolute;
+        right: 15%;
+    }
+}

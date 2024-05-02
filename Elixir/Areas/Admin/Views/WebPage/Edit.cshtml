@@ -1,0 +1,43 @@
+﻿@model Elixir.Areas.Admin.Views.WebPage.EditWebPageViewModel
+
+@{
+    ViewBag.Title = "Edit Web Page";
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/App/confirmation.js")
+    @Scripts.Render("~/bundles/summernote/js")
+    @Scripts.Render("~/Scripts/App/Views/add-edit-webpage.js")
+    @Scripts.Render("~/Scripts/App/leaveDirtyForm.js")
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Components/Controls/Inputs.css")
+    @Styles.Render("~/bundles/summernote/css")
+}
+
+<h1 class="head-title">Edit Web Page</h1>
+
+@using (Html.BeginForm("Edit", "WebPage", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+
+    @Html.Partial("_WebPageEditor", Model)
+
+    <br />
+    <br />
+
+    <div class="form-group row">
+        <div class="offset-2 col-2">
+            @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-light skipWarnUnsavedChanges" })
+        </div>
+        <div class="col-2">
+            @Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger confirmable-action" })
+        </div>
+        <div class="col-2">
+            <input type="submit" value="Save" class="btn btn-success" />
+        </div>
+    </div>
+}

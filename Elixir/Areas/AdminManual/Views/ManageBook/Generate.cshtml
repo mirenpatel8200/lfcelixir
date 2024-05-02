@@ -1,0 +1,42 @@
+﻿@model Elixir.Areas.AdminManual.Models.PdfGenerationParametersViewModel
+@{
+    Model.FirstSectionOnly = true;
+    ViewBag.Title = "Manage Book";
+}
+
+<h1 class="head-title">Manage Book</h1>
+
+<div>
+    <h4>Create PDF</h4>
+    <hr />
+    @using (Html.BeginForm("Generate", "ManageBook", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(false)
+
+        <div class="form-group">
+            <label>@Html.DisplayNameFor(model => model.FooterText)</label>
+        </div>
+
+        <div class="form-group">
+            @Html.EditorFor(model => model.FooterText, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            @Html.CheckBoxFor(model => model.FirstSectionOnly)
+            <label>@Html.DisplayNameFor(model => model.FirstSectionOnly)</label>
+        </div>
+        <div class="form-group">
+            @{ string buttonText = "Generate"; string buttonClass = "btn btn-primary";
+                if (Model.SkipImageExceptions)
+                {
+                    buttonText = "Generate & Ignore Image Errors";
+                    buttonClass = "btn btn-secondary";
+                }
+            }
+            <input type="submit" class="@buttonClass" value="@buttonText">
+        </div>
+
+        @Html.HiddenFor(model => Model.SkipImageExceptions)
+    }
+</div>

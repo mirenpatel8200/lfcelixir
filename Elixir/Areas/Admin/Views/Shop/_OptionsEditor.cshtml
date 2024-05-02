@@ -1,0 +1,54 @@
+﻿@model Elixir.Areas.Admin.Models.ShopProductOptionModel
+
+
+@using (Html.BeginForm("Options", "Shop", FormMethod.Post, new { @id = $"frm_{ViewData["index"].ToString()}" }))
+{
+    if (TempData[$"ErrDuplicate_{Model.ShopProductOptionId}"] != null)
+    {
+        <div class="validation-summary-errors">
+            <ul>
+                <li>@TempData[$"ErrDuplicate_{Model.ShopProductOptionId}"].ToString()</li>
+            </ul>
+        </div>
+    }
+    <div class="form-group row">
+        <div class="col-1">
+            @Html.EditorFor(x => x.ShopProductOptionId, new { htmlAttributes = new { @id = $"ShopProductOptionId_{ViewData["index"].ToString()}", @class = "form-control", @readonly = "readonly" } })
+        </div>
+        <div class="col-2">
+            @Html.EditorFor(x => x.OptionName, new { htmlAttributes = new { @id = $"OptionName_{ViewData["index"].ToString()}", @class = "form-control", spellcheck = "true" } })
+            <span id="@($"errOptionName_{ViewData["index"].ToString()}")" class="field-validation-error" for="@($"OptionName_{ViewData["index"].ToString()}")"></span>
+        </div>
+        <div class="col-1">
+            @Html.EditorFor(x => x.SkuSuffix, new { htmlAttributes = new { @id = $"SkuSuffix_{ViewData["index"].ToString()}", @class = "form-control" } })
+            <span id="@($"errSkuSuffix_{ViewData["index"].ToString()}")" class="field-validation-error" for="@($"SkuSuffix_{ViewData["index"].ToString()}")"></span>
+        </div>
+        <div class="col-2">
+            @Html.EditorFor(x => x.PriceExtra, new { htmlAttributes = new { @id = $"PriceExtra_{ViewData["index"].ToString()}", @class = "form-control" } })
+        </div>
+        <div class="col-1">
+            @Html.EditorFor(x => x.StockLevel, new { htmlAttributes = new { @id = $"StockLevel_{ViewData["index"].ToString()}", @class = "form-control" } })
+            <span id="@($"errStockLevel_{ViewData["index"].ToString()}")" class="field-validation-error" for="@($"StockLevel_{ViewData["index"].ToString()}")"></span>
+        </div>
+        <div class="col-1">
+            @Html.EditorFor(x => x.DisplayOrder, new { htmlAttributes = new { @id = $"DisplayOrder_{ViewData["index"].ToString()}", @class = "form-control" } })
+        </div>
+        <div class="col-1 text-center">
+            @Html.EditorFor(x => x.IsDefaultOption, new { htmlAttributes = new { @id = $"IsDefaultOption_{ViewData["index"].ToString()}" } })
+        </div>
+        <div class="col-1 text-center">
+            @Html.EditorFor(x => x.IsEnabled, new { htmlAttributes = new { @id = $"IsEnabled_{ViewData["index"].ToString()}" } })
+        </div>
+        <div class="col-2">
+            <button type="button" id="@("btnSubmit_" + ViewData["index"].ToString())" class="skipWarnUnsavedChanges" style="background-color: white; border: 0;" onclick="validate(@ViewData["index"].ToString())">
+                <i class="fa fa-save" style="color: green; cursor: pointer;"></i>
+            </button>
+            @if (Model.ShopProductOptionId > 0)
+            {
+                <a href="/admin/shop/deleteoption/@Model.ShopProductId/@Model.ShopProductOptionId" class="confirmable-action">
+                    <i class="fa fa-trash" style="color: red;"></i>
+                </a>
+            }
+        </div>
+    </div>
+}

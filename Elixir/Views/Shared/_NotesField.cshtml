@@ -1,0 +1,6 @@
+﻿@model String
+    
+@if (String.IsNullOrWhiteSpace(Model) == false)
+{
+    <span class="glyphicon glyphicon-info-sign notes-holder" data-toggle="tooltip" data-placement="top" title="@Model"></span>
+}

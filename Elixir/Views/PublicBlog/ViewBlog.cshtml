@@ -1,0 +1,109 @@
+﻿
+@model Elixir.ViewModels.Blogs.BlogPostViewModel
+
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Pages/Blog.css")
+}
+
+<h1>@Model.Title</h1>
+
+<div class="row">
+    <div class="col-12 blog-post-date">
+        @Model.PublishedUpdatedInfo
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 blog-post-date">
+
+        Up to > <a href="/page/home">Home</a> > <a href="/blog">Blog</a> > <a href="/blog/year/@Model.PublicUpdatedOn.Value.Year">@Model.PublicUpdatedOn.Value.Year</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        @Html.Raw(Model.HtmlContent)
+    </div>
+</div>
+@*<iframe src="https://rcm-eu.amazon-adsystem.com/e/cm?o=2&p=288&l=ez&f=ifr&linkID=63c566045a1fef517bf642616274b556&t=s08a-21&tracking_id=s08a-21" width="320" height="50" scrolling="no" border="0" marginwidth="0" style="border:none;" frameborder="0"></iframe>
+Amazon search widget - prepopulated with primary page title*@
+<script type="text/javascript">amzn_assoc_ad_type ="responsive_search_widget"; amzn_assoc_tracking_id ="s08a-21"; amzn_assoc_marketplace ="amazon"; amzn_assoc_region ="GB"; amzn_assoc_placement =""; amzn_assoc_search_type = "search_widget";amzn_assoc_width ="auto"; amzn_assoc_height ="auto"; amzn_assoc_default_search_category =""; amzn_assoc_default_search_key ="@Model.PrimaryWebPageName.Replace(" ", "_")";amzn_assoc_theme ="light"; amzn_assoc_bg_color ="FFFFFF";</script>
+<script src="//z-eu.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1&Marketplace=GB"></script>
+
+
+
+@if (Model.MentionedResources != null && Model.MentionedResources.Count() > 0)
+{
+    <div class="mentionedResources">
+        <h3>Mentioned in this blog post:</h3>
+        <div class="row">
+            @Html.Partial("_ResourcesListForSubjectPage", Model.MentionedResources)
+        </div>
+    </div>
+}
+
+
+<div class="row mt-5">
+
+    @if (Model.PrimaryWebPageExists)
+    {
+        <div class="col-md-6">
+            <div class="article-link bg-grey p-2">
+                <h6 style="margin-top:0px;">More @Html.ActionLink($"{Model.PrimaryWebPageName} information, news and resources", "Index", "WebPageVisual", new { name = Model.PrimaryWebPageUrlName, area = "" }, null)</h6>
+            </div>
+        </div>
+    }
+
+    @if (Model.SecondaryWebPageExists && Model.TopicsHaveSamePrimaryWebPage != true)
+    {
+        <div class="col-md-6">
+            <div class="article-link bg-grey p-2">
+                <h6 style="margin-top:0px;">More @Html.ActionLink($"{Model.SecondaryWebPageName} information, news and resources", "Index", "WebPageVisual", new { name = Model.SecondaryWebPageUrlName, area = "" }, null)</h6>
+            </div>
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @if (Model.HasPreviousPage)
+        {
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item" style="margin:0;"><a class="page-link prev" href="@Url.Action("ViewBlog", new {name = Model.PreviousUrlName, area = ""})"><i class="fas fa-chevron-left"></i> Previous</a></li>
+                </ul>
+            </nav>
+            <p>@Model.PreviousBlogPostTitle</p>
+
+        }
+        </div>
+    
+    <div class="col-md-6">
+        @if (Model.HasNextPage)
+        {
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item" style="margin:0;"><a class="page-link next" href="@Url.Action("ViewBlog", new {name = Model.NextUrlName, area = ""})">Next <i class="fas fa-chevron-right"></i></a></li>
+                </ul>
+            </nav>
+            <p>@Model.NextBlogPostTitle</p>
+        }
+    </div>
+</div>
+
+<div>
+    @if (Model.RelatedBlogPosts != null && Model.RelatedBlogPosts.Count > 0)
+    {
+        <h3>Related Blog Posts</h3>
+
+        @Html.Partial("_BlogPostSummaries", Model.RelatedBlogPosts)
+    }
+
+</div>
+
+

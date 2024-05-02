@@ -1,0 +1,82 @@
+﻿@import "Components/Controls/Dropdown.scss";
+@import "Components/Controls/List.scss";
+@import "Layout/Footer.scss";
+@import "Components/Navbar.scss";
+@import "Components/Controls/Forms.scss";
+
+.form-control.inline-control {
+    display: inline-block;
+}
+
+label.control-label {
+    text-align: left !important;
+}
+
+main {
+    margin-top: 30px;
+}
+
+.field-validation-error {
+    color: red;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.validation-summary-errors {
+    color: red;
+
+    ul {
+        padding-left: 0;
+
+        li {
+            list-style: none;
+            max-width: 400px;
+        }
+    }
+}
+
+
+body {
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+/*input,
+select,
+textarea {
+    max-width: 450px;
+}*/
+
+h3 {
+    font-size: 1.30rem;
+}
+
+.small {
+    font-size: 100%;
+}
+
+
+.code-pre {
+    font-family: monospace;
+    white-space: pre;
+    font-size: 100%;
+}
+
+.hidden {
+    display: none;
+}

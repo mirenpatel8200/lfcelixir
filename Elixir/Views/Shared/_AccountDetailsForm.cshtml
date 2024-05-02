@@ -1,0 +1,68 @@
+﻿@model Elixir.Models.AccountDetails
+
+@using (Html.BeginForm("SaveAccountDetails", "WebPageVisual", FormMethod.Post, new { @id = "frmAccountDetails" }))
+{
+    if (TempData["ErrorMsgAccountDetails"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMsgAccountDetails"].ToString()
+        </div>
+    }
+
+    <div class="form-group row">
+        <div class="col-8">
+            @Html.LabelFor(x => x.EmailAddress, "Email Address", new { @class = "col-form-label" })
+            @Html.EditorFor(x => x.EmailAddress, new { htmlAttributes = new { @class = "form-control", @id = "txtEmailAddress", @readonly = "readonly" } })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-8">
+            <label class="col-form-label">Please contact members@liveforever.club to change your email address</label>
+            <hr />
+            <button type="button" onclick="window.location.href='/account/password'" class="btn btn-default">Change Password</button>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-8">
+            @Html.LabelFor(x => x.FirstName, "First name", new { @class = "col-form-label" })
+            @Html.EditorFor(x => x.FirstName, new { htmlAttributes = new { @class = "form-control", @id = "txtFirstName" } })
+            <span id="spFirstName" class="field-validation-error" for="txtFirstName"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-8">
+            @Html.LabelFor(x => x.LastName, "Last name (optional)", new { @class = "col-form-label" })
+            @Html.EditorFor(x => x.LastName, new { htmlAttributes = new { @class = "form-control", @id = "txtLastName" } })
+            <span id="spLastName" class="field-validation-error" for="txtLastName"></span>
+            <span>Your real name and email are NEVER displayed on the website</span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-8">
+            @Html.LabelFor(x => x.DisplayName, "Display name", new { @class = "col-form-label" })
+            @Html.EditorFor(x => x.DisplayName, new { htmlAttributes = new { @class = "form-control", @id = "txtDisplayName" } })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-8">
+            @Html.LabelFor(x => x.DescriptionPublic, "Description (one line, displayed on member directory)", new { @class = "col-form-label" })
+            @Html.EditorFor(x => x.DescriptionPublic, new { htmlAttributes = new { @class = "form-control", @id = "txtPublicDescription" } })
+            <span id="spPublicDescription" class="field-validation-error" for="txtPublicDescription"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-8">
+            @Html.LabelFor(x => x.CountryName, "Country", new { @class = "col-form-label" })
+            @Html.EditorFor(x => x.CountryName, new { htmlAttributes = new { @class = "form-control", @id = "txtCountryName", data_autocomplete_url = Url.Action("FetchAutocompleteForCountryName", "Country") } })
+            <span id="spCountryName" class="field-validation-error" for="CountryName"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-6">
+            <button type="button" id="btnSave" class="btn btn-primary">
+                Update
+            </button>
+        </div>
+    </div>
+}

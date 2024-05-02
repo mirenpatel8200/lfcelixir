@@ -1,0 +1,215 @@
+﻿@model Elixir.Areas.Admin.ViewModels.CreatePostViewModel
+
+@Html.ValidationSummary(true)
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.EntityTypeName, "Entity Type", new { @class = "col-2 col-form-label" })
+    <div class="col-4">
+        @Html.EditorFor(x => x.Model.EntityTypeName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.EntityId, "Entity ID", new { @class = "col-2 col-form-label" })
+    <div class="col-2">
+        @Html.EditorFor(x => x.Model.EntityId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.FirstLine, "First Line", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.FirstLine, new { htmlAttributes = new { @class = "form-control", spellcheck = "true" } })
+        @Html.ValidationMessageFor(x => x.Model.FirstLine)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.OtherContent, "Other Content", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.OtherContent, new { htmlAttributes = new { @class = "form-control", spellcheck = "true" } })
+        @Html.ValidationMessageFor(x => x.Model.OtherContent)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.LastLine, "Last Line", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.LastLine, new { htmlAttributes = new { @class = "form-control", spellcheck = "true" } })
+        @Html.ValidationMessageFor(x => x.Model.LastLine)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsKeyResourcesShortMatch, "Key Resources", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.CheckBoxFor(x => x.Model.IsKeyResourcesShortMatch, new { @id = "isShortMatch" }) Short match
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.KeyOrganisationWithId, "Key Organisation[ID]", new { @class = "col-2 col-form-label" })
+    <div class="col-8">
+        @Html.EditorFor(x => x.Model.KeyOrganisationWithId, new
+        {
+            htmlAttributes = new { @type = "text", @id = "publisherName", data_autocomplete_url = @Url.Action("AllAutocomplete", "Resource"), @class = "form-control" }
+        })
+        @Html.ValidationMessageFor(x => x.Model.KeyOrganisationWithId)
+    </div>
+    <div class="col-2">
+        @Html.CheckBoxFor(x => x.Model.IsSuffixKeyOrganisation, new { @id = "IsSuffixKeyOrganisation" }) Suffix as text
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.KeyPersonWithId, "Key Person[ID]", new { @class = "col-2 col-form-label" })
+    <div class="col-8">
+        @Html.EditorFor(x => x.Model.KeyPersonWithId, new { htmlAttributes = new { @type = "text", @id = "reporterName", data_autocomplete_url = Url.Action("FetchAutocomplete", "Resource", new { resourceTypes = "Person" }), @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.KeyPersonWithId)
+    </div>
+    <div class="col-2">
+        @Html.CheckBoxFor(x => x.Model.IsSuffixKeyPerson, new { @id = "IsSuffixKeyPerson" }) Suffix as text
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.KeyCreationWithId, "Key Creation[ID]", new { @class = "col-2 col-form-label" })
+    <div class="col-8">
+        @Html.EditorFor(x => x.Model.KeyCreationWithId, new { htmlAttributes = new { @type = "text", @id = "creationName", data_autocomplete_url = Url.Action("FetchAutocomplete", "Resource", new { resourceTypes = "Creation" }), @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.KeyCreationWithId)
+    </div>
+    <div class="col-2">
+        @Html.CheckBoxFor(x => x.Model.IsSuffixKeyCreation, new { @id = "IsSuffixKeyCreation" }) Suffix as text
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsMentionedResourcesShortMatch, "Resources mentioned", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.CheckBoxFor(x => x.Model.IsMentionedResourcesShortMatch, new { @id = "IsMentionedResourcesShortMatch" }) Short match
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.OrgsMentioned, "Organisations", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        <div id="tags-orgs-container" class="div-tag-box">
+            @*...tags will be added here...*@
+
+            @Html.EditorFor(x => x.Model.OrgsMentioned, new { htmlAttributes = new { @id = "inputOrgs", @type = "text", @class = "input-simple", @placeholder = "add more...", data_autocomplete_url = Url.Action("FetchAutocomplete", "Resource", new { resourceTypes = "Organisation" }) } })
+        </div>
+    </div>
+    @Html.HiddenFor(x => x.Model.OrgsMentionedString, new { @id = "orgsToSend" })
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.PeopleMentioned, "People", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        <div id="tags-people-container" class="div-tag-box">
+            @*...tags will be added here...*@
+
+            @Html.EditorFor(x => x.Model.PeopleMentioned, new { htmlAttributes = new { @id = "inputPeople", @type = "text", @class = "input-simple", @placeholder = "add more...", data_autocomplete_url = Url.Action("FetchAutocomplete", "Resource", new { resourceTypes = "Person" }) } })
+        </div>
+    </div>
+    @Html.HiddenFor(x => x.Model.PeopleMentionedString, new { @id = "peopleToSend" })
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.CreationsMentioned, "Creations", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        <div id="tags-creations-container" class="div-tag-box">
+            @*...tags will be added here...*@
+
+            @Html.EditorFor(x => x.Model.CreationsMentioned, new { htmlAttributes = new { @id = "inputCreations", @type = "text", @class = "input-simple", @placeholder = "add more...", data_autocomplete_url = Url.Action("FetchAutocomplete", "Resource", new { resourceTypes = "Creation" }) } })
+        </div>
+    </div>
+    @Html.HiddenFor(x => x.Model.CreationsMentionedString, new { @id = "creationsToSend" })
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.PrimaryTopicID, "Primary Topic", new { @class = "col-2 col-form-label" })
+    <div class="col-10 editor-field">
+        @Html.DropDownListFor(x => x.Model.PrimaryTopicID, Model.GetSelectList(nameof(Model.Model.PrimaryTopic)), "None", new { @id = "drpPrimaryTopicId", @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.PrimaryTopicID)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.SecondaryTopicID, "Secondary Topic", new { @class = "col-2 col-form-label" })
+    <div class="col-10 editor-field">
+        @Html.DropDownListFor(x => x.Model.SecondaryTopicID, Model.GetSelectList(nameof(Model.Model.SecondaryTopic)), "None", new { @id = "drpSecondaryTopicId", @class = "form-control" })
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.TopicHashtags, "Topic Hashtags", new { @class = "col-form-label col-md-2" })
+    <div class="col-10 editor-field">
+        @Html.EditorFor(x => x.Model.TopicHashtags, new { htmlAttributes = new { @id = "txtTopicHashTags", @class = "form-control", @readonly = "readonly" } })
+        @Html.ValidationMessageFor(x => x.Model.TopicHashtags)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.OmitHashtags, "Omit Hashtags", new { @class = "col-form-label col-md-2" })
+    <div class="col-10 editor-field">
+        @Html.EditorFor(x => x.Model.OmitHashtags, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.OmitHashtags)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ExtraHashtags, "Extra Hashtags", new { @class = "col-form-label col-md-2" })
+    <div class="col-10 editor-field">
+        @Html.EditorFor(x => x.Model.ExtraHashtags, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.ExtraHashtags)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.UrlName, "URL", new { @class = "col-form-label col-md-2" })
+    <div class="col-10 editor-field">
+        @Html.EditorFor(x => x.Model.UrlName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.UrlName)
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-12 text-center">
+        <button type="submit" class="skipWarnUnsavedChanges" style="background-color: white; border: 0;">
+            <i class="fas fa-2x fa-arrow-alt-circle-down" style="color: green; cursor: pointer;"></i>
+        </button>
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.PostFacebook, "Post (Facebook)", new { @class = "col-2 col-form-label" })
+    <div class="col-10 editor-field">
+        @Html.TextAreaFor(x => x.Model.PostFacebook, 5, 10, new { @class = "form-control", @id = "PostFacebook" })
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.PostLinkedIn, "Post (LinkedIn)", new { @class = "col-2 col-form-label" })
+    <div class="col-10 editor-field">
+        @Html.TextAreaFor(x => x.Model.PostLinkedIn, 5, 10, new { @class = "form-control", @id = "PostLinkedIn" })
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-2">
+        @Html.LabelFor(x => x.Model.PostTwitter, "Post (Twitter)", new { @class = "col-form-label" })
+        <br />
+        @Html.EditorFor(x => x.Model.TwitterCharacterCount, new { htmlAttributes = new { @id = "txtTwitterCharacterCount", @class = "form-control", @readonly = "readonly", @style="width:50%;" } })
+    </div>
+    <div class="col-10 editor-field">
+        @Html.TextAreaFor(x => x.Model.PostTwitter, 5, 10, new { @class = "form-control", @id = "PostTwitter" })
+    </div>
+</div>
+
+@Html.HiddenFor(x => x.Model.IsOrgsMentionedChanged, new { @id = "orgsChanged" })
+@Html.HiddenFor(x => x.Model.IsPeopleMentionedChanged, new { @id = "peopleChanged" })
+@Html.HiddenFor(x => x.Model.IsCreationsMentionedChanged, new { @id = "creationsChanged" })
+@Html.Hidden("autocompletePublisherName", @Url.Action("AllAutocomplete", "Resource"), new { @id = "autocompletePublisherName" })
+@Html.Hidden("autocompleteResources", @Url.Action("FetchAutocomplete", "Resource"), new { @id = "autocompleteResources" })
+@Html.HiddenFor(x => x.Model.EntityType, new { @id = "entityType" })
+
+

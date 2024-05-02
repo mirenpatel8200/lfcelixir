@@ -1,0 +1,145 @@
+﻿@using Elixir.Models.Enums
+@model Elixir.Areas.Admin.ViewModels.ResourcesViewModel
+
+@{
+    ViewBag.Title = "Resources";
+    string currentFilter = Request.QueryString["Filter"];
+    string currentSortBy = Request.QueryString["sortBy"];
+    string currentDirection = Request.QueryString["direction"];
+    string descInternal;
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Components/datagrid.css")
+}
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/App/tooltip.js")
+}
+
+<h1 class="head-title">Resources</h1>
+
+@using (Html.BeginForm("Index", "Resource", FormMethod.Get))
+{
+    <div class="form-group row">
+        <div class="col-1">
+            @Html.ActionLink("New", "Create", "Resource", null, new { @class = "btn btn-primary" })
+        </div>
+
+        <div class="input-group col-4">
+            <input type="hidden" name="sortBy" value="@((int)Model.CurrentSortOrder)" />
+            <input type="hidden" name="direction" value="@((int)Model.CurrentSortDirection)" />
+
+            <input type="text" class="form-control" name="filter" value="@currentFilter" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <input type="submit" class="btn btn-outline-secondary" value="Filter" />
+                <a href="@Url.Action("Index", "Resource",
+                         new { sortBy = currentSortBy, direction = currentDirection })"
+                   class="btn btn-outline-secondary">Clear</a>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row table-wrapper">
+    <div class="col-12">
+        <table class="table table-bordered data-grid">
+            <thead>
+                <tr>
+                    <th class="small">
+                        <span class="table-header-text">ID</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)ResourcesSortOrder.ResourceID, direction = (int)Model.SortDirection, filter = currentFilter })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Name</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)ResourcesSortOrder.ResourceName, direction = (int)Model.SortDirection, filter = currentFilter })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Description (internal)</span>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Type</span>
+                    </th>
+                    <th class="small">
+                        <span class="table-header-text">Enabled</span>
+                    </th>
+                    <th id="resource-created-date">
+                        <span class="table-header-text">Created</span>
+                    </th>
+                    <th class="small">
+                        <span class="table-header-text">Updated</span>
+                    </th>
+                    <th class="small">
+                        <span class="table-header-text">Updated By</span>
+                    </th>
+                    <th class="small">
+                        <span class="table-header-text">Notes</span>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Actions</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Models)
+                {
+                    <tr>
+                        <td class="small">@item.Id</td>
+                        <td>
+                            @Html.ActionLink(item.ResourceName, "Edit", new { id = item.Id })
+                        </td>
+                        @{
+                            if (string.IsNullOrEmpty(item.ResourceDescriptionInternal))
+                            {
+                                descInternal = " ";
+                            }
+                            else
+                            {
+                                descInternal = item.ResourceDescriptionInternal.Length > 80 ?
+                                  item.ResourceDescriptionInternal.Substring(0, 80) :
+                                  item.ResourceDescriptionInternal;
+                            }
+                        }
+
+                        <td>@descInternal</td>
+                        <td class="medium">@item.ResourceTypeString</td>
+                        <td class="small">@Html.CheckBox("is-enabled", item.IsEnabled, new { disabled = "disabled" })</td>
+                        <td>@item.CreatedDT.ToString("dd-MM-yyyy")</td>
+
+                        <td class="small">@item.UpdatedDT.ToString("dd-MM-yyyy")</td>
+                        <td class="small">@item.LastUpdatedBy</td>
+
+                        <td class="small">
+                            @if (string.IsNullOrWhiteSpace(item.NotesInternal) == false)
+                            {
+                                <span class="notes-holder" data-toggle="tooltip" data-placement="top" title="@item.NotesInternal">
+                                    <i class="fa fa-info-circle"></i>
+                                </span>
+                            }
+                        </td>
+                        <td class="medium">
+                            <a href="@Url.Action("Index", "Resources" , new { area = "" , name = item.UrlName })" target="_blank">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            @if (!string.IsNullOrEmpty(item.ExternalUrl))
+                            {
+                                <a href="@item.ExternalUrl" target="_blank">
+                                    <i class="fas fa-globe"></i>
+                                </a>
+                            }
+                            <a href="@Url.Action("CreatePost", "Social", new { area = "Admin", entityType = EntityType.Resource, entityId = item.Id })">
+                                <i class="fas fa-share-square"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

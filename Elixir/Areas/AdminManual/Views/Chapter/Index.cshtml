@@ -1,0 +1,100 @@
+﻿@using Elixir.Areas.AdminManual.Models
+@using Elixir.Models.Enums
+@model Elixir.Areas.AdminManual.ViewModels.ChaptersViewModel
+
+@{
+    ViewBag.Title = "Chapters";
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Components/datagrid.css")
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/App/tooltip.js")
+}
+
+<h1 class="head-title">Chapters</h1>
+
+<div class="row">
+    <div class="col-12">
+        @Html.ActionLink("New", "Create", null, new { @class = "btn btn-primary" })
+    </div>
+</div>
+
+<div class="row table-wrapper">
+    <div class="col-12">
+        <table class="table table-bordered data-grid">
+            <thead>
+                <tr>
+                    <th class="small">
+                        <span class="table-header-text">ID</span>
+                        <a href="@Url.Action("Index", new { sortBy=(int)ChaptersSortOrder.BookChapterID, direction=(int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Name</span>
+                        <a href="@Url.Action("Index", new { sortBy=(int)ChaptersSortOrder.BookChapterName, direction=(int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Type ID</span>
+                        <a href="@Url.Action("Index", new { sortBy=(int)ChaptersSortOrder.BookChapterTypeID, direction=(int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th class="">
+                        <span class="table-header-text">Display Order</span>
+                        <a href="@Url.Action("Index", new { sortBy=(int)ChaptersSortOrder.DisplayOrder, direction=(int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Is Included</span>
+                        <a href="@Url.Action("Index", new { sortBy=(int)ChaptersSortOrder.IsIncluded, direction=(int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Notes</span>
+                    </th>
+                    <th class="small">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ChapterModel chapterModel in Model.Models)
+                {
+                    <tr>
+                        <td class="small">
+                            @Html.ActionLink(chapterModel.Id.ToString(), "Edit", new RouteValueDictionary(new { id = chapterModel.Id }))
+                        </td>
+                        <td>
+                            @Html.ActionLink(chapterModel.ChapterName, "Edit", new RouteValueDictionary(new { id = chapterModel.Id }))
+                        </td>
+                        <td>@chapterModel.TypeID</td>
+                        <td>@chapterModel.DisplayOrder</td>
+
+                        <td class="medium">@Html.CheckBox("is-included", @chapterModel.IsIncluded, new { @disabled = "disabled" })</td>
+                        <td class="small">
+                            @if (String.IsNullOrWhiteSpace(chapterModel.Notes) == false)
+                            {
+                                <span class="notes-holder" data-toggle="tooltip" data-placement="top" title="@chapterModel.Notes">
+                                    <i class="fa fa-info-circle"></i>
+                                </span>
+                            }
+                        </td>
+                        <td class="small">
+                            <a href="@Url.Action("GenerateSingleChapter", "ManageBook", new { chapterId = chapterModel.Id})" target="_blank">
+                                <img src="~/Content/Images/pdf_icon_383140.svg" width="20"/>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

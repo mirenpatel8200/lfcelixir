@@ -1,0 +1,1843 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BCB6B54E-C474-46E9-98A9-9FB87BF1CACA}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Elixir</RootNamespace>
+    <AssemblyName>Elixir</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <MvcBuildViews>true</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort>44346</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>
+    </IISExpressUseClassicPipelineMode>
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Glimpse.Ado, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.Ado.1.7.3\lib\net45\Glimpse.Ado.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Glimpse.AspNet, Version=1.9.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.AspNet.1.9.2\lib\net45\Glimpse.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Core, Version=1.8.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.1.8.6\lib\net45\Glimpse.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Mvc5, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.Mvc5.1.5.3\lib\net45\Glimpse.Mvc5.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.24.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.24\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Mvc.4.0.1\lib\net45\Microsoft.Practices.Unity.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PayPal, Version=1.9.1.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayPal.1.9.1\lib\net451\PayPal.dll</HintPath>
+    </Reference>
+    <Reference Include="Postmark, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Postmark.4.5.0\lib\netstandard2.0\Postmark.dll</HintPath>
+    </Reference>
+    <Reference Include="RouteDebugger, Version=2.1.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\routedebugger.2.1.5\lib\net40\RouteDebugger.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\Bootstrapper.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConstraints\ExcludeController.cs" />
+    <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="Areas\AdminManual\AdminManualAreaRegistration.cs" />
+    <Compile Include="Areas\AdminManual\Models\CustomExceptions.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\Api\BufferApiController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AuditlogController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BlogController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CountryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DevController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GoLinkController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GoLinkLogController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ResourceController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ShopController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SitemapController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SocialController.cs" />
+    <Compile Include="Areas\Admin\Controllers\WebSiteController.cs" />
+    <Compile Include="Areas\Admin\Models\AdminBlogPostModel.cs" />
+    <Compile Include="Areas\Admin\Models\AuditLogModel.cs" />
+    <Compile Include="Areas\Admin\Models\GoLinkLogModel.cs" />
+    <Compile Include="Areas\Admin\Models\GoLinkModel.cs" />
+    <Compile Include="Areas\Admin\Models\ResourceModel.cs" />
+    <Compile Include="Areas\Admin\Models\ShopCategoryModel.cs" />
+    <Compile Include="Areas\Admin\Models\ShopOrderModel.cs" />
+    <Compile Include="Areas\Admin\Models\ShopProductModel.cs" />
+    <Compile Include="Areas\Admin\Models\ShopProductOptionModel.cs" />
+    <Compile Include="Areas\Admin\Models\SocialPostModel.cs" />
+    <Compile Include="Areas\Admin\Models\TextOnImageModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\AdminBlogPostsViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\AuditlogViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\CreateBlogPostViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\CreateEditShopProductOptionViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\CreatePostViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\CreateResourceViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\CreateShopCategoryViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\CreateShopProductViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\DashboardViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\EditBlogPostViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\EditResourceViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\EditShopCategoryViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\EditShopProductViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\ResourcesViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\ShopCategoriesViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\ShopOrderDetailsViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\ShopOrdersViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\ShopProductsViewModel.cs" />
+    <Compile Include="Areas\Admin\Views\Article\CreateGoLinkViewModel.cs" />
+    <Compile Include="Areas\Admin\Views\Article\EditGoLinkViewModel.cs" />
+    <Compile Include="Areas\Admin\Views\Dev\EditorVm.cs" />
+    <Compile Include="Areas\Admin\Views\GoLinkLog\GoLinkLogsViewModel.cs" />
+    <Compile Include="Areas\Admin\Views\GoLink\GoLinksListViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\WebSiteViewModel.cs" />
+    <Compile Include="Areas\Admin\Views\WebPage\WebPageVmBase.cs" />
+    <Compile Include="Attributes\CustomAuthenticationFilter.cs" />
+    <Compile Include="Attributes\CustomAuthorize.cs" />
+    <Compile Include="Areas\Admin\Controllers\ArticleController.cs" />
+    <Compile Include="Attributes\HashtagsTextValidator.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\BaseAuthController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Areas\AdminManual\Controllers\ChapterController.cs" />
+    <Compile Include="Areas\AdminManual\Controllers\ContentController.cs" />
+    <Compile Include="Controllers\Base\JsonController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
+    <Compile Include="Controllers\GoController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Areas\AdminManual\Controllers\PageController.cs" />
+    <Compile Include="Areas\AdminManual\Controllers\ManageBookController.cs" />
+    <Compile Include="Areas\AdminManual\Controllers\SectionController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TopicController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Areas\Admin\Controllers\WebPageController.cs" />
+    <Compile Include="Controllers\MembersController.cs" />
+    <Compile Include="Controllers\MonitorController.cs" />
+    <Compile Include="Controllers\PublicArticleController.cs" />
+    <Compile Include="Controllers\PublicBlogController.cs" />
+    <Compile Include="Controllers\PublicManualController.cs" />
+    <Compile Include="Controllers\ResourcesController.cs" />
+    <Compile Include="Controllers\RobotsController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\PublicShopController.cs" />
+    <Compile Include="Controllers\SubjectNewsController.cs" />
+    <Compile Include="Controllers\SubjectResourcesController.cs" />
+    <Compile Include="Controllers\WebPageVisualController.cs" />
+    <Compile Include="GlimpseSecurityPolicy.cs" />
+    <Compile Include="Handlers\CustomHandler.cs" />
+    <Compile Include="Handlers\CustomRouteHandler.cs" />
+    <Compile Include="Helpers\Configuration.cs" />
+    <Compile Include="Helpers\DateTimeUtils.cs" />
+    <Compile Include="Helpers\OnlineManualHelper.cs" />
+    <Compile Include="Helpers\PasswordUtil.cs" />
+    <Compile Include="Helpers\ScriptUtils.cs" />
+    <Compile Include="Models\AccountDetails.cs" />
+    <Compile Include="Models\ChangePassword.cs" />
+    <Compile Include="Models\Exceptions\ContentNotFoundException.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\HtmlComponentList.cs" />
+    <Compile Include="Helpers\HtmlUtils.cs" />
+    <Compile Include="Helpers\PdfGenerator.cs" />
+    <Compile Include="Helpers\PdfPageHelper.cs" />
+    <Compile Include="Helpers\PdfUtils.cs" />
+    <Compile Include="Areas\Admin\Models\ArticleModel.cs" />
+    <Compile Include="Areas\AdminManual\Models\BookPageModel.cs" />
+    <Compile Include="Areas\AdminManual\Models\BookSectionModel.cs" />
+    <Compile Include="Areas\AdminManual\Models\ChapterModel.cs" />
+    <Compile Include="Areas\AdminManual\Models\PdfGenerationParameters.cs" />
+    <Compile Include="Areas\AdminManual\Models\PdfGenerationParametersViewModel.cs" />
+    <Compile Include="Areas\AdminManual\ViewModels\PdfGenerationResultViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\TopicModel.cs" />
+    <Compile Include="Areas\Admin\Models\BookUserModel.cs" />
+    <Compile Include="Areas\Admin\Models\BookUserRoleModel.cs" />
+    <Compile Include="Models\Filters\NavbarDisplayActionAttribute.cs" />
+    <Compile Include="Models\Filters\FilterQueryParameterAttribute.cs" />
+    <Compile Include="Models\ForgottenPassword.cs" />
+    <Compile Include="Models\Identity\AccessRoleManager.cs" />
+    <Compile Include="Models\Identity\AccessSignInMagager.cs" />
+    <Compile Include="Models\Identity\AccessUserManager.cs" />
+    <Compile Include="Models\Json\AutocompleteJson.cs" />
+    <Compile Include="Models\Json\JsonActionResult.cs" />
+    <Compile Include="Models\AccountProfileDetails.cs" />
+    <Compile Include="Models\Registration.cs" />
+    <Compile Include="Models\ResetPassword.cs" />
+    <Compile Include="Models\SearchResult.cs" />
+    <Compile Include="Models\ShippingDetails.cs" />
+    <Compile Include="Models\ShopNavigationBar.cs" />
+    <Compile Include="Models\UrlLink.cs" />
+    <Compile Include="Models\Utils\AppConstants.cs" />
+    <Compile Include="Models\Utils\CompilationUtils.cs" />
+    <Compile Include="Models\Utils\DateUtils.cs" />
+    <Compile Include="Models\Utils\TableOfContents.cs" />
+    <Compile Include="Areas\Admin\Models\WebPageModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\ArticlesViewModel.cs" />
+    <Compile Include="Models\Utils\UpdateQueueFirstLastPage.cs" />
+    <Compile Include="Models\Validation\IsUrlNameAttribute.cs" />
+    <Compile Include="ViewModels\Articles\PublicArticleViewModel.cs" />
+    <Compile Include="ViewModels\BannerImageMetaVm.cs" />
+    <Compile Include="ViewModels\Base\BaseCUViewModel.cs" />
+    <Compile Include="ViewModels\Base\BaseCUWithMultipleSelectViewModel.cs" />
+    <Compile Include="ViewModels\Base\BaseCUWithSelectViewModel.cs" />
+    <Compile Include="ViewModels\Base\BaseListViewModel.cs" />
+    <Compile Include="ViewModels\Base\BaseSortableListViewModel.cs" />
+    <Compile Include="Areas\AdminManual\ViewModels\ChaptersViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\CreateArticleViewModel.cs" />
+    <Compile Include="Areas\AdminManual\ViewModels\CreateChapterViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\CreateTopicViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\CreateUserViewModel.cs" />
+    <Compile Include="Areas\Admin\Views\WebPage\CreateWebPageViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\EditArticleViewModel.cs" />
+    <Compile Include="Areas\AdminManual\ViewModels\EditChapterViewModel.cs" />
+    <Compile Include="Areas\AdminManual\ViewModels\EditTopicViewModel.cs" />
+    <Compile Include="Areas\Admin\Views\WebPage\EditWebPageViewModel.cs" />
+    <Compile Include="ViewModels\Blogs\BlogPostViewModel.cs" />
+    <Compile Include="ViewModels\Blogs\BlogsByYearViewModel.cs" />
+    <Compile Include="ViewModels\Blogs\BlogsViewModel.cs" />
+    <Compile Include="ViewModels\Enums\ArticlesDisplayFormat.cs" />
+    <Compile Include="ViewModels\Enums\ManualComponentType.cs" />
+    <Compile Include="Models\Login.cs" />
+    <Compile Include="ViewModels\ManualComponentViewModel.cs" />
+    <Compile Include="ViewModels\MemberViewModel.cs" />
+    <Compile Include="ViewModels\MonitorViewModel.cs" />
+    <Compile Include="ViewModels\Navigation\NavigationItem.cs" />
+    <Compile Include="ViewModels\Navigation\NavigationViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\TopicsViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\UsersViewModel.cs" />
+    <Compile Include="Models\Utils\ExtensionsMethods.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Areas\AdminManual\Models\ContentsPageModel.cs" />
+    <Compile Include="Areas\AdminManual\ViewModels\ContentsPage\ContentsViewModel.cs" />
+    <Compile Include="Areas\AdminManual\Models\SectionWithPagesModel.cs" />
+    <Compile Include="Areas\AdminManual\ViewModels\CreatePageViewModel.cs" />
+    <Compile Include="Areas\AdminManual\ViewModels\BooksViewModel.cs" />
+    <Compile Include="Areas\AdminManual\ViewModels\EditPageViewModel.cs" />
+    <Compile Include="ViewModels\Enums\HeadNavigationType.cs" />
+    <Compile Include="ViewModels\ErrorViewModel.cs" />
+    <Compile Include="Areas\AdminManual\ViewModels\SectionsViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\WebPagesViewModel.cs" />
+    <Compile Include="ViewModels\ResourceViewModel.cs" />
+    <Compile Include="ViewModels\ShopViewModel.cs" />
+    <Compile Include="ViewModels\SidebarViewModel.cs" />
+    <Compile Include="ViewModels\SubjectNews\SubjectNewsViewModel.cs" />
+    <Compile Include="ViewModels\SubjectResourcesViewModel.cs" />
+    <Compile Include="ViewModels\SubpageViewModel.cs" />
+    <Compile Include="ViewModels\WebPageViewModel.cs" />
+    <Compile Include="Views\Helpers\ViewHelpers.cs" />
+    <Compile Include="Views\ViewDataUtils.cs" />
+    <Compile Include="Views\ViewDataKeys.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\elixir.accdb" />
+    <Content Include="App_Data\Images\Manual\airline-safety-card.jpg" />
+    <Content Include="App_Data\Images\Manual\aspirin.jpg" />
+    <Content Include="App_Data\Images\Manual\color-wheel-analogous-150x150.png" />
+    <Content Include="App_Data\Images\Manual\cover-6x9-back.jpg" />
+    <Content Include="App_Data\Images\Manual\cover-6x9-front.jpg" />
+    <Content Include="App_Data\Images\Manual\cross-icon.png" />
+    <Content Include="App_Data\Images\Manual\defibrillator.jpg" />
+    <Content Include="App_Data\Images\Manual\fountain-of-youth-1575x1020.png" />
+    <Content Include="App_Data\Images\Manual\How-to-use-this-manual-181003.png" />
+    <Content Include="App_Data\Images\Manual\infinity-side-300DPI-720x1040.jpg" />
+    <Content Include="App_Data\Images\Manual\life-expectancy-at-birth-1200x764.png" />
+    <Content Include="App_Data\Images\Manual\placeholder-left.jpg" />
+    <Content Include="App_Data\Images\Manual\placeholder-right.jpg" />
+    <Content Include="App_Data\Images\Manual\placeholder.jpg" />
+    <Content Include="App_Data\Images\social-card-backgrounds\social-background-banner-1200x628.jpg" />
+    <Content Include="App_Data\robots\robots.dev.txt" />
+    <Content Include="App_Data\robots\robots.live.txt" />
+    <Content Include="Content\Adverts\join-the-club-250x250.html" />
+    <Content Include="Content\Adverts\join-the-club-logo-250x250.png" />
+    <Content Include="Content\Adverts\live-forever-manual-250x250.png" />
+    <Content Include="Content\bootstrap-tagsinput.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\bluearrow.png" />
+    <Content Include="Content\Images\bosch-kettle-background-360x520.png" />
+    <Content Include="Content\Images\dot-empty.png" />
+    <Content Include="Content\Images\dot-full.png" />
+    <Content Include="Content\Images\dot-half.png" />
+    <Content Include="Content\Images\pdf_icon_383140.svg" />
+    <Content Include="Content\Images\tip-chevrons-even.png" />
+    <Content Include="Content\Images\tip-chevrons-odd.png" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="googlef751aa831a3f0965.html" />
+    <Content Include="imagesmembers\broken.jpg" />
+    <Content Include="imagesmembers\test.jpg" />
+    <Content Include="Images\3d-printing\3d-printing-background.jpg" />
+    <Content Include="Images\3d-printing\3d-printing-banner.jpg" />
+    <Content Include="Images\3d-printing\3d-printing-news.jpg" />
+    <Content Include="Images\3d-printing\3d-printing.jpg" />
+    <Content Include="Images\achievements\congratulations-112.jpg" />
+    <Content Include="Images\adverts\medichecks\gold-buttons-190409.png" />
+    <Content Include="Images\adverts\placeholders\160x600.png" />
+    <Content Include="Images\adverts\placeholders\200x200.png" />
+    <Content Include="Images\adverts\placeholders\250x250.png" />
+    <Content Include="Images\adverts\placeholders\300x250.png" />
+    <Content Include="Images\adverts\placeholders\300x600.png" />
+    <Content Include="Images\adverts\placeholders\320x100.png" />
+    <Content Include="Images\adverts\placeholders\320x50.png" />
+    <Content Include="Images\adverts\placeholders\336x280.png" />
+    <Content Include="Images\adverts\placeholders\728x90.png" />
+    <Content Include="Images\ageing-research\ageing-research-news.jpg" />
+    <Content Include="Images\ageing-research\ageing-research.jpg" />
+    <Content Include="Images\ageing-research\immunotherapy-news.jpg" />
+    <Content Include="Images\ageing-research\immunotherapy.jpg" />
+    <Content Include="Images\ageing-research\josh-mitteldorf-argues-for-the-minority-view-on-methylation-changes.jpg" />
+    <Content Include="Images\air-pollution\air-pollution-background.jpg" />
+    <Content Include="Images\air-pollution\air-pollution-banner.jpg" />
+    <Content Include="Images\air-pollution\air-pollution-news.jpg" />
+    <Content Include="Images\air-pollution\air-pollution.jpg" />
+    <Content Include="Images\ai\artificial-intelligence-%28AI%29-background.jpg" />
+    <Content Include="Images\ai\artificial-intelligence-%28AI%29-news.jpg" />
+    <Content Include="Images\ai\artificial-intelligence-%28AI%29.jpg" />
+    <Content Include="Images\ai\artificial-intelligence-banner.jpg" />
+    <Content Include="Images\alcohol\alcohol-background.jpg" />
+    <Content Include="Images\alcohol\alcohol-news.jpg" />
+    <Content Include="Images\alcohol\alcohol.jpg" />
+    <Content Include="Images\alcohol\no-safe-alcohol-consumption-for-stroke-risk.jpg" />
+    <Content Include="Images\alzheimers-disease\alzheimers-disease-background.jpg" />
+    <Content Include="Images\alzheimers-disease\alzheimers-disease-news.jpg" />
+    <Content Include="Images\alzheimers-disease\alzheimers-disease.jpg" />
+    <Content Include="Images\anti-ageing\anti-ageing-background.jpg" />
+    <Content Include="Images\anti-ageing\anti-ageing-banner.jpg" />
+    <Content Include="Images\anti-ageing\anti-ageing-news.jpg" />
+    <Content Include="Images\anti-ageing\anti-ageing.jpg" />
+    <Content Include="Images\anti-ageing\collagen-skin-structure.jpg" />
+    <Content Include="Images\anti-ageing\do-collagen-treatments-really-work.jpg" />
+    <Content Include="Images\antibiotic-resistance\antibiotic-resistance-background.jpg" />
+    <Content Include="Images\antibiotic-resistance\antibiotic-resistance-banner.jpg" />
+    <Content Include="Images\antibiotic-resistance\antibiotic-resistance-news.jpg" />
+    <Content Include="Images\antibiotic-resistance\antibiotic-resistance.jpg" />
+    <Content Include="Images\antibiotic-resistance\mortality-rate-by-age-and-sex-ecoli.jpg" />
+    <Content Include="Images\apheresis\apheresis-background.jpg" />
+    <Content Include="Images\apheresis\apheresis-banner.jpg" />
+    <Content Include="Images\apheresis\apheresis-news.jpg" />
+    <Content Include="Images\apheresis\apheresis.jpg" />
+    <Content Include="Images\artificial-organs\artificial-organs-banner.jpg" />
+    <Content Include="Images\artificial-organs\artificial-organs-news.jpg" />
+    <Content Include="Images\artificial-organs\artificial-organs.jpg" />
+    <Content Include="Images\asteroid-impact\asteroid-impact-background.jpg" />
+    <Content Include="Images\asteroid-impact\asteroid-impact-banner.jpg" />
+    <Content Include="Images\asteroid-impact\asteroid-impact-news.jpg" />
+    <Content Include="Images\asteroid-impact\asteroid-impact.jpg" />
+    <Content Include="Images\asteroid-impact\Massive_Impact-NASA_Don Davis.jpg" />
+    <Content Include="Images\augmentation\augmentation-banner.jpg" />
+    <Content Include="Images\augmentation\impli-implantables-anna-london-futurists.JPG" />
+    <Content Include="Images\big-data\big-data-banner.jpg" />
+    <Content Include="Images\big-data\big-data-news.jpg" />
+    <Content Include="Images\big-data\big-data.jpg" />
+    <Content Include="Images\biological-age\aging-biomarkers-infographic-80x80.png" />
+    <Content Include="Images\biological-age\aging-biomarkers-infographic.png" />
+    <Content Include="Images\biology\blood-composition.jpg" />
+    <Content Include="Images\blood-pressure\blood-pressure-background.jpg" />
+    <Content Include="Images\blood-pressure\blood-pressure-banner.jpg" />
+    <Content Include="Images\blood-pressure\blood-pressure-news.jpg" />
+    <Content Include="Images\blood-pressure\blood-pressure.jpg" />
+    <Content Include="Images\blue-zones\blue-zones-background.jpg" />
+    <Content Include="Images\blue-zones\blue-zones-banner.jpg" />
+    <Content Include="Images\blue-zones\blue-zones-news.jpg" />
+    <Content Include="Images\blue-zones\blue-zones.jpg" />
+    <Content Include="Images\blue-zones\Okinawa_Island-ISS042-wikimedia-2150x2550.jpg" />
+    <Content Include="Images\books\6x9_3D-151019-hires-cropped-271x300.png" />
+    <Content Include="Images\books\Homo-Deus-A-Brief-History-of-Tomorrow-390x600.png" />
+    <Content Include="Images\books\live-forever-manual.png" />
+    <Content Include="Images\brain-interface\brain-chip-could-provide-direct-internet-connection.jpg" />
+    <Content Include="Images\brain-interface\brain-interface-news.jpg" />
+    <Content Include="Images\brain-interface\brain-interface.jpg" />
+    <Content Include="Images\brain-interface\direct-brain-interface-enables-paralysed-man-to-walk-in-exoskeleton.jpg" />
+    <Content Include="Images\brain-interface\Fonds-de-dotation-Clinatec-exoskeleton-brain-interface.jpg" />
+    <Content Include="Images\cancer\cancer-background.jpg" />
+    <Content Include="Images\cancer\cancer-banner.jpg" />
+    <Content Include="Images\cancer\cancer-news.jpg" />
+    <Content Include="Images\cancer\cancer.jpg" />
+    <Content Include="Images\cancer\monitoring-moles-with-whole-body-photography.jpg" />
+    <Content Include="Images\cancer\skin-cancer-background.jpg" />
+    <Content Include="Images\cancer\skin-cancer-news.jpg" />
+    <Content Include="Images\cancer\wearable-monitor-detects-more-cancer-cells-than-liquid-biopsy.jpg" />
+    <Content Include="Images\centenarians\centenarians-background.jpg" />
+    <Content Include="Images\centenarians\centenarians-banner.jpg" />
+    <Content Include="Images\centenarians\centenarians-news.jpg" />
+    <Content Include="Images\centenarians\centenarians.jpg" />
+    <Content Include="Images\climate-change\climate-change-background.jpg" />
+    <Content Include="Images\climate-change\climate-change-news.jpg" />
+    <Content Include="Images\climate-change\climate-change.jpg" />
+    <Content Include="Images\cryonics\cryonics-background.jpg" />
+    <Content Include="Images\cryonics\cryonics-banner.jpg" />
+    <Content Include="Images\cryonics\cryonics-news.jpg" />
+    <Content Include="Images\cryonics\cryonics.jpg" />
+    <Content Include="Images\dental-health\dental-health-background.jpg" />
+    <Content Include="Images\dental-health\dental-health-banner.jpg" />
+    <Content Include="Images\dental-health\dental-health-news.jpg" />
+    <Content Include="Images\dental-health\dental-health.jpg" />
+    <Content Include="Images\diet\A-coffee-a-day-keeps-the-grim-reaper-away.png" />
+    <Content Include="Images\diet\chocolate-innocent-pleasure.png" />
+    <Content Include="Images\diet\New-UK-Alcohol-Guidelines.png" />
+    <Content Include="Images\diet\water-no-need-to-over-do-it-600x.png" />
+    <Content Include="Images\digital-health\digital-health-news.jpg" />
+    <Content Include="Images\digital-health\digital-health.jpg" />
+    <Content Include="Images\digital-modeling\Virtual-Bodies-are-Accelerating-Research-and-Diagnostics.png" />
+    <Content Include="Images\DNA\DNA-background.jpg" />
+    <Content Include="Images\DNA\DNA-banner.jpg" />
+    <Content Include="Images\DNA\DNA-damage-repair-news.jpg" />
+    <Content Include="Images\DNA\DNA-damage-repair.jpg" />
+    <Content Include="Images\energy\energy-%28wind%29-news.jpg" />
+    <Content Include="Images\energy\energy-%28wind%29.jpg" />
+    <Content Include="Images\ethics\ethics-banner.jpg" />
+    <Content Include="Images\ethics\life-extension-ethics.jpg" />
+    <Content Include="Images\events\Engineering-Greater-Human-Resilience-hannes-sapiens.jpg" />
+    <Content Include="Images\events\Engineering-Greater-Human-Resilience-panel.jpg" />
+    <Content Include="Images\events\Engineering-Greater-Human-Resilience.jpg" />
+    <Content Include="Images\exercise\sofa-exercises.png" />
+    <Content Include="Images\exoskeletons\exoskeletons-background.jpg" />
+    <Content Include="Images\exoskeletons\exoskeletons-banner.jpg" />
+    <Content Include="Images\exoskeletons\exoskeletons-news.jpg" />
+    <Content Include="Images\exoskeletons\exoskeletons.jpg" />
+    <Content Include="Images\fasting\intermittent-fasting-news.jpg" />
+    <Content Include="Images\fasting\intermittent-fasting.jpg" />
+    <Content Include="Images\file-picker\file-alt.svg" />
+    <Content Include="Images\file-picker\folder.svg" />
+    <Content Include="Images\films\passengers-autodoc.png" />
+    <Content Include="Images\fountains-of-youth\biological-age-reversed-with-growth-hormone-and-diabetes-drugs-cocktail.jpg" />
+    <Content Include="Images\fountains-of-youth\fountain-of-youth-background.jpg" />
+    <Content Include="Images\fountains-of-youth\fountain-of-youth-banner.jpg" />
+    <Content Include="Images\fountains-of-youth\fountain-of-youth-news.jpg" />
+    <Content Include="Images\fountains-of-youth\fountain-of-youth.jpg" />
+    <Content Include="Images\fountains-of-youth\metformin-background.jpg" />
+    <Content Include="Images\fountains-of-youth\metformin-news.jpg" />
+    <Content Include="Images\fountains-of-youth\metformin.jpg" />
+    <Content Include="Images\gene-therapy\gene-therapy-background.jpg" />
+    <Content Include="Images\gene-therapy\gene-therapy-banner.jpg" />
+    <Content Include="Images\gene-therapy\gene-therapy-news.jpg" />
+    <Content Include="Images\gene-therapy\gene-therapy.jpg" />
+    <Content Include="Images\gene-therapy\interfering-with-enzyme-production-reduces-crippling-pain.jpg" />
+    <Content Include="Images\hair-loss\hair-loss-background.jpg" />
+    <Content Include="Images\hair-loss\hair-loss-banner.jpg" />
+    <Content Include="Images\hair-loss\hair-loss-news.jpg" />
+    <Content Include="Images\hair-loss\hair-loss.jpg" />
+    <Content Include="Images\health\health-banner.jpg" />
+    <Content Include="Images\heart-disease\heart-disease-background.jpg" />
+    <Content Include="Images\heart-disease\heart-disease-banner.jpg" />
+    <Content Include="Images\heart-disease\heart-disease-news.jpg" />
+    <Content Include="Images\heart-disease\heart-disease.jpg" />
+    <Content Include="Images\icons\academia-16.png" />
+    <Content Include="Images\icons\academic-16.png" />
+    <Content Include="Images\icons\advocate-16.png" />
+    <Content Include="Images\icons\amazon-16.png" />
+    <Content Include="Images\icons\amazon-view-on-16.png" />
+    <Content Include="Images\icons\application-16.png" />
+    <Content Include="Images\icons\artist-16.png" />
+    <Content Include="Images\icons\audio-16.png" />
+    <Content Include="Images\icons\author-16.png" />
+    <Content Include="Images\icons\book-16.png" />
+    <Content Include="Images\icons\company-16.png" />
+    <Content Include="Images\icons\company-rep-16.png" />
+    <Content Include="Images\icons\competition-16.png" />
+    <Content Include="Images\icons\education-16.png" />
+    <Content Include="Images\icons\event-16.png" />
+    <Content Include="Images\icons\excel-128.png" />
+    <Content Include="Images\icons\excel-16.png" />
+    <Content Include="Images\icons\excel-32.png" />
+    <Content Include="Images\icons\film-16.png" />
+    <Content Include="Images\icons\founding-member-16.png" />
+    <Content Include="Images\icons\founding-member-32.png" />
+    <Content Include="Images\icons\health-organisation-16.png" />
+    <Content Include="Images\icons\healthcare-professional-16.png" />
+    <Content Include="Images\icons\information-16.png" />
+    <Content Include="Images\icons\institute-16.png" />
+    <Content Include="Images\icons\journal-16.png" />
+    <Content Include="Images\icons\journalist-16.png" />
+    <Content Include="Images\icons\LFC-logo-16.png" />
+    <Content Include="Images\icons\LFC-logo-32.png" />
+    <Content Include="Images\icons\politician-16.png" />
+    <Content Include="Images\icons\product-16.png" />
+    <Content Include="Images\icons\publisher-16.png" />
+    <Content Include="Images\icons\research-16.png" />
+    <Content Include="Images\icons\resource-16.png" />
+    <Content Include="Images\icons\shopping-cart-32.png" />
+    <Content Include="Images\icons\video-16.png" />
+    <Content Include="Images\immortal-animals\immortal-animals-background-NMR.jpg" />
+    <Content Include="Images\immortal-animals\immortal-animals-banner.jpg" />
+    <Content Include="Images\immortal-animals\immortal-animals-news-NMR.jpg" />
+    <Content Include="Images\immortal-animals\immortal-animals-NMR.jpg" />
+    <Content Include="Images\immortal-animals\red-sea-urchins-can-live-over-100-years.jpg" />
+    <Content Include="Images\investments\investments.jpg" />
+    <Content Include="Images\laboratory-automation\Siemens-Aptio-Automation-system-NHS-lowres-300x158.png" />
+    <Content Include="Images\laboratory-automation\Siemens-Aptio-Automation-system-NHS-lowres.png" />
+    <Content Include="Images\life-expectancy\Annual-Increase-in-Life-ExpectancyAge-65.png" />
+    <Content Include="Images\life-expectancy\chances-of-being-alive-table-130521-87x300.png" />
+    <Content Include="Images\life-expectancy\chances-of-being-alive-table-130521.png" />
+    <Content Include="Images\life-expectancy\national-geographic-baby-120.jpg" />
+    <Content Include="Images\life-expectancy\population-distribution-uk-85up-300x180.png" />
+    <Content Include="Images\life-expectancy\population-distribution-uk-85up.png" />
+    <Content Include="Images\life-extension-blog.jpg" />
+    <Content Include="Images\life-extension-news.jpg" />
+    <Content Include="Images\life-extension\fountain-of-youth-Lucas_Cranach_small.jpg" />
+    <Content Include="Images\lifestyle\Open-Air-Factor-the-free-and-simple-life-extender.jpg" />
+    <Content Include="Images\live-forever-club-search-results.jpg" />
+    <Content Include="Images\live-forever-club-social-equality-in-longevity.jpg" />
+    <Content Include="Images\live-forever-club-social-LFC.jpg" />
+    <Content Include="Images\liveforeverclub-background.jpg" />
+    <Content Include="Images\liveforeverclub-banner-blog.jpg" />
+    <Content Include="Images\liveforeverclub-banner-news.jpg" />
+    <Content Include="Images\liveforeverclub-banner.jpg" />
+    <Content Include="Images\liveforeverclub-thumb.jpg" />
+    <Content Include="Images\liveforeverclub.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\age-x-logo.png" />
+    <Content Include="Images\liveforevermanual\chapters\airline-safety-card.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\alkahest-logo.png" />
+    <Content Include="Images\liveforevermanual\chapters\ambrosia-logo.png" />
+    <Content Include="Images\liveforevermanual\chapters\Apoptosis_stained.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\author-adrian-400.JPG" />
+    <Content Include="Images\liveforevermanual\chapters\author-adrian-500x500.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\author-adrian-500x690.JPG" />
+    <Content Include="Images\liveforevermanual\chapters\author-adrian.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\brain-training.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\breakthrough-prize-logo.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\but-what-if-immortal-dictators.png" />
+    <Content Include="Images\liveforevermanual\chapters\but-what-if-space-colonisation.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\calico-logo.png" />
+    <Content Include="Images\liveforevermanual\chapters\can-we-fountain-of-youth.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\can-we-life-expectancy-at-birth.png" />
+    <Content Include="Images\liveforevermanual\chapters\celularity-logo.png" />
+    <Content Include="Images\liveforevermanual\chapters\cross-icon.png" />
+    <Content Include="Images\liveforevermanual\chapters\curing-ageing-apoptosis.png" />
+    <Content Include="Images\liveforevermanual\chapters\curing-ageing-cancer-cell-development.png" />
+    <Content Include="Images\liveforevermanual\chapters\curing-ageing-extracellular-matrix.png" />
+    <Content Include="Images\liveforevermanual\chapters\curing-ageing-lysosomes.png" />
+    <Content Include="Images\liveforevermanual\chapters\curing-ageing-stem-cells.png" />
+    <Content Include="Images\liveforevermanual\chapters\David-H-Murdock.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\elysium-logo.PNG" />
+    <Content Include="Images\liveforevermanual\chapters\Emerald-Therapeutics-logo.png" />
+    <Content Include="Images\liveforevermanual\chapters\exponential-dna-sequencing-costs.png" />
+    <Content Include="Images\liveforevermanual\chapters\exponential-exoskeleton.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\exponential-graph.png" />
+    <Content Include="Images\liveforevermanual\chapters\exponential-memory.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\exponential-microchip-implant.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\exponential-nanobots.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\exponential-robotic-surgery.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\fountains-of-youth-icons.png" />
+    <Content Include="Images\liveforevermanual\chapters\gensight-logo.png" />
+    <Content Include="Images\liveforevermanual\chapters\healthy-longevity-logo.png" />
+    <Content Include="Images\liveforevermanual\chapters\human-longevity-inc-logo.png" />
+    <Content Include="Images\liveforevermanual\chapters\human.bio.png" />
+    <Content Include="Images\liveforevermanual\chapters\Ichor-Therapeutics-logo.png" />
+    <Content Include="Images\liveforevermanual\chapters\insilico.png" />
+    <Content Include="Images\liveforevermanual\chapters\introduction-Wrightflyer-TEMP.png" />
+    <Content Include="Images\liveforevermanual\chapters\introduction-Wrightflyer.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\Jeff-Bezos.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\Larry-Ellison.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\life-expectancy-at-birth-1200x764.png" />
+    <Content Include="Images\liveforevermanual\chapters\life-extension-glossary.png" />
+    <Content Include="Images\liveforevermanual\chapters\Naked-mole-rat.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\ncap.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\oisin-biotechnologies.png" />
+    <Content Include="Images\liveforevermanual\chapters\outrunning-death-how-to-become-a-classic.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\outrunning-death-stop-youre-killing-me.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\Palo-Alto-Prize-logo.png" />
+    <Content Include="Images\liveforevermanual\chapters\Sergey-Brin.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\should-we-death-gives-life-meaning-risk.png" />
+    <Content Include="Images\liveforevermanual\chapters\unity-biotechnology.png" />
+    <Content Include="Images\liveforevermanual\chapters\unknown-avatar.png" />
+    <Content Include="Images\liveforevermanual\chapters\Vitalik-Buterin.jpg" />
+    <Content Include="Images\liveforevermanual\chapters\warning-icon.png" />
+    <Content Include="Images\liveforevermanual\chapters\watch-icon.png" />
+    <Content Include="Images\liveforevermanual\chapters\what-is-ageing-aging-biomakers.png" />
+    <Content Include="Images\liveforevermanual\chapters\what-is-ageing-DNA-structure.png" />
+    <Content Include="Images\liveforevermanual\chapters\what-is-ageing-epigenetic-alterations.png" />
+    <Content Include="Images\liveforevermanual\chapters\what-is-ageing-mitochondria.png" />
+    <Content Include="Images\liveforevermanual\chapters\what-is-ageing-mortality-rate-by-age.png" />
+    <Content Include="Images\liveforevermanual\chapters\what-is-ageing-telomeres.png" />
+    <Content Include="Images\liveforevermanual\chapters\with-young-mind-and-body.png" />
+    <Content Include="Images\liveforevermanual\chapters\x-prize-logo.png" />
+    <Content Include="Images\liveforevermanual\cover-6x9-back.jpg" />
+    <Content Include="Images\liveforevermanual\cover-6x9-back.png" />
+    <Content Include="Images\liveforevermanual\cover-6x9-front.jpg" />
+    <Content Include="Images\liveforevermanual\how-to-use-the-tips.png" />
+    <Content Include="Images\liveforevermanual\tips\air-pollution-location.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\air-travel.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\alcohol.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\aluminium-cookware.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\artificial-sweetener.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\aspirin-after-stroke.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\aspirin-daily.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\aspirin.jpg" />
+    <Content Include="Images\liveforevermanual\tips\biological-age.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\blood-donation.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\blood-pressure.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\blood-test.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\caffeine.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\calorie-restriction.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\car-safety-standards.png" />
+    <Content Include="Images\liveforevermanual\tips\car-safety-technology.png" />
+    <Content Include="Images\liveforevermanual\tips\carbon-monoxide.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\chillis.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\chocolate-bar.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\chocolate-mug.jpg" />
+    <Content Include="Images\liveforevermanual\tips\coq10.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\cryonics.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\cryotherapy.jpg" />
+    <Content Include="Images\liveforevermanual\tips\cycle-safety.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\dangerous-sports.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\defibrillator.jpg" />
+    <Content Include="Images\liveforevermanual\tips\defibrillators.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\dental-health.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\dna-sequencing.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\dog-ownership.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\donate-lifespan-sens-logos.png" />
+    <Content Include="Images\liveforevermanual\tips\donate.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\drink-temperature.png" />
+    <Content Include="Images\liveforevermanual\tips\driving-alert.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\drowning-prevention.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\exercise-aerobic.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\exercise-running.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\exercise-weightlifting.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\fermented-vegetables.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\fire-safety.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\flu-shot.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\food-hygiene.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\fresh-air.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\fruit-veg.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\garlic.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\hand-hygiene.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\health-checks.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\holiday-safety.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\hyperbaric-oxygen-therapy.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\indoor-air-pollution.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\infinity-side-300DPI-720x1040-with-border.jpg" />
+    <Content Include="Images\liveforevermanual\tips\infinity-side-300DPI-720x1040.jpg" />
+    <Content Include="Images\liveforevermanual\tips\laughter.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\lithium.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\low-temperature-cooking.jpg" />
+    <Content Include="Images\liveforevermanual\tips\massage.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\meditation.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\metformin.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\milk.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\mind-upload.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\motorbike-safety.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\natural-disaster.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\nicotinamide-riboside.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\nuts.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\pandemics.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\pescatarian.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\Peter-Thiel.jpg" />
+    <Content Include="Images\liveforevermanual\tips\phosphatidylcholine.jpg" />
+    <Content Include="Images\liveforevermanual\tips\placeholder-left.jpg" />
+    <Content Include="Images\liveforevermanual\tips\placeholder-right.jpg" />
+    <Content Include="Images\liveforevermanual\tips\placeholder.jpg" />
+    <Content Include="Images\liveforevermanual\tips\prepping.png" />
+    <Content Include="Images\liveforevermanual\tips\probiotics.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\processed-foods.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\radiation-hormesis.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\radon.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\raise-awareness.png" />
+    <Content Include="Images\liveforevermanual\tips\rapamycin.png" />
+    <Content Include="Images\liveforevermanual\tips\reading.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\recreational-drugs.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\relationships.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\resveratrol.png" />
+    <Content Include="Images\liveforevermanual\tips\salt.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\sauna.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\sedentary-behaviour.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\self-defence.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\senescent-cells.jpg" />
+    <Content Include="Images\liveforevermanual\tips\sleep-duration.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\sleep-position.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\smoking.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\speak-another-language.png" />
+    <Content Include="Images\liveforevermanual\tips\statins.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\stem-cells.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\stress.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\sugar.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\sunbeds.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\tattoos.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\telomeres.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\trees.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\turmeric.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\visual-checks.png" />
+    <Content Include="Images\liveforevermanual\tips\vitamin-D.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\vitamin-E.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\volunteering.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\weight.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\wholegrains.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\work-commuting.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\work-control.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\work-long-hours.jpeg" />
+    <Content Include="Images\liveforevermanual\tips\work-occupation.png" />
+    <Content Include="Images\liveforevermanual\tips\young-blood.jpeg" />
+    <Content Include="Images\logo-AMP.png" />
+    <Content Include="Images\longevity-healthcare\longevity-healthcare-background.jpg" />
+    <Content Include="Images\longevity-healthcare\longevity-healthcare-banner.jpg" />
+    <Content Include="Images\longevity-healthcare\longevity-healthcare-news.jpg" />
+    <Content Include="Images\longevity-healthcare\longevity-healthcare.jpg" />
+    <Content Include="Images\medical-technology\medical-technology-banner.jpg" />
+    <Content Include="Images\members\liveforeverclub-banner-membership.jpg" />
+    <Content Include="Images\members\want-to-live-forever-join-the-club.jpg" />
+    <Content Include="Images\mental-health\mental-health-news.jpg" />
+    <Content Include="Images\mental-health\mental-health.jpg" />
+    <Content Include="Images\mental-well-being\samaritans-talk-to-us.jpg" />
+    <Content Include="Images\metformin\metformin-background.jpg" />
+    <Content Include="Images\metformin\metformin-banner.jpg" />
+    <Content Include="Images\metformin\metformin-news.jpg" />
+    <Content Include="Images\metformin\metformin.jpg" />
+    <Content Include="Images\microbiome\microbiome-background.jpg" />
+    <Content Include="Images\microbiome\microbiome-news.jpg" />
+    <Content Include="Images\microbiome\microbiome.jpg" />
+    <Content Include="Images\microbiome\mitochondria-banner.jpg" />
+    <Content Include="Images\mind-upload\visions-of-immortality-apple-2020-660x495.jpg" />
+    <Content Include="Images\mind-upload\visions-of-immortality-apple-2020.jpg" />
+    <Content Include="Images\mitochondria\mitochondria-background.jpg" />
+    <Content Include="Images\mitochondria\mitochondria-banner.jpg" />
+    <Content Include="Images\mitochondria\mitochondria-news.jpg" />
+    <Content Include="Images\mitochondria\mitochondria.jpg" />
+    <Content Include="Images\multiple-sclerosis%28MS%29\multiple-sclerosis-banner.jpg" />
+    <Content Include="Images\multiple-sclerosis%28MS%29\multiple-sclerosis-news.jpg" />
+    <Content Include="Images\multiple-sclerosis%28MS%29\multiple-sclerosis.jpg" />
+    <Content Include="Images\musculoskeletal\musculoskeletal-background.jpg" />
+    <Content Include="Images\musculoskeletal\musculoskeletal-banner.jpg" />
+    <Content Include="Images\musculoskeletal\musculoskeletal-news.jpg" />
+    <Content Include="Images\musculoskeletal\musculoskeletal.jpg" />
+    <Content Include="Images\nanobots\nanobots-background.jpg" />
+    <Content Include="Images\nanobots\nanobots-banner.jpg" />
+    <Content Include="Images\nanobots\nanobots-news.jpg" />
+    <Content Include="Images\nanobots\nanobots.jpg" />
+    <Content Include="Images\nanobots\squeezing-red-blood-cells-onto-e-coli-creates-a-bio-delivery-system.jpg" />
+    <Content Include="Images\natural-disasters\natural-disasters-background.jpg" />
+    <Content Include="Images\natural-disasters\natural-disasters-banner.jpg" />
+    <Content Include="Images\natural-disasters\natural-disasters-news.jpg" />
+    <Content Include="Images\natural-disasters\natural-disasters.jpg" />
+    <Content Include="Images\natural-disasters\not-easy-to-blow-up-an-asteroid.jpg" />
+    <Content Include="Images\nervous-system\nervous-system-background.jpg" />
+    <Content Include="Images\nervous-system\nervous-system-banner.jpg" />
+    <Content Include="Images\nervous-system\nervous-system-news.jpg" />
+    <Content Include="Images\nervous-system\nervous-system.jpg" />
+    <Content Include="Images\NMN\NMN-background.jpg" />
+    <Content Include="Images\NMN\NMN-banner.jpg" />
+    <Content Include="Images\NMN\NMN-news.jpg" />
+    <Content Include="Images\NMN\NMN-thumb.jpg" />
+    <Content Include="Images\NMN\NMN.jpg" />
+    <Content Include="Images\organisation\BAM-clothing-logo.jpg" />
+    <Content Include="Images\organisation\biodane-pharma-logo.jpg" />
+    <Content Include="Images\organisation\health-mate-uk-logo.png" />
+    <Content Include="Images\organisation\prime-fifty-logo.png" />
+    <Content Include="Images\organisation\savvy-foods-logo.jpg" />
+    <Content Include="Images\organisation\trainingpeaks-logo.jpg" />
+    <Content Include="Images\organisation\whole-food-earth-logo.png" />
+    <Content Include="Images\osteoarthritis\osteoarthritis-background.jpg" />
+    <Content Include="Images\osteoarthritis\osteoarthritis-banner.jpg" />
+    <Content Include="Images\osteoarthritis\osteoarthritis-news.jpg" />
+    <Content Include="Images\osteoarthritis\osteoarthritis.jpg" />
+    <Content Include="Images\pandemics\Doomsday-virus-it-could-happen-to-us-in-the-blink-of-an-eye.png" />
+    <Content Include="Images\precision-medicine\precision-medicine-spot-the-cancer.png" />
+    <Content Include="Images\profiles\adrian-cull-profile-868x1024.jpg" />
+    <Content Include="Images\profiles\adrian-cull-profile.jpg" />
+    <Content Include="Images\quantified-self\daily-fluctations-fat.png" />
+    <Content Include="Images\quantified-self\daily-fluctations-weight.png" />
+    <Content Include="Images\quantified-self\fat-percentage-3-months.png" />
+    <Content Include="Images\quantified-self\fat-percentage-5-months.png" />
+    <Content Include="Images\quantified-self\jawbone-up3-235x122.png" />
+    <Content Include="Images\quantified-self\miband-235x139.png" />
+    <Content Include="Images\quantified-self\Sony-SmartBand-2-235x166.png" />
+    <Content Include="Images\regenerative-medicine\Minisynthetic-organism-on-chip.jpg" />
+    <Content Include="Images\rejuvenation\rat-rejuvenation-katcher-2020\Age-Reversal-in-Mammals.jpg" />
+    <Content Include="Images\rejuvenation\rat-rejuvenation-katcher-2020\grip-strength.png" />
+    <Content Include="Images\rejuvenation\rat-rejuvenation-katcher-2020\rat-rejuvenation-biomarkers.jpg" />
+    <Content Include="Images\rejuvenation\rejuvenation-banner.jpg" />
+    <Content Include="Images\rejuvenation\rejuvenation-news.jpg" />
+    <Content Include="Images\rejuvenation\rejuvenation.jpg" />
+    <Content Include="Images\respiratory-disease\PM25-3x-more-deaths.jpg" />
+    <Content Include="Images\robotic-surgery\cobots-could-solve-caring-crisis-as-population-ages.jpg" />
+    <Content Include="Images\robotic-surgery\robotic-surgery-background-pepper.jpg" />
+    <Content Include="Images\robotic-surgery\robotic-surgery-background.jpg" />
+    <Content Include="Images\robotic-surgery\robotic-surgery-banner.jpg" />
+    <Content Include="Images\robotic-surgery\robotic-surgery-news.jpg" />
+    <Content Include="Images\robotic-surgery\robotic-surgery.jpg" />
+    <Content Include="Images\search-results-banner.jpg" />
+    <Content Include="Images\sedentary-behaviour\70-000-uk-deaths-a-year-caused-by-too-much-sitting.jpg" />
+    <Content Include="Images\sedentary-behaviour\sedentary-behaviour-background.jpg" />
+    <Content Include="Images\sedentary-behaviour\sedentary-behaviour.jpg" />
+    <Content Include="Images\senescent-cells\senescent-cells-background.jpg" />
+    <Content Include="Images\senescent-cells\senescent-cells-banner.jpg" />
+    <Content Include="Images\senescent-cells\senescent-cells-news.jpg" />
+    <Content Include="Images\senescent-cells\senescent-cells-NIEHS%28NIH%29.jpg" />
+    <Content Include="Images\senescent-cells\senescent-cells.jpg" />
+    <Content Include="Images\SENS\aubrey-de-grey-background.jpg" />
+    <Content Include="Images\SENS\aubrey-de-grey-shortens-timeframe-for-human-rejuvenation.jpg" />
+    <Content Include="Images\shop\books\live-forever-manual-2018-stack-thumb.JPG" />
+    <Content Include="Images\shop\books\live-forever-manual-2018-stack.JPG" />
+    <Content Include="Images\shop\coming-soon-main.jpg" />
+    <Content Include="Images\shop\coming-soon-thumb.jpg" />
+    <Content Include="Images\shop\devices\plumelabs-flow-v1-angle-thumb.JPG" />
+    <Content Include="Images\shop\devices\plumelabs-flow-v1-angle.JPG" />
+    <Content Include="Images\shop\devices\plumelabs-flow-v1-front-thumb.JPG" />
+    <Content Include="Images\shop\devices\plumelabs-flow-v1-front.JPG" />
+    <Content Include="Images\shop\hats\hat-beanie-3m-grey-thumb.JPG" />
+    <Content Include="Images\shop\hats\hat-beanie-3m-grey.JPG" />
+    <Content Include="Images\shop\liveforeverclub-banner-shop.jpg" />
+    <Content Include="Images\shop\membership\longevist-membership-thumb.jpg" />
+    <Content Include="Images\shop\membership\longevist-membership.jpg" />
+    <Content Include="Images\shop\supplements\NMN-thumb.jpg" />
+    <Content Include="Images\shop\supplements\NMN.JPG" />
+    <Content Include="Images\shop\t-shirts\t-shirt-unisex-grey-lfc-logo-thumb.JPG" />
+    <Content Include="Images\shop\t-shirts\t-shirt-unisex-grey-lfc-logo.JPG" />
+    <Content Include="Images\singularity\singularity-banner.jpg" />
+    <Content Include="Images\singularity\singularity-news.jpg" />
+    <Content Include="Images\singularity\singularity.jpg" />
+    <Content Include="Images\sleep\sleep-background.jpg" />
+    <Content Include="Images\sleep\sleep-banner.jpg" />
+    <Content Include="Images\sleep\sleep-news.jpg" />
+    <Content Include="Images\sleep\sleep.jpg" />
+    <Content Include="Images\smoking\Does-no-smoking-mean-no-vaping.jpg" />
+    <Content Include="Images\smoking\no-smoking-no-vaping.jpg" />
+    <Content Include="Images\smoking\smoking&amp;vaping.jpg" />
+    <Content Include="Images\smoking\smoking-background.jpg" />
+    <Content Include="Images\smoking\smoking-news.jpg" />
+    <Content Include="Images\social-card-backgrounds\result.jpg" />
+    <Content Include="Images\space-colonisation\space-colonisation-background.jpg" />
+    <Content Include="Images\space-colonisation\space-colonisation-banner.jpg" />
+    <Content Include="Images\space-colonisation\space-colonisation-news.jpg" />
+    <Content Include="Images\space-colonisation\space-colonisation.jpg" />
+    <Content Include="Images\stem-cells\stem-cell-news.jpg" />
+    <Content Include="Images\stem-cells\stem-cells-background.jpg" />
+    <Content Include="Images\stem-cells\stem-cells-banner.jpg" />
+    <Content Include="Images\stem-cells\stem-cells.jpg" />
+    <Content Include="Images\sugar\sugar-background.jpg" />
+    <Content Include="Images\sugar\sugar-banner.jpg" />
+    <Content Include="Images\sugar\sugar-news.jpg" />
+    <Content Include="Images\sugar\sugar.jpg" />
+    <Content Include="Images\supplements\david-sinclair-regime.jpg" />
+    <Content Include="Images\supplements\IV-therapy-no-proof-it-works.jpg" />
+    <Content Include="Images\supplements\no-life-extension-seen-people-taking-supplements.jpg" />
+    <Content Include="Images\supplements\nuchido-nad-discount-code.jpg" />
+    <Content Include="Images\supplements\supplements-background.jpg" />
+    <Content Include="Images\supplements\supplements-banner.jpg" />
+    <Content Include="Images\supplements\supplements-news.jpg" />
+    <Content Include="Images\supplements\supplements.jpg" />
+    <Content Include="Images\survival\survival-banner.jpg" />
+    <Content Include="Images\Synthetic-Biology\genome-project-write-could-synthesize-entire-human-genome.jpg" />
+    <Content Include="Images\Synthetic-Biology\synthetic-biology-background.jpg" />
+    <Content Include="Images\Synthetic-Biology\synthetic-biology-banner.jpg" />
+    <Content Include="Images\Synthetic-Biology\synthetic-biology-news.jpg" />
+    <Content Include="Images\Synthetic-Biology\synthetic-biology.jpg" />
+    <Content Include="Images\telomeres\new-telomeres-lengthening-treatment-space-flight.jpg" />
+    <Content Include="Images\telomeres\telomeres-background.jpg" />
+    <Content Include="Images\telomeres\telomeres-banner.jpg" />
+    <Content Include="Images\telomeres\telomeres-news.jpg" />
+    <Content Include="Images\telomeres\telomeres.jpg" />
+    <Content Include="Images\therapy\3-Key-Reasons-for-Having-a-Massage.png" />
+    <Content Include="Images\therapy\sauna-frequency.png" />
+    <Content Include="Images\travel\volvo-speed-limit.jpg" />
+    <Content Include="Images\vision\EPFL-TelescopicContactLens-300x232.jpeg" />
+    <Content Include="Images\vision\EPFL-TelescopicContactLens.jpeg" />
+    <Content Include="Images\WebPageBanner\augmentation.jpg" />
+    <Content Include="Images\WebPageBanner\big-data-banner.jpg" />
+    <Content Include="Images\WebPageBanner\health.jpg" />
+    <Content Include="Images\WebPageBanner\life-extension.jpg" />
+    <Content Include="Images\WebPageBanner\liveforeverclub.jpg" />
+    <Content Include="Images\WebPageBanner\medical-technology.jpg" />
+    <Content Include="Images\WebPageBanner\sleep-banner.jpg" />
+    <Content Include="Images\WebPageBanner\supplements-banner.jpg" />
+    <Content Include="Images\WebPageBanner\survival.jpg" />
+    <Content Include="Images\WebPageBanner\test-banner.jpg" />
+    <Content Include="Images\young-blood\ambrosia-plasma-relaunch-clinical-trial-results.jpg" />
+    <Content Include="Images\young-blood\ambrosia-RIP.jpg" />
+    <Content Include="Images\young-blood\josh-mitteldorf-stakes-his-reputation-on-major-rejuvenation-in-a-mammal.jpg" />
+    <Content Include="Images\young-blood\young-blood-background.jpg" />
+    <Content Include="Images\young-blood\young-blood-banner.jpg" />
+    <Content Include="Images\young-blood\young-blood-news.jpg" />
+    <Content Include="Images\young-blood\young-blood.jpg" />
+    <Content Include="iTextSharp_library_info.txt" />
+    <Content Include="members-only\404.jpg" />
+    <Content Include="members-only\ttt.jpg" />
+    <Content Include="Monitor\helloh.html" />
+    <Content Include="pgs\css\bootstrap.css" />
+    <Content Include="pgs\css\bootstrap.min.css" />
+    <Content Include="pgs\css\font-awesome\all.css" />
+    <Content Include="pgs\css\font-awesome\all.min.css" />
+    <Content Include="pgs\css\stellarnav.css" />
+    <Content Include="pgs\css\stellarnav.min.css" />
+    <Content Include="pgs\css\style.css" />
+    <Content Include="pgs\fonts\fa-brands-400.svg" />
+    <Content Include="pgs\fonts\fa-regular-400.svg" />
+    <Content Include="pgs\fonts\fa-solid-900.svg" />
+    <Content Include="pgs\images\add-img-02.png" />
+    <Content Include="pgs\images\add-img-03.jpg" />
+    <Content Include="pgs\images\add-img-04.jpg" />
+    <Content Include="pgs\images\add-img.jpg" />
+    <Content Include="pgs\images\amazon-add.png" />
+    <Content Include="pgs\images\amazon-btn-img.png" />
+    <Content Include="pgs\images\banner-img1.jpg" />
+    <Content Include="pgs\images\blog-img01.jpg" />
+    <Content Include="pgs\images\blog-img02.jpg" />
+    <Content Include="pgs\images\blog-img03.jpg" />
+    <Content Include="pgs\images\coming-soon-thumb.jpg" />
+    <Content Include="pgs\images\favicon.ico" />
+    <Content Include="pgs\images\img-01.jpg" />
+    <Content Include="pgs\images\lfc-logo.png" />
+    <Content Include="pgs\images\logo.png" />
+    <Content Include="pgs\images\product-01.jpg" />
+    <Content Include="pgs\images\product-02.jpg" />
+    <Content Include="pgs\images\resource-icon1.png" />
+    <Content Include="pgs\images\resource-icon2.png" />
+    <Content Include="pgs\images\resource-icon3.png" />
+    <Content Include="pgs\images\resource-icon4.png" />
+    <Content Include="pgs\images\resource-icon5.png" />
+    <Content Include="pgs\images\resource-icon6.png" />
+    <Content Include="pgs\images\resource-icon7.png" />
+    <Content Include="pgs\images\resource-icon8.png" />
+    <Content Include="pgs\js\all.js" />
+    <Content Include="pgs\js\bootstrap.js" />
+    <Content Include="pgs\js\bootstrap.min.js" />
+    <Content Include="pgs\js\jquery-3.5.1.min.js" />
+    <Content Include="pgs\js\stellarnav.js" />
+    <Content Include="pgs\js\stellarnav.min.js" />
+    <Content Include="Scripts\App\common.js" />
+    <Content Include="Scripts\App\confirmation.js" />
+    <Content Include="Scripts\App\Core\buffer-client.js" />
+    <Content Include="Scripts\App\Core\notify-msg.js" />
+    <Content Include="Scripts\App\datepicker.js" />
+    <Content Include="Scripts\App\modalpopup.js" />
+    <Content Include="Scripts\App\navbar-ads.js" />
+    <Content Include="Scripts\App\paypal-integration.js" />
+    <Content Include="Scripts\App\summernote.js" />
+    <Content Include="Scripts\App\table-sort.js" />
+    <Content Include="Scripts\App\tiny-mce.js" />
+    <Content Include="Scripts\App\leaveDirtyForm.js" />
+    <Content Include="Scripts\App\tooltip.js" />
+    <Content Include="Scripts\App\Views\add-edit-article.js" />
+    <Content Include="Scripts\App\Views\add-edit-blog-post.js" />
+    <Content Include="Scripts\App\Views\add-edit-resource.js" />
+    <Content Include="Scripts\App\Views\add-edit-shop-product.js" />
+    <Content Include="Scripts\App\Views\add-edit-topic.js" />
+    <Content Include="Scripts\App\Views\add-edit-webpage.js" />
+    <Content Include="Scripts\App\Views\admin-list-blog-post.js" />
+    <Content Include="Scripts\App\Views\customAutocomplete.js" />
+    <Content Include="Scripts\App\Views\search-page.js" />
+    <Content Include="Scripts\App\Views\subject-resources.js" />
+    <Content Include="Scripts\App\Views\subjectnews.js" />
+    <Content Include="Scripts\App\Views\tagsControl.js" />
+    <Content Include="Scripts\App\Views\social-dashboard.js" />
+    <Content Include="Scripts\bootstrap-notify.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\AdminManual\Views\web.config" />
+    <Content Include="Areas\AdminManual\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Blog\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Blog\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Blog\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Blog\_BlogsEditor.cshtml" />
+    <Content Include="Areas\Admin\Views\WebSite\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Social\Dashboard.cshtml" />
+    <Content Include="Areas\Admin\Views\Social\CreatePost.cshtml" />
+    <Content Include="Areas\Admin\Views\Social\_BufferPostEditor.cshtml" />
+    <Content Include="Areas\Admin\Views\GoLink\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\GoLink\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\GoLink\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\GoLink\_GoLinkEditor.cshtml" />
+    <Content Include="Areas\Admin\Views\GoLinkLog\Log.cshtml" />
+    <Content Include="Areas\Admin\Views\Resource\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Resource\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Resource\_ResourceEditor.cshtml" />
+    <Content Include="Areas\Admin\Views\Resource\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\WebPage\_WebPageEditor.cshtml" />
+    <Content Include="Areas\Admin\Views\Dev\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\WebPage\Editor.cshtml" />
+    <Content Include="Areas\Admin\Views\Dev\Editor.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shop\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shop\Product.cshtml" />
+    <Content Include="Areas\Admin\Views\Shop\Category.cshtml" />
+    <Content Include="Areas\Admin\Views\Shop\Orders.cshtml" />
+    <Content Include="Areas\Admin\Views\Auditlog\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shop\CreateProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\Shop\EditProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\Shop\_ShopProductEditor.cshtml" />
+    <Content Include="Areas\Admin\Views\Shop\CreateCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\Shop\EditCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\Shop\_ShopCategoryEditor.cshtml" />
+    <Content Include="Areas\Admin\Views\Shop\Options.cshtml" />
+    <Content Include="Areas\Admin\Views\Shop\_OptionsEditor.cshtml" />
+    <Content Include="Areas\Admin\Views\Shop\Order.cshtml" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
+    <Content Include="Content\Fonts\Goudy Old Style Regular.ttf" />
+    <Content Include="Content\Fonts\Calibri.ttf" />
+    <Content Include="Content\Fonts\Helvetica-Regular.ttf" />
+    <Content Include="pgs\fonts\fa-brands-400.eot" />
+    <Content Include="pgs\fonts\fa-brands-400.ttf" />
+    <Content Include="pgs\fonts\fa-brands-400.woff" />
+    <Content Include="pgs\fonts\fa-brands-400.woff2" />
+    <Content Include="pgs\fonts\fa-regular-400.eot" />
+    <Content Include="pgs\fonts\fa-regular-400.ttf" />
+    <Content Include="pgs\fonts\fa-regular-400.woff" />
+    <Content Include="pgs\fonts\fa-regular-400.woff2" />
+    <Content Include="pgs\fonts\fa-solid-900.eot" />
+    <Content Include="pgs\fonts\fa-solid-900.ttf" />
+    <Content Include="pgs\fonts\fa-solid-900.woff" />
+    <Content Include="pgs\fonts\fa-solid-900.woff2" />
+    <None Include="Properties\PublishProfiles\Elixir Dev Server.pubxml" />
+    <None Include="Properties\PublishProfiles\Elixir Live Server.pubxml" />
+    <None Include="Properties\PublishProfiles\Elixir Staging.pubxml" />
+    <None Include="Properties\PublishProfiles\LfcLocalDev.pubxml" />
+    <None Include="Properties\PublishProfiles\Local Testing.pubxml" />
+    <Content Include="Scripts\App\Views\social-create-post.js" />
+    <Content Include="robots.cmd" />
+    <None Include="Properties\PublishProfiles\LocalIISProfile.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\App\Views\webpage.js" />
+    <Content Include="Scripts\rxjs.min.js" />
+    <Content Include="Scripts\summernote\lang\summernote-ar-AR.js" />
+    <Content Include="Scripts\summernote\lang\summernote-bg-BG.js" />
+    <Content Include="Scripts\summernote\lang\summernote-ca-ES.js" />
+    <Content Include="Scripts\summernote\lang\summernote-cs-CZ.js" />
+    <Content Include="Scripts\summernote\lang\summernote-da-DK.js" />
+    <Content Include="Scripts\summernote\lang\summernote-de-DE.js" />
+    <Content Include="Scripts\summernote\lang\summernote-el-GR.js" />
+    <Content Include="Scripts\summernote\lang\summernote-es-ES.js" />
+    <Content Include="Scripts\summernote\lang\summernote-es-EU.js" />
+    <Content Include="Scripts\summernote\lang\summernote-fa-IR.js" />
+    <Content Include="Scripts\summernote\lang\summernote-fi-FI.js" />
+    <Content Include="Scripts\summernote\lang\summernote-fr-FR.js" />
+    <Content Include="Scripts\summernote\lang\summernote-gl-ES.js" />
+    <Content Include="Scripts\summernote\lang\summernote-he-IL.js" />
+    <Content Include="Scripts\summernote\lang\summernote-hr-HR.js" />
+    <Content Include="Scripts\summernote\lang\summernote-hu-HU.js" />
+    <Content Include="Scripts\summernote\lang\summernote-id-ID.js" />
+    <Content Include="Scripts\summernote\lang\summernote-it-IT.js" />
+    <Content Include="Scripts\summernote\lang\summernote-ja-JP.js" />
+    <Content Include="Scripts\summernote\lang\summernote-ko-KR.js" />
+    <Content Include="Scripts\summernote\lang\summernote-lt-LT.js" />
+    <Content Include="Scripts\summernote\lang\summernote-lt-LV.js" />
+    <Content Include="Scripts\summernote\lang\summernote-mn-MN.js" />
+    <Content Include="Scripts\summernote\lang\summernote-nb-NO.js" />
+    <Content Include="Scripts\summernote\lang\summernote-nl-NL.js" />
+    <Content Include="Scripts\summernote\lang\summernote-pl-PL.js" />
+    <Content Include="Scripts\summernote\lang\summernote-pt-BR.js" />
+    <Content Include="Scripts\summernote\lang\summernote-pt-PT.js" />
+    <Content Include="Scripts\summernote\lang\summernote-ro-RO.js" />
+    <Content Include="Scripts\summernote\lang\summernote-ru-RU.js" />
+    <Content Include="Scripts\summernote\lang\summernote-sk-SK.js" />
+    <Content Include="Scripts\summernote\lang\summernote-sl-SI.js" />
+    <Content Include="Scripts\summernote\lang\summernote-sr-RS-Latin.js" />
+    <Content Include="Scripts\summernote\lang\summernote-sr-RS.js" />
+    <Content Include="Scripts\summernote\lang\summernote-sv-SE.js" />
+    <Content Include="Scripts\summernote\lang\summernote-ta-IN.js" />
+    <Content Include="Scripts\summernote\lang\summernote-th-TH.js" />
+    <Content Include="Scripts\summernote\lang\summernote-tr-TR.js" />
+    <Content Include="Scripts\summernote\lang\summernote-uk-UA.js" />
+    <Content Include="Scripts\summernote\lang\summernote-uz-UZ.js" />
+    <Content Include="Scripts\summernote\lang\summernote-vi-VN.js" />
+    <Content Include="Scripts\summernote\lang\summernote-zh-CN.js" />
+    <Content Include="Scripts\summernote\lang\summernote-zh-TW.js" />
+    <Content Include="Scripts\summernote\plugin\databasic\summernote-ext-databasic.css" />
+    <Content Include="Scripts\summernote\plugin\databasic\summernote-ext-databasic.js" />
+    <Content Include="Scripts\summernote\plugin\filebrowser\filebrowser.aspx" />
+    <Content Include="Scripts\summernote\plugin\filebrowser\summernote-ext-browser.js" />
+    <Content Include="Scripts\summernote\plugin\hello\summernote-ext-hello.js" />
+    <Content Include="Scripts\summernote\plugin\specialchars\summernote-ext-specialchars.js" />
+    <Content Include="Scripts\summernote\summernote-bs4.css" />
+    <Content Include="Scripts\summernote\summernote-bs4.js" />
+    <Content Include="Scripts\summernote\summernote-bs4.min.js" />
+    <Content Include="Scripts\summernote\summernote-custom.css">
+      <DependentUpon>summernote-custom.scss</DependentUpon>
+    </Content>
+    <Content Include="Scripts\summernote\summernote-custom.min.css">
+      <DependentUpon>summernote-custom.css</DependentUpon>
+    </Content>
+    <Content Include="Scripts\summernote\summernote-lite.css" />
+    <Content Include="Scripts\summernote\summernote-lite.js" />
+    <Content Include="Scripts\summernote\summernote-lite.min.js" />
+    <Content Include="Scripts\summernote\summernote.css" />
+    <Content Include="Scripts\summernote\summernote.js" />
+    <Content Include="Scripts\summernote\summernote.min.js" />
+    <Content Include="Scripts\tinymce\jquery.tinymce.min.js" />
+    <Content Include="Scripts\tinymce\license.txt" />
+    <Content Include="Scripts\tinymce\plugins\advlist\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\advlist\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\anchor\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\anchor\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\autolink\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\autolink\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\autoresize\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\autoresize\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\autosave\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\autosave\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\bbcode\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\bbcode\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\charmap\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\charmap\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\codesample\css\prism.css" />
+    <Content Include="Scripts\tinymce\plugins\codesample\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\codesample\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\code\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\code\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\colorpicker\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\colorpicker\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\css\dialog.css" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\buttons.png" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\icons.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\items.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\menu_arrow.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\menu_check.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\progress.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\tabs.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\tiny_mce_popup.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\utils\editable_selects.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\utils\form_utils.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\utils\mctabs.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\utils\validate.js" />
+    <Content Include="Scripts\tinymce\plugins\contextmenu\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\contextmenu\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\directionality\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\directionality\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-cool.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-cry.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-embarassed.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-foot-in-mouth.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-frown.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-innocent.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-kiss.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-laughing.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-money-mouth.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-sealed.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-smile.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-surprised.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-tongue-out.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-undecided.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-wink.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-yell.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\fullpage\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\fullpage\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\fullscreen\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\fullscreen\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\help\img\logo.png" />
+    <Content Include="Scripts\tinymce\plugins\help\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\help\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\hr\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\hr\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\imagetools\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\imagetools\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\image\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\image\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\importcss\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\importcss\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\insertdatetime\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\insertdatetime\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\legacyoutput\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\legacyoutput\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\link\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\link\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\lists\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\lists\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\media\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\media\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\nonbreaking\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\nonbreaking\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\noneditable\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\noneditable\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\pagebreak\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\pagebreak\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\paste\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\paste\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\preview\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\preview\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\print\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\print\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\save\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\save\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\searchreplace\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\searchreplace\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\spellchecker\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\spellchecker\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\tabfocus\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\tabfocus\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\table\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\table\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\template\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\template\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\textcolor\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\textcolor\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\textpattern\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\textpattern\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\toc\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\toc\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\css\visualblocks.css" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\visualchars\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\visualchars\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\wordcount\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\wordcount\plugin.min.js" />
+    <Content Include="Scripts\tinymce\skins\lightgray\content.inline.min.css" />
+    <Content Include="Scripts\tinymce\skins\lightgray\content.min.css" />
+    <Content Include="Scripts\tinymce\skins\lightgray\content.mobile.min.css" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.svg" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.svg" />
+    <Content Include="Scripts\tinymce\skins\lightgray\img\anchor.gif" />
+    <Content Include="Scripts\tinymce\skins\lightgray\img\loader.gif" />
+    <Content Include="Scripts\tinymce\skins\lightgray\img\object.gif" />
+    <Content Include="Scripts\tinymce\skins\lightgray\img\trans.gif" />
+    <Content Include="Scripts\tinymce\skins\lightgray\skin.min.css" />
+    <Content Include="Scripts\tinymce\skins\lightgray\skin.mobile.min.css" />
+    <Content Include="Scripts\tinymce\themes\inlite\theme.js" />
+    <Content Include="Scripts\tinymce\themes\inlite\theme.min.js" />
+    <Content Include="Scripts\tinymce\themes\mobile\theme.js" />
+    <Content Include="Scripts\tinymce\themes\mobile\theme.min.js" />
+    <Content Include="Scripts\tinymce\themes\modern\theme.js" />
+    <Content Include="Scripts\tinymce\themes\modern\theme.min.js" />
+    <Content Include="Scripts\tinymce\tinymce.js" />
+    <Content Include="Scripts\tinymce\tinymce.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Styles\Common.css">
+      <DependentUpon>Common.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\Common.min.css">
+      <DependentUpon>Common.css</DependentUpon>
+    </Content>
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.woff" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.ttf" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.eot" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.woff" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.ttf" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.eot" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-mobile.woff" />
+    <Content Include="Scripts\tinymce\langs\readme.md" />
+    <Content Include="Scripts\summernote\font\summernote.eot" />
+    <Content Include="Scripts\summernote\font\summernote.ttf" />
+    <Content Include="Scripts\summernote\font\summernote.woff" />
+    <Content Include="Scripts\summernote\summernote-custom.scss" />
+    <None Include="Styles\Components\Controls\Dropdown.scss" />
+    <Content Include="Styles\Components\ControlsTable.css">
+      <DependentUpon>ControlsTable.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\Components\ControlsTable.min.css">
+      <DependentUpon>ControlsTable.css</DependentUpon>
+    </Content>
+    <Content Include="Styles\Components\Controls\Dropdown.css">
+      <DependentUpon>Dropdown.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\Components\Controls\Dropdown.min.css">
+      <DependentUpon>Dropdown.css</DependentUpon>
+    </Content>
+    <Content Include="Styles\Components\Controls\Forms.css">
+      <DependentUpon>Forms.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\Components\Controls\Forms.min.css">
+      <DependentUpon>Forms.css</DependentUpon>
+    </Content>
+    <Content Include="Styles\Components\Controls\Inputs.css">
+      <DependentUpon>Inputs.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\Components\Controls\Inputs.min.css">
+      <DependentUpon>Inputs.css</DependentUpon>
+    </Content>
+    <Content Include="Styles\Components\DataGrid.css">
+      <DependentUpon>DataGrid.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\Components\DataGrid.min.css">
+      <DependentUpon>DataGrid.css</DependentUpon>
+    </Content>
+    <Content Include="Styles\Components\DataGrid.scss" />
+    <Content Include="Styles\Components\ControlsTable.scss" />
+    <Content Include="Styles\Components\LatestArticle.css">
+      <DependentUpon>LatestArticle.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\Components\LatestArticle.min.css">
+      <DependentUpon>LatestArticle.css</DependentUpon>
+    </Content>
+    <Content Include="Styles\Components\Navbar.css">
+      <DependentUpon>Navbar.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\Components\Navbar.min.css">
+      <DependentUpon>Navbar.css</DependentUpon>
+    </Content>
+    <Content Include="Styles\Icons\font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\HELP-US-OUT.txt" />
+    <Content Include="Styles\Layout\Banner.css">
+      <DependentUpon>Banner.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\Layout\Banner.min.css">
+      <DependentUpon>Banner.css</DependentUpon>
+    </Content>
+    <Content Include="Styles\Components\Navbar.scss" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\less\animated.less" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\less\core.less" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\less\fixed-width.less" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\less\font-awesome.less" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\less\icons.less" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\less\larger.less" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\less\list.less" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\less\mixins.less" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\less\path.less" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\less\screen-reader.less" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\less\stacked.less" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\less\variables.less" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\scss\_animated.scss" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\scss\_core.scss" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\scss\_icons.scss" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\scss\_larger.scss" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\scss\_list.scss" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\scss\_mixins.scss" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\scss\_path.scss" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\scss\_stacked.scss" />
+    <Content Include="Styles\Icons\font-awesome-4.7.0\scss\_variables.scss" />
+    <Content Include="Styles\Components\Controls\Forms.scss" />
+    <Content Include="Styles\Components\LatestArticle.scss" />
+    <Content Include="Styles\Components\Controls\Inputs.scss" />
+    <None Include="Styles\Layout\Footer.scss" />
+    <Content Include="Styles\Layout\Footer.css">
+      <DependentUpon>Footer.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\Layout\Footer.min.css">
+      <DependentUpon>Footer.css</DependentUpon>
+    </Content>
+    <Content Include="Styles\Layout\NavbarAds.css">
+      <DependentUpon>NavbarAds.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\Layout\NavbarAds.min.css">
+      <DependentUpon>NavbarAds.css</DependentUpon>
+    </Content>
+    <Content Include="Styles\Layout\NavbarAds.scss" />
+    <None Include="Styles\Pages\Article.scss" />
+    <None Include="Styles\Pages\Blog.scss" />
+    <Content Include="Styles\Libraries\animate.min.css" />
+    <Content Include="Styles\Libraries\bootstrap.min.css" />
+    <Content Include="Styles\Libraries\fa-regular.min.css" />
+    <Content Include="Styles\Libraries\jquery-ui.css" />
+    <Content Include="Styles\loading.css" />
+    <Content Include="Styles\manual.css" />
+    <Content Include="Styles\Pages\Article.css">
+      <DependentUpon>Article.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\Pages\Article.min.css">
+      <DependentUpon>Article.css</DependentUpon>
+    </Content>
+    <Content Include="Styles\Pages\Blog.css">
+      <DependentUpon>Blog.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\Pages\Blog.min.css">
+      <DependentUpon>Blog.css</DependentUpon>
+    </Content>
+    <Content Include="Styles\Pages\Contents.css">
+      <DependentUpon>Contents.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\Pages\Contents.min.css">
+      <DependentUpon>Contents.css</DependentUpon>
+    </Content>
+    <Content Include="Styles\Pages\Contents.scss" />
+    <Content Include="Styles\Layout\Banner.scss" />
+    <Content Include="Styles\Components\Controls\List.scss" />
+    <None Include="Styles\Pages\Main.scss" />
+    <None Include="Styles\Pages\BookSections.scss" />
+    <Content Include="Styles\Libraries\jquery-ui.min.css" />
+    <Content Include="Styles\Pages\BookSections.css">
+      <DependentUpon>BookSections.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\Pages\BookSections.min.css">
+      <DependentUpon>BookSections.css</DependentUpon>
+    </Content>
+    <Content Include="Styles\Pages\Main.css">
+      <DependentUpon>Main.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\Pages\Main.min.css">
+      <DependentUpon>Main.css</DependentUpon>
+    </Content>
+    <Content Include="Styles\Pages\Page.css">
+      <DependentUpon>Page.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\Pages\Page.min.css">
+      <DependentUpon>Page.css</DependentUpon>
+    </Content>
+    <Content Include="Styles\Pages\Shop.css" />
+    <None Include="Styles\Pages\SocialDashboard.scss" />
+    <Content Include="Styles\Pages\SocialDashboard.css">
+      <DependentUpon>SocialDashboard.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\Pages\SocialDashboard.min.css">
+      <DependentUpon>SocialDashboard.css</DependentUpon>
+    </Content>
+    <Content Include="Styles\Pages\SubjectNews.css">
+      <DependentUpon>SubjectNews.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\Pages\SubjectNews.min.css">
+      <DependentUpon>SubjectNews.css</DependentUpon>
+    </Content>
+    <Content Include="Styles\Pages\SubjectResources.css" />
+    <Content Include="Styles\Pages\Topics.css">
+      <DependentUpon>Topics.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\Pages\Topics.min.css">
+      <DependentUpon>Topics.css</DependentUpon>
+    </Content>
+    <Content Include="Styles\Pages\SubjectNews.scss" />
+    <None Include="Styles\WebPagePage.scss" />
+    <Content Include="Styles\WebPagePage.css">
+      <DependentUpon>WebPagePage.scss</DependentUpon>
+    </Content>
+    <Content Include="Styles\WebPagePage.min.css">
+      <DependentUpon>WebPagePage.css</DependentUpon>
+    </Content>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Styles\Common.scss" />
+    <Content Include="Views\Shared\_SectionEditor.cshtml" />
+    <Content Include="Views\Shared\_PageEditor.cshtml" />
+    <Content Include="Views\Shared\_NotesField.cshtml" />
+    <Content Include="Areas\AdminManual\Views\Section\Index.cshtml" />
+    <Content Include="Areas\AdminManual\Views\Section\Create.cshtml" />
+    <Content Include="Areas\AdminManual\Views\Section\Edit.cshtml" />
+    <Content Include="Areas\AdminManual\Views\Page\Index.cshtml" />
+    <Content Include="Areas\AdminManual\Views\Page\Edit.cshtml" />
+    <Content Include="Areas\AdminManual\Views\Page\Create.cshtml" />
+    <Content Include="Views\Auth\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Edit.cshtml" />
+    <Content Include="Views\Shared\_UserEditor.cshtml" />
+    <Content Include="Areas\Admin\Views\Topic\Index.cshtml" />
+    <Content Include="Styles\Pages\Page.scss" />
+    <None Include="Styles\Pages\Topics.scss" />
+    <Content Include="Areas\Admin\Views\Topic\Create.cshtml" />
+    <Content Include="Views\Shared\_TopicEditor.cshtml" />
+    <Content Include="Areas\Admin\Views\Topic\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Article\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Article\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Article\_ArticleEditor.cshtml" />
+    <Content Include="Areas\Admin\Views\Article\Edit.cshtml" />
+    <Content Include="Areas\AdminManual\Views\ManageBook\Generate.cshtml" />
+    <Content Include="Areas\AdminManual\Views\ManageBook\Result.cshtml" />
+    <Content Include="Views\WebPageVisual\Index.cshtml" />
+    <Content Include="Views\WebPageVisual\_MainNavigation.cshtml" />
+    <Content Include="Areas\Admin\Views\WebPage\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\WebPage\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\WebPage\Index.cshtml" />
+    <Content Include="Areas\AdminManual\Views\Content\Index.cshtml" />
+    <Content Include="Areas\AdminManual\Views\Chapter\Create.cshtml" />
+    <Content Include="Areas\AdminManual\Views\Chapter\Edit.cshtml" />
+    <Content Include="Areas\AdminManual\Views\Chapter\Index.cshtml" />
+    <Content Include="Views\Shared\_ChaptersEditor.cshtml" />
+    <Content Include="Views\Error\Unauthorized.cshtml" />
+    <Content Include="Views\PublicBlog\ViewBlog.cshtml" />
+    <Content Include="Views\Shared\_BlogPostSummaries.cshtml" />
+    <Content Include="Views\PublicBlog\ViewByYear.cshtml" />
+    <Content Include="Views\Shared\_LatestBlogPosts.cshtml" />
+    <Content Include="Views\PublicBlog\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutPublic.cshtml" />
+    <Content Include="Views\Error\PageNotFound.cshtml" />
+    <Content Include="Views\PublicArticle\Index.cshtml" />
+    <Content Include="Views\SubjectNews\Index.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Resources\Index.cshtml" />
+    <Content Include="Views\Shared\_ArticlesList.cshtml" />
+    <Content Include="Views\Shared\_BlogPostsList.cshtml" />
+    <Content Include="Views\Shared\_WebPagesList.cshtml" />
+    <Content Include="Views\Shared\_ResourcesList.cshtml" />
+    <Content Include="Views\Shared\_ResourcesListSmall.cshtml" />
+    <Content Include="Views\Shared\_ResourcesListForSubjectPage.cshtml" />
+    <Content Include="Views\PublicManual\ViewPage.cshtml" />
+    <Content Include="Views\Monitor\Hellom.cshtml" />
+    <Content Include="Views\Monitor\Dbread.cshtml" />
+    <Content Include="Views\Monitor\Dbwrite.cshtml" />
+    <Content Include="Views\Members\Index.cshtml" />
+    <Content Include="Views\Shared\_NavigationLinks.cshtml" />
+    <Content Include="Views\PublicShop\Product.cshtml" />
+    <Content Include="Views\SubjectResources\Index.cshtml" />
+    <Content Include="Views\Shared\_RelatedResources.cshtml" />
+    <Content Include="Views\Shared\_ReviewProducts.cshtml" />
+    <Content Include="Views\Shared\_ShopProducts.cshtml" />
+    <Content Include="Views\Auth\Confirm.cshtml" />
+    <Content Include="Views\Shared\_AccountDetailsForm.cshtml" />
+    <Content Include="Views\Shared\_AccountProfileDetailsForm.cshtml" />
+    <Content Include="Views\Auth\Forgotten.cshtml" />
+    <Content Include="Views\Auth\PasswordReset.cshtml" />
+    <Content Include="Views\Shared\_Members.cshtml" />
+    <Content Include="Views\Shared\_ChangePasswordForm.cshtml" />
+    <Content Include="Views\Shared\_LoginForm.cshtml" />
+    <Content Include="Views\Shared\_ShopNavigationBar.cshtml" />
+    <Content Include="Views\Shared\_ShippingDetails.cshtml" />
+    <Content Include="Views\Shared\_RegistrationForm.cshtml" />
+    <None Include="Web.Production.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\Shared\_ResourcesListSmall.cshtml" />
+    <Content Include="Views\Shared\_ResourcesListForSubjectPage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\AdminManual\Views\Shared\" />
+    <Folder Include="Areas\Admin\Views\BufferApi\" />
+    <Folder Include="Areas\Admin\Views\Country\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\Admin\Views\Sitemap\" />
+    <Folder Include="Images\equality-in-longevity\" />
+    <Folder Include="Images\humour\" />
+    <Folder Include="Images\NAD\" />
+    <Folder Include="Images\weight\" />
+    <Folder Include="MyPdfs\" />
+    <Folder Include="obj\Release\Package\PackageTmp\Views\Shared\" />
+    <Folder Include="Views\Files\" />
+    <Folder Include="Views\File\" />
+    <Folder Include="Views\Go\" />
+    <Folder Include="Views\MembersOnly\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Project_Readme.html" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Elixir.BusinessLogic\Elixir.BusinessLogic.csproj">
+      <Project>{D25B71F4-71B6-4C03-B884-81A655AB3D8A}</Project>
+      <Name>BookPages.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elixir.Contracts\Elixir.Contracts.csproj">
+      <Project>{565E8E1E-75B0-4EC6-BE3E-88E2D2038FA9}</Project>
+      <Name>BookPages.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elixir.DataAccess\Elixir.DataAccess.csproj">
+      <Project>{399AFDC4-EA7D-48C0-92D8-0A293532BBB2}</Project>
+      <Name>BookPages.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elixir.Models\Elixir.Models.csproj">
+      <Project>{8CA58E1A-696B-4B62-A420-AAA010EE1F4B}</Project>
+      <Name>BookPages.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elixir.Utils\Elixir.Utils.csproj">
+      <Project>{850C1825-9147-4835-85F2-26D2814A10E9}</Project>
+      <Name>BookPages.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Production|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
+    <ItemGroup>
+      <RoslynFiles Include="$(CscToolPath)\*" />
+    </ItemGroup>
+    <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
+    <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>8493</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/Elixir</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

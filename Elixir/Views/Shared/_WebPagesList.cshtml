@@ -1,0 +1,22 @@
+﻿@using System.Globalization;
+@model List<Elixir.Models.WebPage>
+
+@if (Model.Count > 0)
+{
+    <div class="recent-articles-container">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            var webpage = Model[i];
+            <div class="latest-article">
+                <h3><a href="/page/@webpage.UrlName">@webpage.WebPageTitle</a></h3>
+
+                <p>Last updated @webpage.PublishedUpdatedDT.Value.ToString("dd-MMM-yyyy", CultureInfo.InvariantCulture)</p>
+
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p>Sorry, no web pages found.</p>
+}

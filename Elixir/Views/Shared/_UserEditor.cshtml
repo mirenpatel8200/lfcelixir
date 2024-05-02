@@ -1,0 +1,163 @@
+﻿@model Elixir.ViewModels.Base.BaseCUWithSelectViewModel<Elixir.Areas.Admin.Models.BookUserModel>
+@using Elixir.Models.Utils
+@Html.ValidationSummary(true)
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.Id, "ID", new { @class = "col-form-label col-2" })
+    <div class="col-2">
+        @Html.EditorFor(x => x.Model.Id, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+    </div>
+    @Html.LabelFor(x => x.Model.IdHashCode, "Hashcode", new { @class = "col-form-label offset-2 col-2" })
+    <div class="col-2">
+        @Html.EditorFor(x => x.Model.IdHashCode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+    </div>
+    <div class="col-1" style=" display: flex;align-items: center;">
+        @if (Model.Model.ProfileIsPublic)
+        {
+            <a href="/Members/@Model.Model.IdHashCode" target="_blank">
+                <i class="fas fa-eye"></i>
+            </a>
+        }
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.UpdatedOn, "Last Updated", new { @class = "col-form-label col-2" })
+    <div class="col-2">
+        @if (Model.Model.UpdatedOn.HasValue)
+        {
+            <input readonly class="form-control" value="@string.Format("{0:yyyy-MM-dd HH:mm:ss}",Model.Model.UpdatedOn)" />
+        }
+        else
+        {
+            <input readonly class="form-control" value="" />
+        }
+    </div>
+
+    @Html.LabelFor(x => x.Model.CreatedOn, "Created", new { @class = "col-form-label offset-2 col-2" })
+    <div class="col-2">
+        @if (Model.Model.CreatedOn.HasValue)
+        {
+            <input readonly class="form-control" value="@string.Format("{0:yyyy-MM-dd HH:mm:ss}",Model.Model.CreatedOn)" />
+        }
+        else
+        {
+            <input readonly class="form-control" value="" />
+        }
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.LastLogin, "Last Login", new { @class = "col-form-label col-2" })
+    <div class="col-2">
+        @if (Model.Model.LastLogin.HasValue)
+        {
+            <input readonly class="form-control" value="@string.Format("{0:yyyy-MM-dd HH:mm:ss}",Model.Model.LastLogin)" />
+        }
+        else
+        {
+            <input readonly class="form-control" value="" />
+        }
+    </div>
+    <div class="col-1" style=" display: flex;align-items: center;">
+       
+            <a href="/admin/auditlog?UserId=@Model.Model.Id" target="_blank">
+                <i class="fas fa-eye"></i>
+            </a>
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.Role, "Roles", new { @class = "col-form-label col-2" })
+    <div class="col-10">
+        @{
+            var Roles = Model.Model.AllRole != null ? string.Join(",", Model.Model.AllRole.Select(x => x.RoleName)) : "";
+        }
+        <input readonly class="form-control" value="@Roles" />
+    </div>
+</div>
+
+<div class="form-group row">
+    
+        @Html.LabelFor(x => x.Model.MemberNumber, "Member Number", new { @class = "col-form-label col-2" })
+        <div class="col-2 editor-field ">
+            @Html.EditorFor(x => x.Model.MemberNumber, new { htmlAttributes = new { @class = "form-control",@type="number" } })
+            @Html.ValidationMessageFor(x => x.Model.MemberNumber)
+        </div>
+   
+        @Html.LabelFor(x => x.Model.ExpiryDate, "Expiry Date", new { @class = "col-form-label col-2 offset-2" })
+        <div class="col-2 editor-field ">
+            @Html.TextBoxFor(x => x.Model.ExpiryDate, $"{{0:{DateUtils.DateFormat}}}", new { @class = "form-control datepicker" })
+            @Html.ValidationMessageFor(x => x.Model.ExpiryDate)
+        </div>
+    
+
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.UserName, "First Name *", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.EditorFor(x => x.Model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+
+        @Html.ValidationMessageFor(x => x.Model.UserName)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.UserNameLast, "Last Name *", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.EditorFor(x => x.Model.UserNameLast, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.UserNameLast)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.EmailAddress, "Email Address *", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.EditorFor(x => x.Model.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.EmailAddress)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.CountryNameWithId, "Country", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.EditorFor(x => x.Model.CountryNameWithId, new { htmlAttributes = new { @type = "text", @placeholder = "Type to search", data_autocomplete_url = Url.Action("FetchAutocompleteForCountryName", "Country"), @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.CountryNameWithId)
+    </div>
+</div>
+
+@*<div class="form-group row">
+        @Html.LabelFor(x => x.Model.BookUserRole, "Role", new { @class = "col-form-label col-2" })
+        <div class="col-10 editor-field">
+            @Html.DropDownListFor(x => x.Model.BookUserRole.Id, Model.SelectItems, new { @class = "form-control" })
+        </div>
+    </div>*@
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ProfileIsPublic, "Public Profile", new { @class = "col-form-label col-2" })
+    <div class="col-2 editor-field">
+        @Html.CheckBoxFor(x => x.Model.ProfileIsPublic)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.WebsiteUrl, "Wesite", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.EditorFor(x => x.Model.WebsiteUrl, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.WebsiteUrl)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsEnabled, "Is Enabled", new { @class = "col-form-label col-2" })
+    <div class="col-2 editor-field">
+        @Html.CheckBoxFor(x => x.Model.IsEnabled)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.AdminNotes, "Admin Notes", new { @class = "col-form-label col-2" })
+    <div class="col-10">
+        @Html.TextAreaFor(x => x.Model.AdminNotes, 5, 10, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.AdminNotes)
+    </div>
+</div>

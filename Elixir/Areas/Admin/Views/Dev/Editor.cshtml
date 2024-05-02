@@ -1,0 +1,35 @@
+﻿@model Elixir.Areas.Admin.Views.Dev.EditorVm
+
+@{
+    ViewBag.Title = "Image Picker";
+}
+
+@section Scripts
+{
+    @*@Scripts.Render("~/Scripts/summernote/summernote-bs4.min.js")*@
+    @Scripts.Render("~/Scripts/summernote/plugin/filebrowser/summernote-ext-browser.js")
+    @Scripts.Render("~/Scripts/App/summernote.js") 
+}
+
+@section Styles
+{
+    @Styles.Render("~/Scripts/summernote/summernote-bs4.css")
+}
+
+<h1 class="head-title">@ViewBag.Title</h1>
+
+@using (Html.BeginForm())
+{
+    <div class="form-group row">
+        @Html.LabelFor(x => x.ImageFilename, "Image filename", new { @class = "col-2 col-form-label" })
+        <div class="col-8">
+            @Html.EditorFor(x => x.ImageFilename, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(x => x.ImageFilename)
+        </div>
+        <div class="col-2">
+            <button id="select-file" class="btn btn-default">Select</button>
+        </div>
+    </div>
+}
+
+<div id="summernote">Hello Summernote</div>

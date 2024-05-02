@@ -1,0 +1,373 @@
+﻿@using Elixir.ViewModels.Enums
+
+@model  Elixir.ViewModels.ManualComponentViewModel
+@{
+    ViewBag.Title = !string.IsNullOrEmpty(Model.Title) ? Model.Title : "View Manual Page";
+
+    var HeaderName = ""; // blank for covers and front/back matter
+    if (Model.Type == ManualComponentType.ChapterPage)
+    {
+        HeaderName = @Model.Name;
+    }
+    else
+    {
+        HeaderName = @Model.SectionName; // tip
+    }
+
+
+    var NonLongevistLinkHTML = "";
+    if (!Model.IsLongevist)  // don't display link if a Longevist
+    {
+        if (Model.IsSupporter)
+        {
+            NonLongevistLinkHTML = "<p><a href='/shop/product/membership-new'>Upgrade now</a> to get full access to the Live Forever Manual</p>";
+        }
+        else
+        {
+            NonLongevistLinkHTML = "<p><a href='/page/membership'>Join the club</a> to get full access to the Live Forever Manual</p>";
+        }
+    }
+
+    var Description = Model.Description;
+    var PublicHtmlToDisplay = "";
+    if (!Model.IsLongevist) // determine public part of description to display - image and h2 won't apply to tips, but use same code
+    {
+        if (Description.StartsWith("<img"))  // skip image
+        {
+            var ImageHtml = Description.Substring(0, Model.Description.IndexOf(">") + 1);
+            Description = Description.Replace(ImageHtml, "");
+            Description = System.Text.RegularExpressions.Regex.Replace(Description, @"\t|\n|\r", "");
+        }
+
+        if (Description.StartsWith("<h2"))
+        {
+            int LowestIndex = 0;
+            var IndexOfTagEnd = Description.IndexOf("</h2>") + 5;
+            var IndexOfFirstFullStop = Description.IndexOf('.') + 1;
+            if (IndexOfTagEnd == 0)
+            {
+                IndexOfTagEnd = IndexOfFirstFullStop;
+            }
+            else if (IndexOfFirstFullStop == 0)
+            {
+                IndexOfFirstFullStop = IndexOfTagEnd;
+            }
+            if (IndexOfTagEnd < IndexOfFirstFullStop)
+            {
+                LowestIndex = IndexOfTagEnd;
+            }
+            else
+            {
+                LowestIndex = IndexOfFirstFullStop;
+            }
+
+            var FirstSentence = Description.Substring(0, LowestIndex);
+            if (LowestIndex == IndexOfFirstFullStop)
+            {
+                FirstSentence = FirstSentence.Contains("<h2>") ? FirstSentence + "</h2>" : FirstSentence;
+            }
+            PublicHtmlToDisplay = FirstSentence;
+        }
+        else
+        {
+            int LowestIndex = 0;
+            var IndexOfTagEnd = Description.IndexOf("</p>") + 4;
+            var IndexOfFirstFullStop = Description.IndexOf('.') + 1;
+            if (IndexOfTagEnd == 0)
+            {
+                IndexOfTagEnd = IndexOfFirstFullStop;
+            }
+            else if (IndexOfFirstFullStop == 0)
+            {
+                IndexOfFirstFullStop = IndexOfTagEnd;
+            }
+            if (IndexOfTagEnd < IndexOfFirstFullStop)
+            {
+                LowestIndex = IndexOfTagEnd;
+            }
+            else
+            {
+                LowestIndex = IndexOfFirstFullStop;
+            }
+            var FirstSentence = Description.Substring(0, LowestIndex);
+            if (LowestIndex == IndexOfFirstFullStop)
+            {
+                FirstSentence = FirstSentence.Contains("<p>") ? FirstSentence + "</p>" : FirstSentence;
+            }
+            PublicHtmlToDisplay = FirstSentence;
+        }
+    }
+
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/App/Views/webpage.js")
+}
+
+@if (Model.Type == ManualComponentType.ChapterPage || Model.Type == ManualComponentType.Tip)  // HEADER - orange + blue displayed to everyone (but not on covers or front/back matter)
+{
+    @*<h1>@HeaderName</h1> // tip section OR chapter name in orange box
+        <h2>@Model.PageNumber.Value</h2>// page number in blue box*@
+
+    @*Header Section*@
+
+    <section class="section-ptb pb-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="d-flex text-center">
+                        <div class="suppliments">
+                            <h4>@HeaderName</h4>
+                        </div>
+                        <div class="page-number">
+                            <h4>@Model.PageNumber.Value</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+@switch (Model.Type)  // different content displayed depending on page type
+{
+    case ManualComponentType.ChapterBack: // front/back matter - does not display chapter title - visble by all users
+    case ManualComponentType.ChapterFront:
+        @Html.Raw(Model.Description)
+        break;
+
+    case ManualComponentType.ChapterPage: // not including front back matter??????????????
+        if (Model.IsChapterFirstPage)
+        {
+            <h1>@Model.Name</h1>// part of main content
+        }
+        if (Model.IsLongevist)
+        {
+            @Html.Raw(Model.Description)
+        }
+        else
+        {
+            @Html.Raw(PublicHtmlToDisplay + NonLongevistLinkHTML)
+        }
+        break;
+
+    case ManualComponentType.CoverFront:  // all users can view front/back covers
+        <a href="/manual/2018/1"><img src="@Model.ImageSrc" class="full-width" /></a>
+        break;
+
+    case ManualComponentType.CoverBack: // no link on back cover (no next page)
+        <a><img src="@Model.ImageSrc" class="full-width" /></a>
+        break;
+
+    case ManualComponentType.OutOfRange:
+        <h1>Live Forever Manual - @Model.Description</h1>
+        break;
+
+    case ManualComponentType.Tip:
+
+        @*<label>Cost</label> // scores are public
+            <p>@Model.Cost</p>
+            <label>Ease</label>
+            <p>@Model.Ease</p>
+            <label>Impact</label>
+            <p>@Model.Impact</p>*@
+
+        @*Cost Section*@
+        <section class="section-pb  pb-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="bg-grey p-4">
+                            <ul class="cost-ease-impact">
+                                <li>
+                                    <h4>Cost : </h4>
+                                    <div class="round">
+                                        @for (int i = 1; i <= Model.Cost; i++)
+                                        {
+                                            <span class="primary-round"></span>
+                                        }
+                                    </div>
+                                </li>
+                                <li>
+                                    <h4>Ease : </h4>
+                                    <div class="round">
+                                        @for (int i = 1; i <= Model.Ease; i++)
+                                        {
+                                            <span class="primary-round"></span>
+                                        }
+                                    </div>
+                                </li>
+                                <li>
+                                    <h4>Impact : </h4>
+                                    <div class="round">
+                                        @for (int i = 1; i <= Model.Impact; i++)
+                                        {
+                                            <span class="primary-round"></span>
+                                        }
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        @*<h1>@Model.Name</h1>
+            // tip name
+            if (Model.IsLongevist)
+            {
+                @Html.Raw(Model.Description)
+            }
+            else
+            {
+                @Html.Raw(PublicHtmlToDisplay + NonLongevistLinkHTML)
+            }*@
+
+        @*About Section*@
+        <section class="pb-4  pb-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="section-title">
+                            <h2 class="title">@Model.Name</h2>
+                        </div>
+                        @if (Model.IsLongevist)
+                        {
+                            <p>
+                                @Html.Raw(Model.Description)
+                            </p>
+                        }
+                        else
+                        {
+                            <p>
+                                @Html.Raw(PublicHtmlToDisplay + NonLongevistLinkHTML)
+                            </p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        @*<p>Tip Number: @Model.TipNumber.Value</p>
+            <label>Tips</label>
+            if (Model.IsLongevist)
+            {
+                <p>@Model.Tips</p>
+            }
+            else
+            {
+                @Html.Raw(NonLongevistLinkHTML)
+            }*@
+
+
+        @*Tip Section*@
+        <section class="section-pb pb-4">
+            <div class="container">
+                <div class="row no-gutters">
+                    <div class="col-lg-2">
+                        <div class="tips-number">
+                            <h4>Tip #@Model.TipNumber.Value</h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-10">
+                        <ul class="tips-list">
+                            @if (Model.IsLongevist)
+                            {
+                                var count = Model.Tips.Split(new Char[] { '\r' });
+                                foreach (var item in count)
+                                {
+                                    <li><i class="fas fa-arrow-right"></i>@item.Replace("\n","")</li>
+                                }
+                            }
+                            else
+                            {
+                                <li><p><i class="fas fa-arrow-right"></i></p>@Html.Raw(NonLongevistLinkHTML)</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        @*<label>Resources</label>
+            if (Model.IsLongevist)
+            {
+                <p>@Html.Raw(Model.Resources)</p>
+            }
+            else
+            {
+                @Html.Raw(NonLongevistLinkHTML)
+            }
+            <p><img src="~/images/liveforevermanual/tips/@Model.TipImage" /></p> // image is public
+            <label>Research</label>
+            if (Model.IsLongevist)
+            {
+                <p>@Html.Raw(Model.Research)</p>
+            }
+            else
+            {
+                @Html.Raw(NonLongevistLinkHTML)
+            }
+            break;*@
+
+        @*Information Section*@
+        <section class="section-pb pb-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 mb-4 mb-md-0">
+                        <img class="w-100" src="~/images/liveforevermanual/tips/@Model.TipImage" />
+                    </div>
+                    <div class="col-md-6 align-self-center">
+                        <div class="feature-list mb-5">
+                            <h4>Resources</h4>
+                            @if (Model.IsLongevist)
+                            {
+                                <p>@Html.Raw(Model.Resources)</p>
+                            }
+                            else
+                            {
+                                @Html.Raw(NonLongevistLinkHTML)
+                            }
+                        </div>
+                        <div class="feature-list">
+                            <h4>Research</h4>
+                            @if (Model.IsLongevist)
+                            {
+                                <p>@Html.Raw(Model.Research)</p>
+                            }
+                            else
+                            {
+                                @Html.Raw(NonLongevistLinkHTML)
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        break;
+
+    default:
+        <h1>ERROR: Switch case default</h1>
+        break;
+}
+
+@if (Model.Type == ManualComponentType.OutOfRange)
+{
+    @Html.Partial("_NavigationLinks", -1)
+}
+else
+{
+    @Html.Partial("_NavigationLinks", Model.PageNumber)
+}
+
+
+@section Styles
+{
+    @Styles.Render("~/Styles/manual.css")
+}

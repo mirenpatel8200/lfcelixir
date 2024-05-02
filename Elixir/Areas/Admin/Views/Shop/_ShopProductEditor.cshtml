@@ -1,0 +1,162 @@
+﻿@model Elixir.ViewModels.Base.BaseCUWithMultipleSelectViewModel<Elixir.Areas.Admin.Models.ShopProductModel>
+
+@Html.ValidationSummary(true)
+@{
+    bool isEdit = Model.Model.ShopProductId > 0;
+}
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ShopProductId, "ID", new { @class = "col-2 col-form-label" })
+    <div class="col-2">
+        @Html.EditorFor(x => x.Model.ShopProductId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        @Html.ValidationMessageFor(x => x.Model.ShopProductId)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.UpdatedOn, "Last updated", new { @class = "col-2 col-form-label" })
+    <div class="col-4">
+        <input type="text" readonly="readonly" class="form-control" value="@(Model.Model.UpdatedOn != null ? Convert.ToDateTime(Model.Model.UpdatedOn).ToString("yyyy-MM-dd HH:mm:ss") : "")" />
+    </div>
+
+    @Html.LabelFor(x => x.Model.LastUpdatedBy, "Updated by", new { @class = "col-2 col-form-label" })
+    <div class="col-4">
+        @Html.EditorFor(x => x.Model.LastUpdatedBy, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ShopProductName, "Name*", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.ShopProductName, new { htmlAttributes = new { @class = "form-control", spellcheck = "true" } })
+        @Html.ValidationMessageFor(x => x.Model.ShopProductName)
+    </div>
+</div>
+<div class="form-group row input-with-right-action">
+    @Html.LabelFor(x => x.Model.UrlName, "URL Name*", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @if (isEdit)
+        {
+            @Html.EditorFor(x => x.Model.UrlName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", spellcheck = "true" } })
+        }
+        else
+        {
+            @Html.EditorFor(x => x.Model.UrlName, new { htmlAttributes = new { @class = "form-control", spellcheck = "true" } })
+        }
+
+        @Html.ValidationMessageFor(x => x.Model.UrlName)
+
+        @if (isEdit == false)
+        {
+            <a href="#">
+                <i class="fas fa-arrow-alt-circle-down"></i>
+            </a>
+        }
+
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.SKU, "SKU*", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.SKU, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.SKU)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ShopCategoryId, "Category *", new { @class = "col-2 col-form-label" })
+    <div class="col-10 editor-field">
+        @Html.DropDownListFor(x => x.Model.ShopCategoryId, Model.GetSelectList(nameof(Model.Model.ShopCategory)), "None", new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.ShopCategoryId)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ShopProductDescription, "Description*", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.ShopProductDescription, new { htmlAttributes = new { @class = "form-control", @spellcheck = "true" } })
+        @Html.ValidationMessageFor(x => x.Model.ShopProductDescription)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ContentMain, "Content Main*", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.TextAreaFor(x => x.Model.ContentMain, 5, 10, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.ContentMain)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.PriceRRP, "RRP*", new { @class = "col-2 col-form-label" })
+    <div class="col-4">
+        @Html.EditorFor(x => x.Model.PriceRRP, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.PriceRRP)
+    </div>
+
+    @Html.LabelFor(x => x.Model.PriceLongevist, "Member Price", new { @class = "col-2 col-form-label" })
+    <div class="col-4">
+        @Html.EditorFor(x => x.Model.PriceLongevist, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.PriceLongevist)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ShippingPrice, "Shipping", new { @class = "col-2 col-form-label" })
+    <div class="col-4">
+        @Html.EditorFor(x => x.Model.ShippingPrice, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.ShippingPrice)
+    </div>
+
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.StockLevel, "Stock Level", new { @class = "col-2 col-form-label" })
+    <div class="col-4">
+        @Html.EditorFor(x => x.Model.StockLevel, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.StockLevel)
+    </div>
+
+    @Html.LabelFor(x => x.Model.IsLongevistsOnly, "Longevists Only", new { @class = "col-2 col-form-label" })
+    <div class="col-4 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsLongevistsOnly)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ImageMain, "Main Image", new { @class = "col-2 col-form-label" })
+    <div class="col-8">
+        @Html.EditorFor(x => x.Model.ImageMain, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.ImageMain)
+    </div>
+    <div class="col-2">
+        <button type="button" id="btnAddMainImage" class="btn btn-block btn-default">Select image</button>
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ImageThumb, "Thumb Image", new { @class = "col-2 col-form-label" })
+    <div class="col-8">
+        @Html.EditorFor(x => x.Model.ImageThumb, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.ImageThumb)
+    </div>
+    <div class="col-2">
+        <button type="button" id="btnAddThumbImage" class="btn btn-block btn-default">Select image</button>
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.OptionsUnit, "Options Unit", new { @class = "col-2 col-form-label" })
+    <div class="col-8">
+        @Html.EditorFor(x => x.Model.OptionsUnit, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.OptionsUnit)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.DisplayOrder, "Display Order", new { @class = "col-2 col-form-label" })
+    <div class="col-4">
+        @Html.EditorFor(x => x.Model.DisplayOrder, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.DisplayOrder)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsEnabled, "Is Enabled", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsEnabled)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.NotesInternal, "Notes (Internal)", new { @class = "col-2 col-form-label" })
+    <div class="col-10 editor-field">
+        @Html.TextAreaFor(x => x.Model.NotesInternal, 5, 10, new { @class = "form-control", spellcheck = "true" })
+        @Html.ValidationMessageFor(x => x.Model.NotesInternal)
+    </div>
+</div>

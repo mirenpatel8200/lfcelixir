@@ -1,0 +1,41 @@
+﻿@model Elixir.Areas.Admin.ViewModels.EditShopProductViewModel
+
+@{
+    ViewBag.Title = "Edit Shop Product";
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Components/Controls/Inputs.css")
+    @Styles.Render("~/bundles/summernote/css")
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/App/confirmation.js")
+    @Scripts.Render("~/Scripts/App/Views/add-edit-shop-product.js")
+    @Scripts.Render("~/Scripts/App/leaveDirtyForm.js")
+    @Scripts.Render("~/bundles/summernote/js")
+}
+
+<h1 class="head-title">Edit Shop Product</h1>
+
+@using (@Html.BeginForm("EditProduct", "Shop", FormMethod.Post))
+{
+    @Html.Partial("_ShopProductEditor", Model)
+
+    <br />
+    <br />
+
+    <div class="form-group row">
+        <div class="offset-2 col-2">
+            @Html.ActionLink("Cancel", "Product", "Shop", null, new { @class = "btn btn-light skipWarnUnsavedChanges" })
+        </div>
+        <div class="col-2">
+            @Html.ActionLink("Delete", "DeleteProduct", "Shop", new { id = Model.Model.ShopProductId }, new { @class = "btn btn-danger confirmable-action" })
+        </div>
+        <div class="col-6">
+            <input type="submit" name="method" value="Save" class="btn btn-primary" />
+        </div>
+    </div>
+}

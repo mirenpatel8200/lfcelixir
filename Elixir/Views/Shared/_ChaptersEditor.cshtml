@@ -1,0 +1,161 @@
+﻿
+@model Elixir.ViewModels.Base.BaseCUViewModel<Elixir.Areas.AdminManual.Models.ChapterModel>
+
+@Html.ValidationSummary(true)
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.Id, "ID", new { @class = "col-form-label col-2" })
+    <div class="col-2">
+        @Html.EditorFor(x => x.Model.Id, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        @Html.ValidationMessageFor(x => x.Model.Id)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ChapterName, "Name *", new { @class = "col-form-label col-2" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.ChapterName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.ChapterName)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.TypeID, "Type", new { @class = "col-form-label col-2" })
+    <div class="col-10">
+        @Html.DropDownListFor(x => x.Model.TypeID, new SelectList(Model.Model.ChapterTypes, "Key", "Value"), new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.TypeID)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.DisplayOrder, "Display Order", new { @class = "col-form-label col-2" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.DisplayOrder, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.DisplayOrder)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsIncluded, "Is Included", new { @class = "col-form-label col-2" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsIncluded)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.Notes, "Notes", new { @class = "col-form-label col-2" })
+    <div class="col-10">
+        @Html.TextAreaFor(x => x.Model.Notes, 5, 10, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.Notes)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.Text, "Chapter Text", new { @class = "col-form-label col-2" })
+    <div class="col-10">
+        @Html.TextAreaFor(x => x.Model.Text, 8, 10, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.Text)
+        @Html.CheckBoxFor(x => x.Model.HasBreakInParagraph1) <label>Page breaks in paragraph</label>
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-form-label col-2"> </label>
+    <div class="col-10">
+        <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#chapter-extra-pages">
+            Continuation pages <i class="fa fa-chevron-down"></i>
+        </button>
+    </div>
+</div>
+
+<div id="chapter-extra-pages" class="collapse">
+    <div class="form-group row">
+        @Html.LabelFor(x => x.Model.ContentPage2, "Content Page 2", new { @class = "col-form-label col-2" })
+        <div class="col-10">
+            @Html.TextAreaFor(x => x.Model.ContentPage2, 8, 10, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Model.ContentPage2)
+            @Html.CheckBoxFor(x => x.Model.HasBreakInParagraph2) <label>Page breaks in paragraph</label>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(x => x.Model.ContentPage3, "Content Page 3", new { @class = "col-form-label col-2" })
+        <div class="col-10">
+            @Html.TextAreaFor(x => x.Model.ContentPage3, 8, 10, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Model.ContentPage3)
+            @Html.CheckBoxFor(x => x.Model.HasBreakInParagraph3) <label>Page breaks in paragraph</label>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(x => x.Model.ContentPage4, "Content Page 4", new { @class = "col-form-label col-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(x => x.Model.ContentPage4, 8, 10, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Model.ContentPage4)
+            @Html.CheckBoxFor(x => x.Model.HasBreakInParagraph4) <label>Page breaks in paragraph</label>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(x => x.Model.ContentPage5, "Content Page 5", new { @class = "col-form-label col-md-2" })
+        <div class="col-10">
+            @Html.TextAreaFor(x => x.Model.ContentPage5, 8, 10, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Model.ContentPage5)
+            @Html.CheckBoxFor(x => x.Model.HasBreakInParagraph5) <label>Page breaks in paragraph</label>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(x => x.Model.ContentPage6, "Content Page 6", new { @class = "col-form-label col-2" })
+        <div class="col-10">
+            @Html.TextAreaFor(x => x.Model.ContentPage6, 8, 10, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Model.ContentPage6)
+            @Html.CheckBoxFor(x => x.Model.HasBreakInParagraph6) <label>Page breaks in paragraph</label>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(x => x.Model.ContentPage7, "Content Page 7", new { @class = "col-form-label col-2" })
+        <div class="col-10">
+            @Html.TextAreaFor(x => x.Model.ContentPage7, 8, 10, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Model.ContentPage7)
+            @Html.CheckBoxFor(x => x.Model.HasBreakInParagraph7) <label>Page breaks in paragraph</label>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(x => x.Model.ContentPage8, "Content Page 8", new { @class = "col-form-label col-2" })
+        <div class="col-10">
+            @Html.TextAreaFor(x => x.Model.ContentPage8, 8, 10, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Model.ContentPage8)
+            @Html.CheckBoxFor(x => x.Model.HasBreakInParagraph8) <label>Page breaks in paragraph</label>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(x => x.Model.ContentPage9, "Content Page 9", new { @class = "col-form-label col-2" })
+        <div class="col-10">
+            @Html.TextAreaFor(x => x.Model.ContentPage9, 8, 10, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Model.ContentPage9)
+            @Html.CheckBoxFor(x => x.Model.HasBreakInParagraph9) <label>Page breaks in paragraph</label>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(x => x.Model.ContentPage10, "Content Page 10", new { @class = "col-form-label col-2" })
+        <div class="col-10">
+            @Html.TextAreaFor(x => x.Model.ContentPage10, 8, 10, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Model.ContentPage10)
+            @Html.CheckBoxFor(x => x.Model.HasBreakInParagraph10) <label>Page breaks in paragraph</label>
+        </div>
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.MarginTop, "Top Margin", new { @class = "col-form-label col-md-2" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.MarginTop, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "0", @step = "0.01", @value = "0" } })
+        @Html.ValidationMessageFor(x => x.Model.MarginTop)
+    </div>
+</div>
+
+

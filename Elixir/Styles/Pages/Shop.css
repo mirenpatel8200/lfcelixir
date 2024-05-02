@@ -1,0 +1,18 @@
+﻿.cart-item-image {
+    height: 100px;
+    width: 100px;
+}
+
+.disable-payment {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.hide-notice {
+    display: none;
+}
+
+.disable-button {
+    opacity: 0.5;
+    pointer-events: none;
+}

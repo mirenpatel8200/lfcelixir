@@ -1,0 +1,77 @@
+﻿@using Elixir.Areas.AdminManual.Models
+@using Elixir.Models.Enums
+@model Elixir.Areas.AdminManual.ViewModels.SectionsViewModel
+@{
+    ViewBag.Title = "Book Sections";
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Components/datagrid.css")
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/App/table-sort.js")
+}
+
+<h1 class="head-title">Book Sections</h1>
+
+<div class="row">
+    <div class="col-12">
+        @Html.ActionLink("New", "Create", null, new { @class = "btn btn-primary" })
+    </div>
+</div>
+
+<div class="row table-wrapper">
+    <div class="col-12">
+        <table class="table table-bordered data-grid">
+            <thead>
+                <tr>
+                    <th class="small">
+                        <span class="table-header-text">ID</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)BookSectionsSortOrder.BookSectionID, direction = (int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Name</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)BookSectionsSortOrder.BookSectionName, direction = (int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Order No</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)BookSectionsSortOrder.DisplayOrder, direction = (int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Is Included</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)BookSectionsSortOrder.IsIncluded, direction = (int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (BookSectionModel bookSection in Model.Models)
+                {
+                    <tr>
+                        <td class="small">
+                            @Html.ActionLink(bookSection.Id.ToString(), "Edit", new RouteValueDictionary(new { id = bookSection.Id }))
+                        </td>
+                        <td>@Html.ActionLink(String.IsNullOrWhiteSpace(bookSection.BookSectionName) ? "N/A" : bookSection.BookSectionName, "Edit", new RouteValueDictionary(new { id = bookSection.Id })) </td>
+                        <td class="medium">
+                            @bookSection.DisplayOrder
+                        </td>
+
+                        <td class="medium">
+                            @Html.CheckBox("is-included", bookSection.IsIncluded, new { @disabled = "disabled" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

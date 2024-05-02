@@ -1,0 +1,222 @@
+﻿@using Elixir.Models
+@model Elixir.ViewModels.SubjectResourcesViewModel
+
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+    TempData["IsDisplayAll"] = !string.IsNullOrEmpty(Request.QueryString["display"]) && Request.QueryString["display"].Equals("all");
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Pages/SubjectResources.css")
+}
+
+@section scripts
+{
+    @Scripts.Render("~/Scripts/App/Views/subject-resources.js")
+}
+
+<h1>@ViewBag.Title</h1>
+
+<div class="row page-navigation">
+    <div class="col-12">
+        <span>Up to &gt; </span><a href="@Model.LinkToPageUrl">@Model.LinkToPageText</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <p>@Model.IntroText</p>
+    </div>
+</div>
+
+@if ((bool)TempData["IsDisplayAll"] && Request.IsAuthenticated == false)
+{
+    <div class="row">
+        <div class="col-12">
+            <p>
+                Get quick access to all resources with <a href="/page/membership"> FREE membership </a>
+            </p>
+        </div>
+    </div>
+}
+
+@if (Model.RecentRelatedResources != null && Model.RecentRelatedResources.Count > 0)
+{
+    <div class="recent-resources-container">
+        @if (Model.CreationResources != null && Model.CreationResources.Count > 0)
+        {
+            <h2>@Model.WebPageTitle Creations</h2>
+            @Html.Partial("_RelatedResources", Model.CreationResources)
+
+            if (Model.Applications != null && Model.Applications.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Applications</h3>
+                @Html.Partial("_RelatedResources", Model.Applications)
+            }
+
+            if (Model.Audio != null && Model.Audio.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Audio</h3>
+                @Html.Partial("_RelatedResources", Model.Audio)
+            }
+
+            if (Model.Books != null && Model.Books.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Books</h3>
+                @Html.Partial("_RelatedResources", Model.Books)
+            }
+
+            if (Model.Competitions != null && Model.Competitions.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Competitions</h3>
+                @Html.Partial("_RelatedResources", Model.Competitions)
+            }
+
+            if (Model.Education != null && Model.Education.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Education</h3>
+                @Html.Partial("_RelatedResources", Model.Education)
+            }
+
+            if (Model.Events != null && Model.Events.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Events</h3>
+                @Html.Partial("_RelatedResources", Model.Events)
+            }
+
+            if (Model.Films != null && Model.Films.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Films</h3>
+                @Html.Partial("_RelatedResources", Model.Films)
+            }
+
+            if (Model.Information != null && Model.Information.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Information</h3>
+                @Html.Partial("_RelatedResources", Model.Information)
+            }
+
+            if (Model.Products != null && Model.Products.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Products</h3>
+                @Html.Partial("_RelatedResources", Model.Products)
+            }
+
+            if (Model.Research != null && Model.Research.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Research</h3>
+                @Html.Partial("_RelatedResources", Model.Research)
+            }
+
+            if (Model.Videos != null && Model.Videos.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Videos</h3>
+                @Html.Partial("_RelatedResources", Model.Videos)
+            }
+        }
+
+        @if (Model.PeopleResources != null && Model.PeopleResources.Count > 0)
+        {
+            <h2>@Model.WebPageTitle People</h2>
+            @Html.Partial("_RelatedResources", Model.PeopleResources)
+
+            if (Model.Academics != null && Model.Academics.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Academics</h3>
+                @Html.Partial("_RelatedResources", Model.Academics)
+            }
+
+            if (Model.Advocates != null && Model.Advocates.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Advocates</h3>
+                @Html.Partial("_RelatedResources", Model.Advocates)
+            }
+
+            if (Model.Artists != null && Model.Artists.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Artists</h3>
+                @Html.Partial("_RelatedResources", Model.Artists)
+            }
+
+            if (Model.Authors != null && Model.Authors.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Authors</h3>
+                @Html.Partial("_RelatedResources", Model.Authors)
+            }
+
+            if (Model.CompanyRepresentatives != null && Model.CompanyRepresentatives.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Company Representatives</h3>
+                @Html.Partial("_RelatedResources", Model.CompanyRepresentatives)
+            }
+
+            if (Model.HealthcareProfessionals != null && Model.HealthcareProfessionals.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Healthcare Professionals</h3>
+                @Html.Partial("_RelatedResources", Model.HealthcareProfessionals)
+            }
+
+            if (Model.Journalists != null && Model.Journalists.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Journalists</h3>
+                @Html.Partial("_RelatedResources", Model.Journalists)
+            }
+
+            if (Model.Politicians != null && Model.Politicians.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Politicians</h3>
+                @Html.Partial("_RelatedResources", Model.Politicians)
+            }
+        }
+
+        @if (Model.OrganisationResources != null && Model.OrganisationResources.Count > 0)
+        {
+            <h2>@Model.WebPageTitle Organisations</h2>
+            @Html.Partial("_RelatedResources", Model.OrganisationResources)
+
+            if (Model.Academia != null && Model.Academia.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Academia</h3>
+                @Html.Partial("_RelatedResources", Model.Academia)
+            }
+
+            if (Model.Companies != null && Model.Companies.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Companies</h3>
+                @Html.Partial("_RelatedResources", Model.Companies)
+            }
+
+            if (Model.HealthcareOrganisations != null && Model.HealthcareOrganisations.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Healthcare Organisations</h3>
+                @Html.Partial("_RelatedResources", Model.HealthcareOrganisations)
+            }
+
+            if (Model.Institutes != null && Model.Institutes.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Institutes</h3>
+                @Html.Partial("_RelatedResources", Model.Institutes)
+            }
+
+            if (Model.Journals != null && Model.Journals.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Journals</h3>
+                @Html.Partial("_RelatedResources", Model.Journals)
+            }
+
+            if (Model.Publisher != null && Model.Publisher.Count > 2)
+            {
+                <h3>@Model.WebPageTitle Publisher</h3>
+                @Html.Partial("_RelatedResources", Model.Publisher)
+            }
+        }
+
+        @if (Model.CountOfRelatedResources > Model.RecentRelatedResources.Count() && (bool)TempData["IsDisplayAll"] == false)
+        {
+            <br />
+            <a href="?display=all">Display all resources</a>
+        }
+    </div>
+}

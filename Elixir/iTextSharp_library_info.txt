@@ -1,0 +1,8 @@
+PDF is generated using iTextSharp, version 5.5.13
+iText is a library for creating/editing PDF files, it was created for Java, but afterwards ported to C# too.
+
+Advice for using this library, with C#:
+
+- on drawing rectangles: canvas.Rectangle(X, Y, Width, Height); 
+NOTE: X and Y are for BOTTOM LEFT corner of rectangle. So rectangle will
+be drawn from bottom left, going upwards for a value of Height, and right, for a value of Width.

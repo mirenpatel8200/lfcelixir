@@ -1,0 +1,110 @@
+﻿@using Elixir.Areas.AdminManual.Models
+@using Elixir.Views.Helpers
+@model Elixir.Areas.AdminManual.ViewModels.ContentsPage.ContentsViewModel
+
+@{
+    ViewBag.Title = "Book Contents";
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Pages/contents.css")
+}
+
+<h1 class="head-title">Live Forever Manual</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="info-label" for="total-pages-input">Total pages</label>
+            @Html.TextBox("total-pages-input", Model.TotalPages, new { @class = "form-control inline-control", @readonly = "readonly" })
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="info-label" for="total-sections-input">Total sections</label>
+            @Html.TextBox("total-sections-input", Model.TotalSections, new { @class = "form-control inline-control", @readonly = "readonly" })
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="info-label" for="total-pages-input">Drafted pages</label>
+            @Html.TextBox("total-pages-input", Model.DraftedPages, new { @class = "form-control inline-control", @readonly = "readonly" })
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="info-label" for="total-sections-input">Total LE40</label>
+            @Html.TextBox("total-sections-input", Model.TotalLe40, new { @class = "form-control inline-control", @readonly = "readonly" })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="info-label" for="total-pages-complete">Complete pages</label>
+            @Html.TextBox("total-pages-complete", Model.CompletePagesCount, new { @class = "form-control inline-control", @readonly = "readonly" })
+        </div>
+    </div>
+</div>
+
+    <div class="book-sections">
+        @{
+            int counter = 0;
+        }
+        @foreach (SectionWithPagesModel sectionWithPages in Model.Sections)
+        {
+            <section class="book-section">
+                <div class="row title">
+                    <div class="col-md-3">
+                        <h3 class="section-name">@sectionWithPages.BookSection.BookSectionName</h3>
+                    </div>
+                    @if (counter == 0)
+                {
+                        <div class="col-md-2 bold column-title">Status</div>
+                        <div class="col-md-2 bold column-title">Author</div>
+                        <div class="col-md-2 bold column-title">LE40</div>
+                    }
+                    else
+                    {
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    }
+                    @{
+                        counter++;
+                    }
+                    <div class="col-md-3">
+                        <span class="section-pages-count">(@ViewHelpers.FormatPagesCountString(sectionWithPages.PagesCount))</span>
+                    </div>
+                </div>
+                @foreach (ContentsPageModel page in sectionWithPages.Pages)
+                {
+                    <div class="row page">
+                        <div class="col-md-3">
+                            @Html.ActionLink(page.BookPage.BookPageName, "Edit", "Page", new { id = page.BookPage.Id.Value }, null)
+                        </div>
+                        <div class="col-md-2">@page.BookPage.Status</div>
+                        <div class="col-md-2">@page.BookPage.Author</div>
+                        <div class="col-md-2">@page.BookPage.LifeExtension40</div>
+                        <div class="col-md-3">
+                            @page.PageNumber
+                        </div>
+                    </div>
+                }
+            </section>
+                        }
+    </div>
+    <div class="info">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="today-wrapper">
+                    <span class="bold">Date:</span>
+                    <span class="today-date">@DateTime.Now</span>
+                </div>
+            </div>
+        </div>
+    </div>

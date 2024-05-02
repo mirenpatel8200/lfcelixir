@@ -1,0 +1,35 @@
+﻿.dropdown {
+    .dropdown-menu {
+        margin-top: 0px;
+    }
+
+    .caret {
+        display: inline-block;
+    }
+
+    .mobile-caret {
+        display: none;
+        position: absolute;
+        right: 8px;
+        top: 3px;
+        padding: 10px;
+        color: #9d9d9d;
+        border-radius: 50%;
+
+        &:active, &:focus {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        transition: all 0.2s ease-in-out;
+    }
+
+    &.show {
+        .mobile-caret {
+            transform: rotateZ(180deg);
+            transform-origin: 50% 50%;
+        }
+    }
+}
+
+

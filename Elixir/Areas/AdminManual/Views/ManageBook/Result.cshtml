@@ -1,0 +1,100 @@
+﻿@model Elixir.Areas.AdminManual.ViewModels.PdfGenerationResultViewModel
+@{
+    ViewBag.Title = "Result";
+}
+
+<h2>Result:</h2>
+
+@if (Model.IsSuccessful)
+{
+    <h2><span class="badge badge-success">@Model.Message</span></h2>
+
+    <h3>Your file is ready. Open or save file.</h3>
+
+    if (Model.IsSuccessfulWithWarnings)
+    {
+        <div class="alert alert-warning" role="alert">
+            @foreach (var warning in Model.Warnings)
+            {
+                <p><strong>WARNING - </strong>@warning</p>
+            }
+        </div>
+    }
+    
+    @Html.ActionLink("Open in new tab", "Open",
+            new { fileName = Model.NameOfFileResulted },
+            new { target = "_blank", @class = "btn btn-info" }) 
+
+    <span> </span>
+
+    @Html.ActionLink("Save File", "Save",
+            new { fileName = Model.NameOfFileResulted },
+            new { @class = "btn btn-primary" })
+
+    //show popup open/save ONLY if PDF is generated successfully.
+    <div class="modal" tabindex="-1" role="dialog" id="saveOrOpenModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @if (Model.IsSinglePageMode)
+                    {
+                        <h5 class="modal-title">PDF Creation - Single Page</h5>
+                    }
+                    else if (Model.IsSingleChapterMode)
+                    {
+                        <h5 class="modal-title">PDF Creation - Chapter</h5>
+                    }
+                    else
+                    {
+                        <h5 class="modal-title">PDF Creation - Manual</h5>
+                    }
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @{
+                        string typeOfFile = "Manual";
+                        if (Model.IsSingleChapterMode) { typeOfFile = "Chapter"; }
+                        if (Model.IsSinglePageMode) { typeOfFile = "Tip"; }
+                    }
+                    <p>Your @typeOfFile is ready.</p>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-info"
+                       href="@Url.Action("Open", new { fileName = Model.NameOfFileResulted})" target="_blank">Open in new tab</a>
+
+                    <a class="btn btn-primary"
+                       href="@Url.Action("Save", new { fileName = Model.NameOfFileResulted})">Save</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+else
+{ 
+    if (Model.ShowButtonRetryAndSkipImageErrors)
+    {
+        <h2><span class="badge badge-warning">@Model.Message</span></h2>
+        
+        <a href="#" id="retryGenSkipImageErrors" class="btn btn-success">Retry &amp; skip Image Errors</a> 
+        <span>or please add the image in the system.</span>
+    }
+    else
+    {
+        <h2><span class="badge badge-danger">@Model.Message</span></h2>
+    }
+}
+
+
+
+@section scripts
+{
+    @{
+        // TODO: fix this!!!
+    }
+    @Scripts.Render("~/bundles/modalpopup")
+}

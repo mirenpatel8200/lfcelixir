@@ -1,0 +1,84 @@
+﻿@using Elixir.Helpers
+@model Elixir.ViewModels.SubjectNews.SubjectNewsViewModel
+
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+    int countDisplayed = 0;
+    bool isDisplayAll = !string.IsNullOrEmpty(Request.QueryString["display"]) &&
+        Request.QueryString["display"].Equals("all");
+    bool disableReadMore = false;
+    bool separatorShown = false;
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Pages/SubjectNews.css")
+    @Styles.Render("~/Styles/Components/LatestArticle.css")
+}
+
+@section scripts
+{
+    @Scripts.Render("~/Scripts/App/Views/subjectnews.js")
+}
+<h1>@ViewBag.Title</h1>
+
+<div class="row page-navigation">
+    <div class="col-12">
+        <span>Up to &gt; </span><a href="@Model.LinkToPageUrl">@Model.LinkToPageText</a>
+    </div>
+</div>
+
+<div class="recent-articles-container">
+    @foreach (var article in Model.RecentRelatedArticles)
+    {
+        if (isDisplayAll && Request.IsAuthenticated == false && separatorShown == false &&
+            (countDisplayed == 20 || article.ArticleDate < DateTime.Now.AddYears(-2)))
+        {
+            disableReadMore = true;
+            separatorShown = true;
+            <br />
+            <a href="/page/membership">
+                Get quick-access to the following news articles with FREE membership
+            </a>
+        }
+        countDisplayed++;
+
+        <div class="latest-article">
+            <h3>@article.Title</h3>
+            <p>@article.DnPublisherName<span> - @article.ArticleDate.FormatDdMmYyyy(false)</span></p>
+            <p>@article.Summary</p>
+
+            @if (disableReadMore)
+            {
+                <span class="lnkDisabled">Read more...</span>
+            }
+            else
+            {
+                <a href="@Url.Action("Index", "PublicArticle",
+                        new { name = article.UrlName })">Read more...</a>
+            }
+
+        </div>
+
+    }
+
+    @if (Model.CountAllRelatedArticles > Model.RecentRelatedArticles.Count() &&
+        isDisplayAll == false)
+    {
+        <br />
+        <a id="showAllNews" href="?display=all">Display all news</a>
+    }
+
+    @if (isDisplayAll)
+    {
+        if (!Request.IsAuthenticated)
+        {
+            <br />
+            <a href="/page/membership">
+                Get quick-access to the following news articles with FREE membership
+            </a>
+        }
+    }
+
+</div>

@@ -1,0 +1,64 @@
+﻿@model Elixir.ViewModels.Base.BaseCUViewModel<Elixir.Areas.Admin.Models.GoLinkModel>
+
+@Html.ValidationSummary(true)
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.Id, "ID", new { @class = "col-2 col-form-label" })
+    <div class="col-2">
+        @Html.TextBoxFor(x => x.Model.Id, new { @class = "form-control", @readonly = "readonly" })
+    </div>
+</div>
+
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.GoLinkTitle, "Title *", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.GoLinkTitle, new { htmlAttributes = new { @class = "form-control", spellcheck = "true" } })
+        @Html.ValidationMessageFor(x => x.Model.GoLinkTitle)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ShortCode, "Short Code *", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.ShortCode, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.ShortCode)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.DestinationUrl, "Destination URL *", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.DestinationUrl, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.DestinationUrl)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsBookLink, "Book Link", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsBookLink)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsAffiliateLink, "Affiliate Link", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsAffiliateLink)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.NotesInternal, "Notes", new { @class = "col-2 col-form-label" })
+    <div class="col-10 editor-field">
+        @Html.TextAreaFor(x => x.Model.NotesInternal, 5, 10, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.NotesInternal)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsEnabled, "Enabled", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsEnabled)
+    </div>
+</div>

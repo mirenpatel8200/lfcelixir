@@ -1,0 +1,45 @@
+﻿.head-title {
+    margin-bottom: 50px;
+    margin-top: 40px;
+}
+
+.form-control.inline-control {
+    margin-left: 20px;
+    width: 120px;
+}
+
+#elixir-logo {
+    
+}
+
+
+.book-sections {
+    .book-section {
+        margin-bottom: 30px;
+
+        .column-title {
+            margin-top: 4px;
+        }
+
+        .title {
+            margin-bottom: 20px;
+
+            .section-name {
+                margin: 0;
+                font-weight: bold;
+            }
+
+            .section-pages-count {
+                display: inline-block;
+                margin-top: 3px;
+            }
+        }
+    }
+}
+
+.info {
+    .today-date {
+        display: inline-block;
+        margin-left: 5px;
+    }
+}

@@ -1,0 +1,17 @@
+﻿@*moved href into if as was (", ") was generating new line in html that was displaying a space in the webpage*@
+@model List<Elixir.Areas.Admin.Models.ResourceModel>
+<p>
+    Mentioned in this article:
+    @for (int i = 0; i < Model.Count; i++)
+    {
+
+        if (i < Model.Count - 1)
+        {
+            <a href="/resources/@Model[i].UrlName">@Model[i].ResourceName</a>@(", ")
+        }
+        else
+        {
+            <a href="/resources/@Model[i].UrlName">@Model[i].ResourceName</a>@(".")
+        }
+    }
+</p>

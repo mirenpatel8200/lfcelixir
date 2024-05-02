@@ -1,0 +1,22 @@
+﻿.nav-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+    .nav-links a {
+        margin: 0 10px 0 10px;
+    }
+        .nav-links a.disabled {
+            color: grey;
+            pointer-events: none;
+            cursor: default;
+        }
+
+img.full-width {
+    width: 100%;
+}
+
+label {
+    font-weight:bold;
+    color: gray;
+}

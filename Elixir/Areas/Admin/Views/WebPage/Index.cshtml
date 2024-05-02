@@ -1,0 +1,155 @@
+﻿@using Elixir.Areas.Admin.Models
+@using Elixir.Models.Enums
+@model Elixir.Areas.Admin.ViewModels.WebPagesViewModel
+
+@{
+    ViewBag.Title = "Web Pages";
+
+    string currentFilter = Request.QueryString["filter"];
+    string currentSortBy = Request.QueryString["sortBy"];
+    string currentDirection = Request.QueryString["direction"];
+    int currentPageTypeId = Request.QueryString["pageTypeId"]!=null? Convert.ToInt32( Request.QueryString["pageTypeId"]):0;
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Components/datagrid.css")
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/App/tooltip.js")
+}
+
+<h1 class="head-title">Web Pages</h1>
+
+
+<div class="row">
+
+    @using (Html.BeginForm("Index", "Webpage", FormMethod.Get))
+    {
+    <div class="row">
+        <div class="col-2">
+            @Html.ActionLink("New", "Create", null, new { @class = "btn btn-primary" })
+        </div>
+        <div class="col-10 input-group">
+            <input type="hidden" name="sortBy" value="@currentSortBy" >
+            <input type="hidden" name="direction" value="@currentDirection">
+
+            <input type="text" class="form-control" name="filter" aria-describedby="basic-addon2" value="@currentFilter">
+
+            <select name="pageTypeId" class="form-control">
+                <option value="0">All</option>
+                <option value="10" @(currentPageTypeId == 10 ? "selected" : "")>Page</option>
+                <option value="110" @(currentPageTypeId == 110 ? "selected" : "")>Book</option>
+                <option value="120" @(currentPageTypeId == 120 ? "selected" : "")>Film</option>
+                <option value="130" @(currentPageTypeId == 130 ? "selected" : "")>Video</option>
+                <option value="200" @(currentPageTypeId == 200 ? "selected" : "")>Events</option>
+                <option value="300" @(currentPageTypeId == 300 ? "selected" : "")>Shop</option>
+                <option value="1000" @(currentPageTypeId == 1000 ? "selected" : "")>Account</option>
+            </select>
+            <div class="input-group-append">
+                <input type="submit" class="btn btn-outline-secondary" value="Filter">
+                <a href="/admin/Webpage" class="btn btn-outline-secondary">Clear</a>
+            </div>
+        </div>
+    </div>
+        }
+    </div>
+
+
+<div class="row table-wrapper">
+    <div class="col-12">
+        <table class="table table-bordered data-grid">
+            <thead>
+                <tr>
+                    <th class="small">
+                        <span class="table-header-text">ID</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)WebPagesSortOrder.WebPageID, direction = (int)Model.SortDirection,filter=currentFilter,pageTypeId=currentPageTypeId })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Name</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)WebPagesSortOrder.WebPageName, direction = (int)Model.SortDirection,filter=currentFilter,pageTypeId=currentPageTypeId })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Updated</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)WebPagesSortOrder.UpdatedDT, direction = (int)Model.SortDirection,filter=currentFilter,pageTypeId=currentPageTypeId })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th class="small">
+                        <span class="table-header-text">Order</span>
+                    </th>
+
+                    <th class="medium">
+                        <span class="table-header-text">Parent Name</span>
+                        @*<a href="@Url.Action("Index", new { sortBy = (int)WebPagesSortOrder.ParentName, direction = (int)Model.SortDirection,filter=currentFilter,pageTypeId=currentPageTypeId })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>*@
+                    </th>
+                    <th class="small">Type</th>
+                    <th class="small">Is Subject Page</th>
+
+                    <th class="medium">
+                        <span class="table-header-text">Enabled</span>
+
+                        <a href="@Url.Action("Index", new { sortBy = (int)WebPagesSortOrder.IsEnabled, direction = (int)Model.SortDirection,filter=currentFilter,pageTypeId=currentPageTypeId })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th class="small">
+                        <span class="table-header-text">Notes</span>
+                    </th>
+                    <th class="small">
+                        <span class="table-header-text">Actions</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var webPage in Model.Models)
+                {
+                    <tr>
+                        <td class="small">@webPage.Id.ToString()</td>
+                        <td>
+                            @Html.ActionLink(webPage.WebPageName, "Edit", "WebPage", new RouteValueDictionary(new { id = webPage.Id }), null)
+                        </td>
+                        <td class="medium">@(webPage.UpdatedDateTime != null? Convert.ToDateTime(webPage.UpdatedDateTime).ToString("dd-MM-yyyy"):"")</td>
+                        <td class="small">@webPage.DisplayOrder</td>
+
+                        @{ string parentPageName = string.IsNullOrEmpty(webPage.ParentName) ? "-" : webPage.ParentName; }
+
+                        <td class="medium">@parentPageName</td>
+
+                        <td class="small">@webPage.TypeName</td>
+
+                        <td class="small">@Html.CheckBox("is-subject-page", webPage.IsSubjectPage, new { @disabled = "disabled" })</td>
+
+                        <td class="medium">@Html.CheckBox("is-enabled", webPage.IsEnabled, new { @disabled = "disabled" })</td>
+
+                        <td class="medium">
+                            @if ( !string.IsNullOrEmpty(webPage.NotesInternal))
+                            {
+                                <span class="notes-holder" data-toggle="tooltip" data-placement="top" title="@webPage.NotesInternal">
+                                    <i class="fa fa-info-circle"></i>
+                                </span>
+                            }
+                        </td>
+                        <td class="small">
+                            @if (webPage.TypeName != null)
+                            {
+                                <a href="/@webPage.TypeName.ToLower()/@webPage.UrlName.ToLower()" target="_blank">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            }
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

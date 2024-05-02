@@ -1,0 +1,102 @@
+﻿@using Elixir.Areas.AdminManual.Models
+@using Elixir.Models.Enums
+@model Elixir.Areas.AdminManual.ViewModels.BooksViewModel
+
+@{
+    ViewBag.Title = "Book Pages";
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Components/datagrid.css")
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/App/tooltip.js")
+}
+
+<h1 class="head-title">Book Pages</h1>
+
+<div class="row">
+    <div class="col-12">
+        @Html.ActionLink("New", "Create", null, new { @class = "btn btn-primary" })
+    </div>
+</div>
+
+<div class="row table-wrapper">
+    <div class="col-12">
+        <table class="table table-bordered data-grid">
+            <thead>
+                <tr>
+                    <th class="small">
+                        <span class="table-header-text">ID</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)BookPagesSortOrder.BookPageID, direction = (int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Name</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)BookPagesSortOrder.BookPageName, direction = (int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Section</span>
+                        @*<a href="@Url.Action("Index", new { sortBy = (int)BookPagesSortOrder.Section, direction = (int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>*@
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Order No</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)BookPagesSortOrder.DisplayOrder, direction = (int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">LE40</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)BookPagesSortOrder.LifeExtension40, direction = (int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Is Included</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)BookPagesSortOrder.IsIncluded, direction = (int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th class="medium">Notes</th>
+                    <th class="medium">Preview PDF</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (BookPageModel bookPage in Model.Models)
+                {
+                    <tr>
+                        <td class="small">@Html.ActionLink(@bookPage.Id.ToString(), "Edit", new RouteValueDictionary(new { id = bookPage.Id }))</td>
+                        <td>@Html.ActionLink(@bookPage.BookPageName, "Edit", new RouteValueDictionary(new { id = bookPage.Id }))</td>
+                        <td>
+                            @(bookPage.BookSection == null ? "N/A" : bookPage.BookSection.BookSectionName)
+                        </td>
+                        <td class="medium">@bookPage.DisplayOrder</td>
+                        <td class="medium">@bookPage.LifeExtension40</td>
+                        <td class="medium">@Html.CheckBox("is-included", @bookPage.IsIncluded, new { @disabled = "disabled" })</td>
+                        <td class="medium">
+                            @if (String.IsNullOrWhiteSpace(bookPage.Notes) == false)
+                            {
+                                <span class="notes-holder" data-toggle="tooltip" data-placement="top" title="@bookPage.Notes">
+                                    <i class="fa fa-info-circle"></i>
+                                </span>
+                            }
+                        </td>
+                        <td class="medium">
+                            @Html.ActionLink("odd", "GenerateSinglePage", "ManageBook", new { pageId = bookPage.Id, actAsOddPage = true }, new { target= "blank" }) /
+                            @Html.ActionLink("even", "GenerateSinglePage", "ManageBook", new { pageId = bookPage.Id, actAsOddPage = false }, new { target = "blank" })
+                        </td>
+                        
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

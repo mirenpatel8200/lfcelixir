@@ -1,0 +1,114 @@
+﻿@using Elixir.Helpers
+@using Elixir.Models.Enums
+@model Elixir.Areas.Admin.ViewModels.AdminBlogPostsViewModel
+
+@{
+    ViewBag.Title = "Blog Posts";
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Components/datagrid.css")
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/App/tooltip.js")
+    @Scripts.Render("~/Scripts/App/Views/admin-list-blog-post.js")
+}
+
+<h1 class="head-title">Blog Posts</h1>
+
+<div class="row">
+    <div class="col-1">
+        @Html.ActionLink("New", "Create", null, new { @class = "btn btn-primary" })
+    </div>
+    <div class="col-3">
+        @Html.ActionLink("Populate Previous/Next Url Names", "PopulateUrlNames", null, new { @class = "btn btn-primary", id = "populate-url-names" })
+    </div>
+</div>
+
+<div class="row table-wrapper">
+    <div class="col-12">
+        <table class="table table-bordered data-grid">
+            <thead>
+                <tr>
+                    <th class="small">
+                        <span class="table-header-text">ID</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)AdminBlogPostsSortOrder.BlogPostID, direction = (int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Title</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)AdminBlogPostsSortOrder.BlogPostTitle, direction = (int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+
+
+
+                    <th class="medium">
+                        <span class="table-header-text">Created</span>
+
+                    </th>
+
+                    <th class="medium">
+                        <span class="table-header-text">Enabled</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)AdminBlogPostsSortOrder.IsEnabled, direction = (int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th class="small">
+                        <span class="table-header-text">Notes</span>
+                    </th>
+                    <th class="small">
+                        <span class="table-header-text">Actions</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var blogPost in Model.Models)
+                {
+                    <tr>
+
+                        <td class="medium">@blogPost.Id</td>
+
+                        <td>
+                            @Html.ActionLink(blogPost.BlogPostTitle, "Edit", "Blog", new RouteValueDictionary(new { id = blogPost.Id.Value.ToString() }), null)
+                        </td>
+
+
+
+                        <td class="medium">@blogPost.CreatedDt.FormatDdMmYyyy()</td>
+
+                        <td class="medium">@Html.CheckBox("is-enabled", blogPost.IsEnabled, new { disabled = "disabled" })</td>
+
+                        <td class="medium">
+                            @if (string.IsNullOrEmpty(blogPost.NotesInternal) == false)
+                            {
+                                <span class="notes-holder" data-toggle="tooltip" data-placement="top" title="@blogPost.NotesInternal">
+                                    <i class="fa fa-info-circle"></i>
+                                </span>
+                            }
+                        </td>
+
+
+                        <td>
+                            @if (!string.IsNullOrEmpty(blogPost.UrlName))
+                            {
+                                <a href="@Url.Action("ViewBlog", "PublicBlog", new { area = "", name = blogPost.UrlName })" target="_blank">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            }
+                            <a href="@Url.Action("CreatePost", "Social", new { area = "Admin", entityType = EntityType.BlogPost, entityId = blogPost.Id })">
+                                <i class="fas fa-share-square"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

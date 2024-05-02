@@ -1,0 +1,4 @@
+﻿User-agent: *
+Allow: /
+Disallow: /Images/social-card-backgrounds
+Disallow: /Monitor

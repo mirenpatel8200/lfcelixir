@@ -1,0 +1,14 @@
+﻿@using Elixir.Helpers
+@model IEnumerable<Elixir.Models.BlogPost>
+
+@foreach (var blogPost in Model)
+{
+    var blogDate = blogPost.PublishedUpdatedDT.HasValue ?
+        blogPost.PublishedUpdatedDT.Value :
+        blogPost.PublishedOnDT;
+    <p>
+        <!-- @blogPost.ThumbnailImageName -->
+        @Html.ActionLink(blogPost.BlogPostTitle, "ViewBlog", "PublicBlog", new { name = blogPost.UrlName }, null) <br />
+        @blogDate.FormatDdMmYyyy(false) @blogPost.BlogPostDescriptionPublic
+    </p>
+}

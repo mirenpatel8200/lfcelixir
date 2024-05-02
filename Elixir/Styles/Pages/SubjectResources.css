@@ -1,0 +1,12 @@
+﻿.recent-resources-container {
+    /*margin-top: 60px;*/
+}
+
+.lnkDisabled {
+    color: grey;
+    cursor: pointer;
+}
+
+.descriptionDisabled {
+    color: grey;
+}

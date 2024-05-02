@@ -1,0 +1,156 @@
+﻿@using Elixir.Areas.Admin.Models
+@using Elixir.Models.Enums
+@model Elixir.Areas.Admin.ViewModels.UsersViewModel
+
+@{
+    ViewBag.Title = "Users";
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Components/datagrid.css")
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/App/tooltip.js")
+    <script>
+        $(document).ready(function () {
+            $("#ddlRecordLimit").on("change", function () {
+                $(location).attr("href", "/admin/user?sortBy=" + '@((int)Model.SortOrder)' + "&direction=" + '@((int)Model.CurrentSortDirection)' + "&limit=" + $("#ddlRecordLimit").val());
+            });
+        });
+    </script>
+}
+
+
+<h1 class="head-title">Users</h1>
+
+<div class="row">
+    <div class="col-1">
+        @Html.ActionLink("New", "Create", null, new { @class = "btn btn-primary" })
+    </div>
+    <div class="col-2">
+        <div class="form-group">
+            <div class="input-group">
+                <label class="control-label mt-1 mr-2"><strong>Show</strong></label>
+                @Html.DropDownListFor(x => x.UsersRecordLimit, Model.SelectItems, new { @id = "ddlRecordLimit", @class = "form-control" })
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row table-wrapper">
+    <div class="col-12 table-responsive">
+        <table class="table table-bordered data-grid">
+            <thead>
+                <tr>
+                    <th class="small">
+
+                        <span class="table-header-text">ID</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)UsersSortOrder.UserID, direction = (int)Model.SortDirection, limit = (int)Model.UsersRecordLimit })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Hashcode</span>
+                    </th>
+                    <th>
+                        <span class="table-header-text">First Name</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)UsersSortOrder.UserNameFirst, direction = (int)Model.SortDirection, limit = (int)Model.UsersRecordLimit })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Last Name</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)UsersSortOrder.UserNameLast, direction = (int)Model.SortDirection, limit = (int)Model.UsersRecordLimit })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Email</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)UsersSortOrder.EmailAddress, direction = (int)Model.SortDirection, limit = (int)Model.UsersRecordLimit })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Role</span>
+                        @*<a href="@Url.Action("Index", new { sortBy = (int)UsersSortOrder.Role, direction = (int)Model.SortDirection, limit = (int)Model.UsersRecordLimit })" class="sort-action">
+                                <i class="fa fa-sort action-sort"></i>
+                            </a>*@
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Member No</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)UsersSortOrder.MemberNumber, direction = (int)Model.SortDirection, limit = (int)Model.UsersRecordLimit })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Enabled</span>
+                        <a href="@Url.Action("Index", new {sortBy = (int) UsersSortOrder.IsEnabled, direction = (int) Model.SortDirection, limit = (int)Model.UsersRecordLimit})" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Last Login</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)UsersSortOrder.LastLoginDT, direction = (int)Model.SortDirection, limit = (int)Model.UsersRecordLimit })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Notes</span>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Actions</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (BookUserModel userModel in Model.Models)
+                {
+                    <tr>
+                        <td class="small">@userModel.Id.ToString()</td>
+                        <td>
+                            @if (!String.IsNullOrEmpty(userModel.IdHashCode))
+                            {
+                                @Html.ActionLink(userModel.IdHashCode, "Edit", new RouteValueDictionary(new { id = userModel.Id }))
+                            }
+                        </td>
+                        <td>@userModel.UserName</td>
+                        <td>@userModel.UserNameLast</td>
+                        <td>
+                            @userModel.EmailAddress
+                        </td>
+                        <td>
+                            @(userModel.Role == null ? "N/A" : userModel.Role.RoleName)
+                        </td>
+                        <td>@userModel.MemberNumber</td>
+                        <td class="medium">@Html.CheckBox("is-enabled", userModel.IsEnabled, new { @disabled = "disabled" })</td>
+                        <td class="medium">
+                            @{
+                                String lastLogin = userModel.LastLogin?.ToString("dd-MM-yyyy");
+                            }
+                            @lastLogin
+                        </td>
+                        <td class="medium">
+                            @if (String.IsNullOrWhiteSpace(userModel.AdminNotes) == false)
+                            {
+                                <span class="notes-holder" data-toggle="tooltip" data-placement="top" title="@userModel.AdminNotes">
+                                    <i class="fa fa-info-circle"></i>
+                                </span>
+                            }
+                        </td>
+                        <td>
+                            @if (userModel.ProfileIsPublic)
+                            {
+                                <a href="/Members/@userModel.IdHashCode" target="_blank">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

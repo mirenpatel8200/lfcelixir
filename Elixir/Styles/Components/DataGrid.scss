@@ -1,0 +1,96 @@
+﻿
+.table-wrapper {
+    margin-top: 20px;
+}
+
+table.data-grid {
+    //table-layout: fixed;
+    thead {
+        tr {
+            //background-color: #808080;
+            //color: white;
+            th {
+                font-weight: bold;
+                font-size: 100%;
+
+                .table-header-text {
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+
+                .sort-action {
+                    color: black;
+                    display: inline-block;
+                    vertical-align: middle;
+
+                    &:hover {
+                        opacity: 0.5;
+                    }
+
+                    .action-icon {
+                        padding-top: 2px;
+                        padding-left: 6px;
+                    }
+                }
+
+                &.small {
+                    text-align: center;
+                    min-width: 80px;
+                }
+
+                &.medium {
+                    text-align: center;
+                    min-width: 120px;
+
+                    &#article-date {
+                        width: 140px;
+                    }
+                }
+
+                &.date-time {
+                    width: 180px;
+                }
+            }
+        }
+    }
+
+    tbody {
+        tr:nth-child(2n+1) {
+            background-color: #f6f6f6;
+        }
+
+        tr {
+            &:hover {
+                background-color: #ecf4f8;
+            }
+        }
+
+        td {
+            overflow-x: hidden;
+
+            &.small {
+                text-align: center;
+                width: 80px;
+            }
+
+            &.medium {
+                text-align: center;
+                width: 100px;
+            }
+
+            &.date-time {
+                text-align: center;
+                width: 140px;
+            }
+
+            .notes-holder {
+                color: #40c851;
+                font-size: 16px;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

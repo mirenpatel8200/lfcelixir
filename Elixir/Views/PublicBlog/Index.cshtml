@@ -1,0 +1,22 @@
+﻿@model Elixir.ViewModels.BlogsViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+    ViewBag.Title = "Blog Posts";
+    var MetaDescription = "Recent blog posts from the Live Forever Club";
+    ViewBag.MetaDescription = MetaDescription;
+ }
+
+<h1>Blog</h1>
+
+<h2>Recent posts</h2>
+
+@Html.Partial("_BlogPostSummaries", Model.RecentBlogs)
+
+<h2>Find blog posts by year</h2>
+
+@foreach (var year in Model.ListOfYears)
+{
+    <h3>
+        @Html.ActionLink(year.ToString(), "ViewByYear", new { year = year }, null)
+    </h3>
+}

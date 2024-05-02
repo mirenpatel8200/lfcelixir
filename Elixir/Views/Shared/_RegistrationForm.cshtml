@@ -1,0 +1,109 @@
+﻿@model Elixir.Models.Registration
+
+
+@if (TempData["RegistrationSuccessMsg"] != null)
+{
+    
+
+    <div class="alert alert-success">
+        @TempData["RegistrationSuccessMsg"].ToString()
+    </div>
+}
+else
+{
+    if (TempData["ErrorMsgRegistration"] != null)
+    {
+        if (TempData["model"] != null)
+        {
+            var ModelOnError = (Elixir.Models.Registration)TempData["model"];
+            if (ModelOnError!=null)
+            {
+                Model.CountryName = ModelOnError.CountryName;
+                Model.EmailAddress = ModelOnError.EmailAddress;
+                Model.FirstName = ModelOnError.FirstName;
+                Model.LastName = ModelOnError.LastName;
+                Model.MembershipLevel = ModelOnError.MembershipLevel;
+                Model.NewsletterSubscriber = ModelOnError.NewsletterSubscriber;
+                Model.Password = ModelOnError.Password;
+            }
+        }
+        <div class="alert alert-danger">
+            @TempData["ErrorMsgRegistration"].ToString()
+        </div>
+    }
+
+    using (Html.BeginForm("Registration", "WebPageVisual", FormMethod.Post, new { @id = "frmRegistration" }))
+    {
+        <div class="form-group row">
+            <div class="col-6">
+                @Html.LabelFor(x => x.FirstName, "First name", new { @class = "col-form-label" })
+                @Html.EditorFor(x => x.FirstName, new { htmlAttributes = new { @class = "form-control", @id = "txtFirstName", @autofocus = "" } })
+                <span id="spFirstName" class="field-validation-error" for="txtFirstName"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-6">
+                @Html.LabelFor(x => x.LastName, "Last name (optional)", new { @class = "col-form-label" })
+                @Html.EditorFor(x => x.LastName, new { htmlAttributes = new { @class = "form-control", @id = "txtLastName" } })
+                <span id="spLastName" class="field-validation-error" for="txtLastName"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                @Html.LabelFor(x => x.MembershipLevel, "Membership Level", new { @class = "col-form-label" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                @Html.RadioButtonFor(model => model.MembershipLevel, (int)Elixir.Models.Enums.Roles.Longevist)
+                Longevist
+            </div>
+            <div class="col-2">
+                @Html.RadioButtonFor(model => model.MembershipLevel, (int)Elixir.Models.Enums.Roles.Supporter)
+                Supporter
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-6">
+                @Html.LabelFor(x => x.CountryName, "Country", new { @class = "col-form-label" })
+                @Html.EditorFor(x => x.CountryName, new { htmlAttributes = new { @class = "form-control", @id = "txtCountryName", @placeholder = "Type to search", data_autocomplete_url = Url.Action("FetchAutocompleteForCountry", "WebPageVisual") } })
+                <span id="spCountryName" class="field-validation-error" for="txtCountryName"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-6">
+                @Html.LabelFor(x => x.EmailAddress, "Email address", new { @class = "col-form-label" })
+                @Html.EditorFor(x => x.EmailAddress, new { htmlAttributes = new { @class = "form-control", @id = "txtEmailAddress" } })
+                <span id="spEmailAddress" class="field-validation-error" for="txtEmailAddress"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-6">
+                @Html.LabelFor(x => x.Password, "Password", new { @class = "col-form-label" })
+                <p>8-50 characters (must include one uppercase, one lowercase and one digit)</p>
+                @Html.EditorFor(x => x.Password, new { htmlAttributes = new { @type = "text", @class = "form-control", @id = "txtPassword" } })
+                <span id="spPassword" class="field-validation-error" for="txtPassword"></span>
+                <div style="text-align: right;" class="mt-3"><input type="checkbox" id="hidePassword" name="hidePassword" /> <label for="hidePassword">Hide Password</label></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 form-checkbox">
+                @Html.CheckBoxFor(x => x.NewsletterSubscriber)
+                @Html.LabelFor(x => x.NewsletterSubscriber, "Sign up for newsletter", new { @class = "col-form-label" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-12">
+                <p>Monthly newsletter - you can unsubscribe at any time. We NEVER give your email address to anyone else.</p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-6">
+                <button type="button" id="btnSave" class="btn btn-primary">
+                    Join
+                </button>
+            </div>
+        </div>
+    }
+}
+

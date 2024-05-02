@@ -1,0 +1,93 @@
+﻿@model Elixir.Areas.Admin.ViewModels.ShopOrdersViewModel
+@using Elixir.Models.Enums
+@{
+    ViewBag.Title = "Shop Orders";
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Components/datagrid.css")
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/App/tooltip.js")
+}
+
+<h1 class="head-title">Shop Orders</h1>
+
+<div class="row">
+    <div class="col-12">
+        @Html.ActionLink("New", "CreateOrder", "Shop", null, new { @class = "btn btn-primary" })
+    </div>
+</div>
+
+<div class="row table-wrapper">
+    <div class="col-12">
+        <table class="table table-bordered data-grid">
+            <thead>
+                <tr>
+                    <th class="medium">
+                        <span class="table-header-text">Order</span>
+                        <a href="@Url.Action("Orders", new { sortBy = (int)ShopOrdersSortOrder.IDHashCode, direction = (int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Status</span>
+                    </th>
+                    <th class="small">
+                        <span class="table-header-text">Items</span>
+                    </th>
+                    <th class="small">
+                        <span class="table-header-text">Shipping</span>
+                    </th>
+                    <th class="small">
+                        <span class="table-header-text">Total</span>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Email Address</span>
+                    </th>
+                    <th class="small">
+                        <span class="table-header-text">UserID</span>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Placed</span>
+                        <a href="@Url.Action("Orders", new { sortBy = (int)ShopOrdersSortOrder.OrderPlacedDT, direction = (int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Notes</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Models != null && Model.Models.ToList().Count > 0)
+                {
+                    foreach (Elixir.Models.ShopOrder shopOrder in Model.Models)
+                    {
+                        <tr>
+                            <td class="medium">@Html.ActionLink(shopOrder.IDHashCode, "Order", new { name = shopOrder.IDHashCode })</td>
+                            <td>@shopOrder.OrderStatusName</td>
+                            <td class="small">@shopOrder.ItemsTotal</td>
+                            <td class="small">@shopOrder.ShippingPricePaid</td>
+                            <td class="small">@shopOrder.PricePaidTotal</td>
+                            <td class="small">@shopOrder.EmailAddress</td>
+                            <td class="small">@Html.ActionLink(shopOrder.UserId.ToString(), "Edit", "User", new { id = shopOrder.UserId }, new { @target = "_blank" })</td>
+                            <td class="medium">@(shopOrder.OrderPlacedOn.HasValue? shopOrder.OrderPlacedOn.Value.ToString("dd-MM-yyyy"): "")</td>
+                            <td class="medium">
+                                @if (!string.IsNullOrWhiteSpace(shopOrder.NotesInternal))
+                                {
+                                    <span class="notes-holder" data-toggle="tooltip" data-placement="top" title="@shopOrder.NotesInternal">
+                                        <i class="fa fa-info-circle"></i>
+                                    </span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

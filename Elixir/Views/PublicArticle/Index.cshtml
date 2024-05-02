@@ -1,0 +1,165 @@
+﻿
+@using Elixir.Helpers
+@model Elixir.ViewModels.Articles.PublicArticleViewModel
+
+@{
+    ViewBag.Title = Model.Article.Title;
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Pages/Article.css")
+}
+
+@{
+    ViewBag.ArticleTitle = Model.Article.Title;
+}
+
+
+<section class="section-ptb" style="padding:15px 0 !important">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-title">
+                            <h2 class="title">@Model.Article.Title</h2>
+                        </div>
+                        <div class="blog-post-content p-0">
+                            <span class="date"><i class="fas fa-calendar-alt mr-2"></i> @Model.Article.ArticleDate.FormatDdMmYyyy(false)</span>
+                            <p class="text-dark">Key points from article :</p>
+                            @{
+                                var count = Model.Article.BulletPointsWithBrs.Replace("<br />", Environment.NewLine);
+                                var oSplit = count.Split(new Char[] { '\r' });
+                                foreach (var item in oSplit)
+                                {
+                                    <p> @Html.Raw(item)</p>
+                                }
+                            }
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-sm-12">
+                        @if (Model.Article.HasSummary)
+                        {
+                            <h4 class="mb-4">@Model.Article.Summary</h4>
+                        }
+
+                        <script type="text/javascript">amzn_assoc_ad_type ="responsive_search_widget"; amzn_assoc_tracking_id ="s08a-21"; amzn_assoc_marketplace ="amazon"; amzn_assoc_region ="GB"; amzn_assoc_placement =""; amzn_assoc_search_type = "search_widget";amzn_assoc_width ="auto"; amzn_assoc_height ="auto"; amzn_assoc_default_search_category =""; amzn_assoc_default_search_key ="@Model.PrimaryWebPageTitle.Replace(" ", "_")";amzn_assoc_theme ="light"; amzn_assoc_bg_color ="FFFFFF";</script>
+                        <script src="//z-eu.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1&Marketplace=GB"></script>
+                    </div>
+                </div>
+                @if (Model.ResourcesMentioned.Count > 0)
+                {
+                    <div class="row mt-5">
+                        <div class="col-sm-12">
+                            <h4 class="mb-4">Mentioned in this article:</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @Html.Partial("_ResourcesListForSubjectPage", Model.ResourcesMentioned)
+                    </div>
+                }
+                <div class="row mt-5">
+                    <div class="col-md-12">
+                        <div class="article-link">
+                            <h6>
+                                Read full article on <a target="_blank" href="@Model.Article.PublisherUrl">@Model.Article.DnPublisherName website</a>
+                            </h6>
+                        </div>
+                    </div>
+                    @if (Model.HasPrimaryPage)
+                    {
+                        <div class="col-md-6">
+                            <div class="article-link bg-grey p-2">
+                                <h6> More @Html.ActionLink($"{Model.PrimaryWebPageTitle} information, news and resources", "Index", "WebPageVisual", new { name = Model.PrimaryWebPageUrlName, area = "" }, null)</h6>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.HasSecondaryPage && !Model.TopicsHaveSamePrimaryWebPage)
+                    {
+                        <div class="col-md-6">
+                            <div class="article-link bg-grey p-2">
+                                <h6>
+                                    More @Html.ActionLink($"{Model.SecondaryWebPageTitle} information, news and resources", "Index", "WebPageVisual", new { name = Model.SecondaryWebPageUrlName, area = "" }, null)
+                                </h6>
+                            </div>
+                        </div>
+                    }
+                </div>
+                @if (Model.Article.DisplaySocialImage)
+                {
+                    <div class="row mt-3">
+                        <div class="col-sm-12">
+                            <img class="img-fluid" src="~/Images/@Model.Article.SocialImageFilename" alt="@Model.Article.Title" />
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@*<h1>@Model.Article.Title</h1>
+
+    <div class="public-article">
+        <div>
+            @Model.Article.ArticleDate.FormatDdMmYyyy(false)
+        </div>
+
+        <div class="key-points">KEY POINTS FROM ARTICLE:</div>
+
+        <p class="bullet-points">
+            @Html.Raw(Model.Article.BulletPointsWithBrs)
+        </p>
+
+        @if (Model.Article.HasSummary)
+        {
+            <div class="summary">
+                <strong>@Model.Article.Summary</strong>
+            </div>
+        }*@
+
+@*<iframe src="https://rcm-eu.amazon-adsystem.com/e/cm?o=2&p=288&l=ez&f=ifr&linkID=63c566045a1fef517bf642616274b556&t=s08a-21&tracking_id=s08a-21" width="320" height="50" scrolling="no" border="0" marginwidth="0" style="border:none;" frameborder="0"></iframe>
+    Amazon search widget - prepopulated with primary page title**@
+@*<script type="text/javascript">amzn_assoc_ad_type ="responsive_search_widget"; amzn_assoc_tracking_id ="s08a-21"; amzn_assoc_marketplace ="amazon"; amzn_assoc_region ="GB"; amzn_assoc_placement =""; amzn_assoc_search_type = "search_widget";amzn_assoc_width ="auto"; amzn_assoc_height ="auto"; amzn_assoc_default_search_category =""; amzn_assoc_default_search_key ="@Model.PrimaryWebPageTitle.Replace(" ", "_")";amzn_assoc_theme ="light"; amzn_assoc_bg_color ="FFFFFF";</script>
+        <script src="//z-eu.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1&Marketplace=GB"></script>
+
+
+        @if (Model.ResourcesMentioned.Count > 0)
+        {
+            <h3>Mentioned in this article:</h3>
+
+            @Html.Partial("_ResourcesListForSubjectPage", Model.ResourcesMentioned)
+        }
+
+        <div class="full-article-link">
+            Read full article on <a target="_blank" href="@Model.Article.PublisherUrl">@Model.Article.DnPublisherName website</a>
+        </div>
+
+        @if (Model.HasPrimaryPage)
+        {
+            <div class="article-more-link">
+                More @Html.ActionLink($"{Model.PrimaryWebPageTitle} information, news and resources", "Index", "WebPageVisual", new { name = Model.PrimaryWebPageUrlName, area = "" }, null)
+            </div>
+        }
+
+        @if (Model.HasSecondaryPage && !Model.TopicsHaveSamePrimaryWebPage)
+        {
+            <div class="article-more-link">
+                More @Html.ActionLink($"{Model.SecondaryWebPageTitle} information, news and resources", "Index", "WebPageVisual", new { name = Model.SecondaryWebPageUrlName, area = "" }, null)
+            </div>
+        }
+
+        @if (Model.Article.DisplaySocialImage)
+        {
+            <div class="banner">
+                <img src="~/Images/@Model.Article.SocialImageFilename" alt="@Model.Article.Title" />
+            </div>
+        }
+    </div>*@
+

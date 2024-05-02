@@ -1,0 +1,30 @@
+﻿@model Elixir.ViewModels.MemberViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+    ViewBag.Title = !string.IsNullOrEmpty(Model.Member.UserNameDisplay) ? Model.Member.UserNameDisplay : "Member Profile";
+}
+
+@section Scripts
+{
+    <script>
+        jQuery(document).find("a[href]").each(function (index, value) {
+            var $a = jQuery(value);
+            var href = $a.attr("href");
+
+            if (!href.includes("https") && !href.includes("http"))
+                $a.attr("href", "http://" + href);
+        });
+    </script>
+}
+
+<h1>@(!string.IsNullOrEmpty(Model.Member.UserNameDisplay) ? $"{Model.Member.UserNameDisplay} Member's Profile" : "Live Forever Club Member's Profile")</h1>
+<h3>External Links</h3>
+
+@if (!string.IsNullOrEmpty(Model.Member.WebsiteUrl))
+{
+    <p>Website: <a href="@Model.Member.WebsiteUrl" target="_blank">@Model.Member.WebsiteUrl</a></p>
+}
+else
+{
+    <p>Website: </p>
+}

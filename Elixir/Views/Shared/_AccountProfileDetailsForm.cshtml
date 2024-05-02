@@ -1,0 +1,95 @@
+﻿@model Elixir.Models.AccountProfileDetails
+
+@using (Html.BeginForm("SaveAccountProfileDetails", "WebPageVisual", FormMethod.Post, new { @id = "frmAccountProfileDetails" }))
+{
+    if (TempData["ErrorMsgAccountProfileDetails"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMsgAccountProfileDetails"].ToString()
+        </div>
+    }
+
+    @*<div class="form-group row">
+            <div class="col-12">
+                <span style="margin-right:10px;">@Html.CheckBoxFor(x => x.ProfileIsPublic)</span><span>@Html.LabelFor(x => x.ProfileIsPublic, "Display profile on website (your name and email are NEVER display on the website)", new { @class = "col-form-label" })</span>
+            </div>
+
+        </div>*@
+    <div class="form-group row">
+        <div class="col-8">
+            @Html.LabelFor(x => x.Visibilty, "Visibility (your name and email are NEVER displayed)", new { @class = "col-form-label" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-12">
+            <input id="VisibilityPublicRadio" name="Visibilty" value="Public" type="radio" @(Model.Visibilty == "Public" ? "checked" : "") onkeyup="submitData(event)" />&nbsp;Public
+        </div>
+        <div class="col-12">
+            <input id="VisibilityMemberOnlyRadio" name="Visibilty" value="MemberOnly" type="radio" @(Model.Visibilty == "MemberOnly" ? "checked" : "") onkeyup="submitData(event)" />&nbsp;Member Only
+        </div>
+        <div class="col-12">
+            <input id="VisibilityPrivateRadio" name="Visibilty" value="Private" type="radio" @(Model.Visibilty == "Private" ? "checked" : "") onkeyup="submitData(event)" />&nbsp;Private
+        </div>
+    </div>
+
+    if (Model.Visibilty == "Public" || Model.Visibilty == "MemberOnly")
+    {
+        <div class="form-group row">
+            <button type="button" data-RedirectionUrl="/members/@Model.IDHashCode" target="_blank" class="btn btn-default" id="ViewOnWebsiteButton" @(Model.Visibilty == "Private" ? "disabled" : "")>View On Website</button> &nbsp;<label class="col-form-label">(opens in new tab)</label>
+        </div>
+    }
+
+    <div class="form-group row">
+        <div class="col-8">
+            @Html.LabelFor(x => x.Biography, "Biography (tell us a bit more about you)", new { @class = "col-form-label" })
+            <br />
+            @Html.TextAreaFor(x => x.Biography, new { @class = "form-control", @id = "txtWebsite", @width = "100%" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-8">
+            @Html.LabelFor(x => x.WebsiteUrl, "Website (personal or company)", new { @class = "col-form-label" })
+            @Html.EditorFor(x => x.WebsiteUrl, new { htmlAttributes = new { @class = "form-control", @id = "txtWebsite", @placeholder = "e.g. http://liveforever.club", @onkeyup = "submitData(event)" } })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-8">
+            @Html.LabelFor(x => x.FacebookUrl, "Facebook", new { @class = "col-form-label" })
+            @Html.EditorFor(x => x.FacebookUrl, new { htmlAttributes = new { @class = "form-control", @id = "txtFacebook", @placeholder = "e.g. http://facebook.com/liveforever", @onkeyup = "submitData(event)" } })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-8">
+            @Html.LabelFor(x => x.InstagramUrl, "Instagram", new { @class = "col-form-label" })
+            @Html.EditorFor(x => x.InstagramUrl, new { htmlAttributes = new { @class = "form-control", @id = "txtInstagram", @placeholder = "e.g. http://instagram.com/liveforever", @onkeyup = "submitData(event)" } })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-8">
+            @Html.LabelFor(x => x.LinkedInUrl, "LinkedIn", new { @class = "col-form-label" })
+            @Html.EditorFor(x => x.LinkedInUrl, new { htmlAttributes = new { @class = "form-control", @id = "txtLinkedIn", @placeholder = "e.g. http://linkdin.com/in/charliesmith/", @onkeyup = "submitData(event)" } })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-8">
+            @Html.LabelFor(x => x.TwitterUrl, "Twitter", new { @class = "col-form-label" })
+            @Html.EditorFor(x => x.TwitterUrl, new { htmlAttributes = new { @class = "form-control", @id = "txtTwitter", @placeholder = "e.g. http://twitter.com/liveforever", @onkeyup = "submitData(event)" } })
+            <span id="spFirstName" class="field-validation-error" for="txtFirstName"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-8">
+            @Html.LabelFor(x => x.OtherUrl, "Other Url", new { @class = "col-form-label" })
+            @Html.EditorFor(x => x.OtherUrl, new { htmlAttributes = new { @class = "form-control", @id = "txtOther", @onkeyup = "submitData(event)" } })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-6">
+            <button type="button" id="btnSave" class="btn btn-primary">
+                Update
+            </button>
+        </div>
+    </div>
+}
+

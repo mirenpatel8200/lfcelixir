@@ -1,0 +1,127 @@
+﻿@model Elixir.Areas.Admin.ViewModels.CreateEditShopProductOptionViewModel
+@{
+    ViewBag.Title = "Add/Edit Shop Product Options";
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Components/Controls/Inputs.css")
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/App/confirmation.js")
+    @Scripts.Render("~/Scripts/App/leaveDirtyForm.js")
+    <script>
+        function validate(index) {
+            if (isNaN(index))
+                return;
+
+            $("#errOptionName_" + index).text("");
+            $("#errSkuSuffix_" + index).text("");
+            $("#errStockLevel_" + index).text("");
+
+            let isValid = true;
+
+            let name = $("#OptionName_" + index).val();
+
+            if (!name) {
+                $("#errOptionName_" + index).text("Option Name is required.");
+                isValid = false;
+            } else {
+                if (name.length > 20) {
+                    $("#errOptionName_" + index).text("Option Name: Length should be less than 20.");
+                    isValid = false;
+                }
+            }
+
+            let skuSuffix = $("#SkuSuffix_" + index).val();
+
+            if (!skuSuffix) {
+                $("#errSkuSuffix_" + index).text("Suffix is required.");
+                isValid = false;
+            }
+            else {
+                if (skuSuffix.length > 5) {
+                    $("#errSkuSuffix_" + index).text("Suffix: Length should be less than 5.");
+                    isValid = false;
+                }
+            }
+
+            let stockLevel = $("#StockLevel_" + index).val();
+
+            if (!stockLevel) {
+                $("#errStockLevel_" + index).text("Stock is required.");
+                isValid = false;
+            }
+
+            if (isValid)
+                $("#frm_" + index).submit();
+        }
+    </script>
+}
+
+<h1 class="head-title">Add/Edit Shop Product Options</h1>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.ShopProductId, "Shop Product ID", new { @class = "col-2 col-form-label" })
+    <div class="col-2">
+        @Html.EditorFor(x => x.ShopProductId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.ShopProductName, "Product", new { @class = "col-2 col-form-label" })
+    <div class="col-6">
+        @Html.EditorFor(x => x.ShopProductName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.OptionsUnit, "Options Unit", new { @class = "col-2 col-form-label" })
+    <div class="col-6">
+        @Html.EditorFor(x => x.OptionsUnit, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+    </div>
+</div>
+
+@if (Model.ShopProductOptionModels != null && Model.ShopProductOptionModels.Count > 0)
+{
+    <div class="form-group row">
+        <div class="col-1">
+            <label class="col-form-label">ID</label>
+        </div>
+        <div class="col-2">
+            <label class="col-form-label">Name*</label>
+        </div>
+        <div class="col-1">
+            <label class="col-form-label">Suffix*</label>
+        </div>
+        <div class="col-2">
+            <label class="col-form-label">Extra price</label>
+        </div>
+        <div class="col-1">
+            <label class="col-form-label">Stock*</label>
+        </div>
+        <div class="col-1">
+            <label class="col-form-label">Display</label>
+        </div>
+        <div class="col-1 text-center">
+            <label class="col-form-label">Default</label>
+        </div>
+        <div class="col-1 text-center">
+            <label class="col-form-label">Enabled</label>
+        </div>
+        <div class="col-2">
+            <label class="col-form-label">Actions</label>
+        </div>
+    </div>
+
+    for (var i = 0; i < Model.ShopProductOptionModels.Count; i++)
+    {
+        @Html.Partial("_OptionsEditor", Model.ShopProductOptionModels[i], new ViewDataDictionary { { "index", i } })
+    }
+
+    <div class="form-group row mt-5">
+        <div class="col-2">
+            @Html.ActionLink("Cancel", "Product", "Shop", null, new { @class = "btn btn-light skipWarnUnsavedChanges" })
+        </div>
+    </div>
+}

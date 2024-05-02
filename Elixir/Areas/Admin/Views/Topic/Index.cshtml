@@ -1,0 +1,127 @@
+﻿@using Elixir.Areas.Admin.Models
+@using Elixir.Models.Enums
+@model Elixir.Areas.Admin.ViewModels.TopicsViewModel
+
+@{
+    ViewBag.Title = "Topics";
+    string currentFilter = Request.QueryString["Filter"];
+    string currentSortBy = Request.QueryString["sortBy"];
+    string currentDirection = Request.QueryString["direction"];
+    string currentIncludeAllFields = Request.QueryString["includeAllFields"];
+
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Components/datagrid.css")
+    @Styles.Render("~/Styles/Pages/Topics.css")
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/App/table-sort.js")
+    @Scripts.Render("~/Scripts/App/tooltip.js")
+}
+
+<h1 class="head-title">Topics</h1>
+
+<div class="row">
+    @using (Html.BeginForm("Index", "Topic", FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-2">
+                @Html.ActionLink("New", "Create", null, new { @class = "btn btn-primary" })
+            </div>
+            <div class="col-10 input-group">
+                <input type="hidden" name="sortBy" value="@((int)Model.CurrentSortOrder)" />
+                <input type="hidden" name="direction" value="@((int)Model.CurrentSortDirection)" />
+
+                <input type="text" class="form-control" name="filter" value="@currentFilter" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <input type="submit" class="btn btn-outline-secondary" value="Filter" />
+                    <a href="@Url.Action("Index", "Topic",
+                        new { sortBy = @currentSortBy, direction = @currentDirection })"
+                       class="btn btn-outline-secondary">Clear</a>
+                </div>
+                <div class="m-auto pl-5">
+                    @if (!string.IsNullOrEmpty(currentIncludeAllFields) && currentIncludeAllFields == "on")
+                    {
+                        <input type="checkbox" class="" name="includeAllFields" id="includeAllFields" checked /> <span>&nbsp; All Fields</span>
+                    }
+                    else
+                    {
+                        <input type="checkbox" class="" name="includeAllFields" id="includeAllFields" /> <span>&nbsp; All Fields</span>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="row table-wrapper">
+    <div class="col-12">
+        <table class="table table-bordered data-grid">
+            <thead>
+                <tr>
+                    <th class="small">
+                        <span class="table-header-text">ID</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)TopicSortOrder.TopicID, direction = (int)Model.SortDirection, filter = currentFilter })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Name</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)TopicSortOrder.TopicName, direction = (int)Model.SortDirection, filter = currentFilter })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th class="">
+                        Description (Internal)
+                    </th>
+                    <th>Primary Web Page</th>
+                    <th class="small">Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (TopicModel topic in Model.Models)
+                {
+                    <tr>
+                        <td class="small">
+                            @topic.Id
+                        </td>
+                        <td class="">
+                            @Html.ActionLink(topic.TopicName, "Edit", "Topic", new RouteValueDictionary() { { "id", topic.Id } }, null)
+                        </td>
+                        <td class="">
+                            @topic.DescriptionInternal
+                        </td>
+                        <td>
+                            @if (topic.PrimaryWebPageId.HasValue)
+                            {
+                                if (topic.PrimaryWebPageId != 0)
+                                {
+                                    <span>@topic.PrimaryWebPageTitle</span>
+                                }
+                                else
+                                {
+                                    <span>None</span>
+                                }
+                            }
+                            else
+                            {
+                                <span> </span>
+                            }
+                        </td>
+                        <td class="small">
+                            @if (string.IsNullOrWhiteSpace(topic.NotesInternal) == false)
+                            {
+                                <span class="notes-holder" data-toggle="tooltip" data-placement="top" title="@topic.NotesInternal">
+                                    <i class="fa fa-info-circle"></i>
+                                </span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

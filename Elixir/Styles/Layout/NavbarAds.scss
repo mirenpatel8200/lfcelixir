@@ -1,0 +1,44 @@
+﻿
+.fixed-top-base {
+    // apply styles as in "fixed-top" css class.
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+
+body {
+    &.navbar-ads-disabled {
+        padding-top: 50px;
+
+        .navbar {
+            @extend .fixed-top-base;
+        }
+    }
+
+    &.navbar-ads-enabled {
+        padding-top: 0;
+
+        .navbar {
+            &.attached {
+                @extend .fixed-top-base;
+            }
+        }
+    }
+
+    .navbar-ads-wrapper {
+        #navbar-ads {
+            overflow: hidden;
+            margin: 0 auto;
+            width: 728px;
+            min-height: 90px;
+            text-align: center;
+
+            @media (max-width: 1199px) {
+                width: 320px;
+                min-height: 50px;
+            }
+        }
+    }
+}

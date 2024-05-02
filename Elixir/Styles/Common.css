@@ -1,0 +1,132 @@
+﻿.dropdown .dropdown-menu {
+  margin-top: 0px; }
+
+.dropdown .caret {
+  display: inline-block; }
+
+.dropdown .mobile-caret {
+  display: none;
+  position: absolute;
+  right: 8px;
+  top: 3px;
+  padding: 10px;
+  color: #9d9d9d;
+  border-radius: 50%;
+  transition: all 0.2s ease-in-out; }
+  .dropdown .mobile-caret:active, .dropdown .mobile-caret:focus {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.15); }
+
+.dropdown.show .mobile-caret {
+  transform: rotateZ(180deg);
+  transform-origin: 50% 50%; }
+
+.read-more-list {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+  .read-more-list .glyphicon {
+    margin-right: 5px; }
+
+footer .copyright {
+  margin-top: 10px; }
+
+.navbar {
+  z-index: 1; }
+
+.form-checkbox {
+  margin-top: 8px; }
+
+.form-control.inline-control {
+  display: inline-block; }
+
+label.control-label {
+  text-align: left !important; }
+
+main {
+  margin-top: 30px; }
+
+.field-validation-error {
+  color: red; }
+
+.bold {
+  font-weight: bold; }
+
+.validation-summary-errors {
+  color: red; }
+  .validation-summary-errors ul {
+    padding-left: 0; }
+    .validation-summary-errors ul li {
+      list-style: none;
+      max-width: 400px; }
+
+body {
+  padding-bottom: 20px; }
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+  padding-left: 15px;
+  padding-right: 15px; }
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+  white-space: normal; }
+
+/* Set width on the form input elements since they're 100% wide by default */
+/*input,
+select,
+textarea {
+    max-width: 450px;
+}*/
+h3 {
+  font-size: 1.30rem; }
+
+.small {
+  font-size: 100%; }
+
+.code-pre {
+  font-family: monospace;
+  white-space: pre;
+  font-size: 100%; }
+
+.hidden {
+  display: none; }
+
+#customImageArea {
+    background-color: #e0ecff;
+    border: 2px solid grey;
+    padding: 10px;
+}
+
+.tag-item {
+    margin-left: 5px;
+}
+
+.remove-tag {
+    margin-left: 5px;
+}
+
+    .remove-tag:hover {
+        color: black;
+    }
+
+.div-tag-box {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #555555;
+    vertical-align: middle;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+
+.input-simple {
+    border: transparent;
+    cursor: pointer;
+}

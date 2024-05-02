@@ -1,0 +1,129 @@
+﻿@model Elixir.ViewModels.Base.BaseCUWithSelectViewModel<Elixir.Areas.AdminManual.Models.BookPageModel>
+
+@Html.ValidationSummary(true)
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.Id, "ID", new { @class = "col-form-label col-md-2" })
+    <div class="col-2">
+        @Html.EditorFor(x => x.Model.Id, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.BookPageName, "Name *", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.EditorFor(x => x.Model.BookPageName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.BookPageName)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.BookSectionId, "Section *", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.DropDownListFor(x => x.Model.BookSectionId, new SelectList(Model.SelectItems, "Value", "Text"), "Select...", new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.BookSectionId)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.DisplayOrder, "Order (within selection)", new { @class = "col-form-label col-2" })
+    <div class="col-2 editor-field">
+        @Html.EditorFor(x => x.Model.DisplayOrder, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.DisplayOrder)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.LifeExtension40, "Life Extension 40", new { @class = "col-form-label col-2" })
+    <div class="col-2 editor-field">
+        @Html.EditorFor(x => x.Model.LifeExtension40, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.LifeExtension40)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.Difficulty, "Difficulty", new { @class = "col-form-label col-2" })
+    <div class="col-2 editor-field">
+        @Html.EditorFor(x => x.Model.Difficulty, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.Difficulty)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.Cost, "Cost", new { @class = "col-form-label col-2" })
+    <div class="col-2 editor-field">
+        @Html.EditorFor(x => x.Model.Cost, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.Cost)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.BookPageDescription, "Description", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.TextAreaFor(x => x.Model.BookPageDescription, 5, 10, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.BookPageDescription)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.Tips, "Tips", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.TextAreaFor(x => x.Model.Tips, 5, 10, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.Tips)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ImageFilename, "Image Filename", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.EditorFor(x => x.Model.ImageFilename, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.ImageFilename)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.Resources, "Resources", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.TextAreaFor(x => x.Model.Resources, 5, 10, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.Resources)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ResearchPapers, "Research Papers", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.TextAreaFor(x => x.Model.ResearchPapers, 5, 10, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.ResearchPapers)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsIncluded, "Is Included", new { @class = "col-form-label col-2" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsIncluded)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.Notes, "Notes", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.TextAreaFor(x => x.Model.Notes, 5, 10, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.Notes)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.Status, "Status", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.EditorFor(x => x.Model.Status, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.Status)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.Author, "Author", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.EditorFor(x => x.Model.Author, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.Author)
+    </div>
+</div>

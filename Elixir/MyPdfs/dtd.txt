@@ -1,0 +1,23 @@
+Done/To Do
+
+Done:
+
+- modified page safe zone to : 5.25 x 8.5 
+- modified page margins: Left: 0.5, Right: 0.375, with mirroring odd/even
+- modified page margins: Top 0.38, Bottom 0.38 (each margin value includes the bleed 0.13)
+	iText specifies only one set of margins, so I add them up for each direction 
+- total page size : 6.13 x 9.25
+- changed orange + blue header height according to spec
+- changed width of the blue part of header (page nr background)
+- changed orange part width to fit, and space between orange/blue at specified value
+- adjusted font and some proportions for the section title + scorebars to fit in the newer, smaller page size
+- brought upper the tips section
+- aligned image to keep the space mentioned between image bottom and light blue section 
+
+
+To do (ideas):
+- check overlap between resources and research papers - font size?
+- image size/resolution changes - what is needed
+- page number - a bit upper?
+- others (to be decided)
+

@@ -1,0 +1,162 @@
+﻿@using Elixir.Models.Utils;
+@model Elixir.ViewModels.WebPageViewModel
+@if (Model.ShopProducts != null && Model.ShopProducts.Count > 0)
+{
+    <section class="section-ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row text-sm-left text-center">
+                        <div class="col-sm-10">
+                            <h4 class="mb-3">Products</h4>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        @foreach (var product in Model.ShopProducts)
+                        {
+                            <div class="col-md-6 col-xl-5 col-sm-6 mt-4">
+                                <div class="product text-center">
+                                    <div class="product-image mb-4">
+                                        @if (!string.IsNullOrEmpty(product.ImageThumb))
+                                        {
+                                            <a href="/shop/product/@product.UrlName"><img alt="" class="img-fluid mx-auto w-100" src="@("/" + AppConstants.FileSystem.PublicImagesFolderName + "/shop/" + product.ImageThumb)" /></a>
+                                        }
+                                        else
+                                        {
+                                            <a href="/shop/product/@product.UrlName"><img alt="" class="img-fluid mx-auto w-100" src="@("/" + AppConstants.FileSystem.PublicImagesFolderName + "/shop/" + AppConstants.DefaultShopProductThumb)" /></a>
+                                        }
+                                    </div>
+                                    <div class="product-info">
+                                        <div class="product-title">
+                                            <a href="/shop/product/@product.UrlName">@product.ShopProductName</a>
+                                        </div>
+                                        <div class="product-category my-2">
+                                            <span>
+                                                @product.ShopProductDescription
+                                            </span>
+                                        </div>
+                                        @if (product.PriceLongevist.HasValue)
+                                        {
+                                            if (Request.IsAuthenticated && User.IsInRole(Elixir.Models.Enums.Roles.Longevist.ToString()))
+                                            {
+                                                <div class="product-price-cart">
+                                                    <div class="product-price">
+                                                        <strong style="color:red;">£ @product.PriceRRP</strong>&nbsp;&nbsp;&nbsp;&nbsp;<em><strong>£ @product.PriceLongevist</strong></em>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-center">
+                                                    <p class="mb-0"><img src="~/Images/icons/LFC-logo-32.png"> <span>Longevist members save <em>£ @(product.PriceRRP - product.PriceLongevist)</em></span></p>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="product-price-cart">
+                                                    <div class="product-price">
+                                                        <strong>£ @product.PriceRRP</strong>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-center">
+                                                    <p class="mb-0"><img src="~/Images/icons/LFC-logo-32.png"> <span>Longevist member's price <em>£ @product.PriceLongevist</em> - you could save <em>£ @(product.PriceRRP - product.PriceLongevist)</em></span></p>
+                                                </div>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <div class="product-price-cart">
+                                                <div class="product-price">
+                                                    <strong>£ @product.PriceRRP</strong>
+                                                </div>
+                                            </div>
+
+                                        }
+
+                                        @if (product.IsLongevistsOnly)
+                                        {
+                                            <div class="d-flex justify-content-center">
+                                                <p class="mb-0"><img src="~/Images/icons/LFC-logo-32.png"> <span class="ml-2">Longevist members only!</span></p>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*<div class="row mt-4">
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            @if (!string.IsNullOrEmpty(product.ImageThumb))
+                                            {
+                                                <a href="/shop/product/@product.UrlName"><img src="@("/" + AppConstants.FileSystem.PublicImagesFolderName + "/shop/" + product.ImageThumb)" /></a>
+                                            }
+                                            else
+                                            {
+                                                <a href="/shop/product/@product.UrlName"><img src="@("/" + AppConstants.FileSystem.PublicImagesFolderName + "/shop/" + AppConstants.DefaultShopProductThumb)" /></a>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <a href="/shop/product/@product.UrlName">@product.ShopProductName</a>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12">
+                                            <p>@product.ShopProductDescription</p>
+                                        </div>
+                                    </div>
+                                    @if (product.PriceLongevist.HasValue)
+                                    {
+                                        if (Request.IsAuthenticated && User.IsInRole(Elixir.Models.Enums.Roles.Longevist.ToString()))
+                                        {
+                                            <div class="row mt-2">
+                                                <div class="col-12">
+                                                    <em><del><strong style="color:red;">£ @product.PriceRRP</strong></del></em>&nbsp;&nbsp;&nbsp;&nbsp;<em><strong>£ @product.PriceLongevist</strong></em>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-12">
+                                                    <p><img src="~/Images/icons/LFC-logo-32.png" /> <span>Longevist members save <em>£ @(product.PriceRRP - product.PriceLongevist)</em></span></p>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row mt-2">
+                                                <div class="col-12">
+                                                    <em><strong>£ @product.PriceRRP</strong></em>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-12">
+                                                    <p><img src="~/Images/icons/LFC-logo-32.png" /> <span>Longevist member's price <em>£ @product.PriceLongevist</em> - you could save <em>£ @(product.PriceRRP - product.PriceLongevist)</em></span></p>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <em><strong>£ @product.PriceRRP</strong></em>
+                                            </div>
+                                        </div>
+                                    }
+                                    @if (product.IsLongevistsOnly)
+                                    {
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <p><img src="~/Images/icons/LFC-logo-32.png" /> <span>Longevist members only!</span></p>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>*@
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

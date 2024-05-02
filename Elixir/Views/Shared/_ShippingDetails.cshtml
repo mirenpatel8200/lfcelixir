@@ -1,0 +1,97 @@
+﻿@model Elixir.Models.ShippingDetails
+
+@using (Html.BeginForm("SaveShippingDetails", "WebPageVisual", FormMethod.Post, new { @id = "frmShippingDetails" }))
+{
+    if (TempData["ErrorMsgShippingDetails"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMsgShippingDetails"].ToString()
+        </div>
+    }
+
+    <div class="form-group row">
+        <div class="col-6">
+            @if (Request.IsAuthenticated)
+            {
+                @Html.LabelFor(x => x.EmailAddress, "Email address", new { @class = "col-form-label" })
+                @Html.EditorFor(x => x.EmailAddress, new { htmlAttributes = new { @class = "form-control", @id = "txtEmailAddress", @readonly = "readonly" } })
+            }
+            else
+            {
+                <label class="col-form-label" for="EmailAddress">Email address (already a member? <a href='/page/login'>Login here<a />)</label>
+                @Html.EditorFor(x => x.EmailAddress, new { htmlAttributes = new { @class = "form-control", @id = "txtEmailAddress" } })
+            }
+            <span id="spEmailAddress" class="field-validation-error" for="txtEmailAddress"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-6">
+            @Html.LabelFor(x => x.FirstName, "First Name", new { @class = "col-form-label" })
+            @Html.EditorFor(x => x.FirstName, new { htmlAttributes = new { @class = "form-control", @id = "txtFirstName" } })
+            <span id="spFirstName" class="field-validation-error" for="txtFirstName"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-6">
+            @Html.LabelFor(x => x.LastName, "Last Name", new { @class = "col-form-label" })
+            @Html.EditorFor(x => x.LastName, new { htmlAttributes = new { @class = "form-control", @id = "txtLastName" } })
+            <span id="spLastName" class="field-validation-error" for="txtLastName"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-6">
+            @Html.LabelFor(x => x.AddressLine1, "Address line 1", new { @class = "col-form-label" })
+            @Html.EditorFor(x => x.AddressLine1, new { htmlAttributes = new { @class = "form-control", @id = "txtAddressLine1" } })
+            <span id="spAddressLine1" class="field-validation-error" for="txtAddressLine1"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-6">
+            @Html.LabelFor(x => x.AddressLine2, "Address line 2 (optional)", new { @class = "col-form-label" })
+            @Html.EditorFor(x => x.AddressLine2, new { htmlAttributes = new { @class = "form-control", @id = "txtAddressLine2" } })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-6">
+            @Html.LabelFor(x => x.AddressLine3, "Address line 3 (optional)", new { @class = "col-form-label" })
+            @Html.EditorFor(x => x.AddressLine3, new { htmlAttributes = new { @class = "form-control", @id = "txtAddressLine3" } })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-6">
+            @Html.LabelFor(x => x.Town, "Town", new { @class = "col-form-label" })
+            @Html.EditorFor(x => x.Town, new { htmlAttributes = new { @class = "form-control", @id = "txtTown" } })
+            <span id="spTown" class="field-validation-error" for="txtTown"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-6">
+            @Html.LabelFor(x => x.Postcode, "Postcode", new { @class = "col-form-label" })
+            @Html.EditorFor(x => x.Postcode, new { htmlAttributes = new { @class = "form-control", @id = "txtPostcode" } })
+            <span id="spPostcode" class="field-validation-error" for="txtPostcode"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-6">
+            @Html.LabelFor(x => x.Country, "Country", new { @class = "col-form-label" })
+            @Html.EditorFor(x => x.Country, new { htmlAttributes = new { @class = "form-control", @id = "txtCountry", @readonly = "readonly", @placeholder = "Type to search", data_autocomplete_url = Url.Action("FetchAutocompleteForCountry", "WebPageVisual") } })
+            <span id="spCountry" class="field-validation-error" for="txtCountry"></span>
+            <div>
+                <span>We currently only ship to the UK.</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-6">
+            @Html.LabelFor(x => x.ContactTelephoneNumber, "Contact telephone number (optional)", new { @class = "col-form-label" })
+            @Html.EditorFor(x => x.ContactTelephoneNumber, new { htmlAttributes = new { @class = "form-control", @id = "txtContactTelephoneNumber" } })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-6">
+            <button type="button" id="btnSave" class="btn btn-primary skipWarnUnsavedChanges" onclick="validate()">
+                Checkout
+            </button>
+        </div>
+    </div>
+}

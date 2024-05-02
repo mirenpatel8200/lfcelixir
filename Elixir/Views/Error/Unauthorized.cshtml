@@ -1,0 +1,16 @@
+﻿@model Elixir.ViewModels.ErrorViewModel
+
+@{
+    ViewBag.Title = "Error";
+}
+
+<main class="container">
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            <h3 class="panel-title">@Model.Title</h3>
+        </div>
+        <div class="panel-body">
+            @Model.Description
+        </div>
+    </div>
+</main>

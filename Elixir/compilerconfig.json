@@ -1,0 +1,94 @@
+﻿[
+  {
+    "outputFile": "Content/Sass/Common.css",
+    "inputFile": "Content/Sass/Common.scss"
+  },
+  {
+    "outputFile": "Styles/Common.css",
+    "inputFile": "Styles/Common.scss"
+  },
+  {
+    "outputFile": "Styles/Pages/Main.css",
+    "inputFile": "Styles/Pages/Main.scss"
+  },
+  {
+    "outputFile": "Styles/Pages/BookSections.css",
+    "inputFile": "Styles/Pages/BookSections.scss"
+  },
+  {
+    "outputFile": "Styles/Components/DataGrid.css",
+    "inputFile": "Styles/Components/DataGrid.scss"
+  },
+  {
+    "outputFile": "Styles/Components/ControlsTable.css",
+    "inputFile": "Styles/Components/ControlsTable.scss"
+  },
+  {
+    "outputFile": "Styles/Pages/Topics.css",
+    "inputFile": "Styles/Pages/Topics.scss"
+  },
+  {
+    "outputFile": "Styles/Pages/Contents.css",
+    "inputFile": "Styles/Pages/Contents.scss"
+  },
+  {
+    "outputFile": "Styles/Layout/Banner.css",
+    "inputFile": "Styles/Layout/Banner.scss"
+  },
+  {
+    "outputFile": "Styles/Pages/Page.css",
+    "inputFile": "Styles/Pages/Page.scss"
+  },
+  {
+    "outputFile": "Styles/Components/Controls/Dropdown.css",
+    "inputFile": "Styles/Components/Controls/Dropdown.scss"
+  },
+  {
+    "outputFile": "Styles/WebPagePage.css",
+    "inputFile": "Styles/WebPagePage.scss"
+  },
+  {
+    "outputFile": "Styles/Layout/Footer.css",
+    "inputFile": "Styles/Layout/Footer.scss"
+  },
+  {
+    "outputFile": "Styles/Components/Navbar.css",
+    "inputFile": "Styles/Components/Navbar.scss"
+  },
+  {
+    "outputFile": "Styles/Components/Controls/Forms.css",
+    "inputFile": "Styles/Components/Controls/Forms.scss"
+  },
+  {
+    "outputFile": "Styles/Pages/Blog.css",
+    "inputFile": "Styles/Pages/Blog.scss"
+  },
+  {
+    "outputFile": "Styles/Pages/SocialDashboard.css",
+    "inputFile": "Styles/Pages/SocialDashboard.scss"
+  },
+  {
+    "outputFile": "Styles/Layout/NavbarAds.css",
+    "inputFile": "Styles/Layout/NavbarAds.scss"
+  },
+  {
+    "outputFile": "Styles/Pages/Article.css",
+    "inputFile": "Styles/Pages/Article.scss"
+  },
+  {
+    "outputFile": "Styles/Pages/SubjectNews.css",
+    "inputFile": "Styles/Pages/SubjectNews.scss"
+  },
+  {
+    "outputFile": "Styles/Components/LatestArticle.css",
+    "inputFile": "Styles/Components/LatestArticle.scss"
+  },
+  {
+    "outputFile": "Styles/Components/Controls/Inputs.css",
+    "inputFile": "Styles/Components/Controls/Inputs.scss"
+  },
+  {
+    "outputFile": "Scripts/summernote/summernote-custom.css",
+    "inputFile": "Scripts/summernote/summernote-custom.scss"
+  }
+]

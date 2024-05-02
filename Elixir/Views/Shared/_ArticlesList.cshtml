@@ -1,0 +1,42 @@
+﻿@using System.Globalization;
+@model List<Elixir.Models.Article>
+
+@{const int BULLETS_LENGTH_LIMIT = 97; }
+@if (Model.Count > 0)
+{
+    <div class="recent-articles-container">
+    @for (int i = 0; i < Model.Count; i++)
+    {
+            var article = Model[i];
+            <div class="latest-article">
+                <h3>@article.Title</h3>
+                <p>@article.DnPublisherName<span> - @article.ArticleDate.ToString("dd-MMM-yyyy", CultureInfo.InvariantCulture)</span></p>
+
+
+                @if (!string.IsNullOrEmpty(article.Summary))
+                {
+                    <p style="margin:0">@article.Summary</p>
+                }
+                else if (!string.IsNullOrEmpty(article.BulletPoints))
+                {
+                    int bulletsInitialLength = article.BulletPoints.Length;
+                    string bulletsPreview = (bulletsInitialLength > BULLETS_LENGTH_LIMIT) ?
+                        article.BulletPoints.Substring(0, BULLETS_LENGTH_LIMIT) :
+                        article.BulletPoints;
+
+                    if (bulletsInitialLength > BULLETS_LENGTH_LIMIT)
+                    {
+                        bulletsPreview += "...";
+                    }
+                    <p style="margin:0">@bulletsPreview</p>
+                }
+            
+                @Html.ActionLink("Read more...", "Index", "PublicArticle", new { name = article.UrlName }, null)
+            </div>
+        }
+</div>
+}
+else
+{
+    <p>Sorry, no articles found.</p>
+}

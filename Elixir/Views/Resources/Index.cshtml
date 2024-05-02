@@ -1,0 +1,136 @@
+﻿@model Elixir.ViewModels.ResourceViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Components/LatestArticle.css")
+}
+
+@if (Model == null)
+{
+    ViewBag.Title = "Resources";
+
+    <h1>Resources</h1>
+}
+else
+{
+    ViewBag.Title = @Model.Resource.ResourceName;
+
+    <h1>@Model.Resource.ResourceName</h1>
+
+    if (!string.IsNullOrEmpty(Model.Resource.ResourceDescriptionPublic))
+    {
+        <p><em>@Model.Resource.ResourceDescriptionPublic</em></p>
+    }
+
+    <div>
+        @Html.Raw(Model.Resource.ContentMain)
+    </div>
+
+    if (!string.IsNullOrEmpty(Model.Resource.ExternalUrl))
+    {
+        <p>Visit website: <a target="_blank" href="@Model.Resource.ExternalUrl">@Model.Resource.ExternalUrl</a></p>
+    }
+
+    if (!string.IsNullOrEmpty(Model.Resource.AmazonProductCode))
+    {
+        string amazonLink = "https://www.amazon.com/dp/" + Model.Resource.AmazonProductCode + "/ref=as_li_ss_tl?ie=UTF8&tag=lfcamzn-20";
+        <img src="../Images/icons/@Model.Resource.IconImage" alt="@Model.Resource.IconImageAltText" />
+
+        <span>
+            <a href="@amazonLink" target="_blank">
+                <img src="../Images/icons/amazon-view-on-16.png" alt="Amazon" />
+            </a>
+        </span>
+    }
+
+    if (Model.Resource.ParentResourceID.HasValue && Model.Parent != null)
+    {
+        <p>
+            See also: <img src="../Images/icons/@Model.Parent.IconImage" alt="@Model.Parent.IconImageAltText" />
+
+            <a href="/resources/@Model.Parent.UrlName">@Model.Parent.ResourceName</a>
+
+            @if (!string.IsNullOrEmpty(Model.Parent.ResourceDescriptionPublic))
+            {
+                <span>- @Model.Parent.ResourceDescriptionPublic</span>
+            }
+        </p>
+    }
+
+    if (Model.Resource.IsEvent)
+    {
+        <p>Interested in more events? View the club's <a href="/events"><b>event calendar</b></a>.</p>
+    }
+    if (Model.Resource.IsClubDiscount)
+    {
+        <p><a href="/page/members-discounts">Club discount available - click here</a></p>
+    }
+
+    if (Model.MentionedResources != null && Model.MentionedResources.Count > 0)
+    {
+        <h3>Mentioned in this Resource</h3>
+        <div class="row">
+            @Html.Partial("_ResourcesListForSubjectPage", Model.MentionedResources)
+        </div>
+    }
+
+    if (Model.ResourcesMentioningThis != null && Model.ResourcesMentioningThis.Count > 0)
+    {
+        <h3>@Model.Resource.ResourceName is also referenced in the following:</h3>
+        <div class="row">
+            @Html.Partial("_ResourcesListForSubjectPage", Model.ResourcesMentioningThis)
+        </div>
+    }
+
+    if (Model.RelatedBlogPosts.Count > 0)
+    {
+        <h3>@Model.Resource.ResourceName Blog Posts</h3>
+
+        @Html.Partial("_BlogPostSummaries", Model.RelatedBlogPosts)
+    }
+
+    if (Model.ChildResourcesOfTypeCreation.Count > 0)
+    {
+        <h3>@Model.Resource.ResourceName Creations</h3>
+        <div class="row">
+            @Html.Partial("_ResourcesListForSubjectPage", Model.ChildResourcesOfTypeCreation)
+        </div>
+    }
+
+    if (Model.ChildResourcesOfTypePerson.Count > 0)
+    {
+        <h3>People at @Model.Resource.ResourceName</h3>
+        <div class="row">
+            @Html.Partial("_ResourcesListForSubjectPage", Model.ChildResourcesOfTypePerson)
+        </div>
+    }
+
+    @*<iframe src="https://rcm-eu.amazon-adsystem.com/e/cm?o=2&p=288&l=ez&f=ifr&linkID=63c566045a1fef517bf642616274b556&t=s08a-21&tracking_id=s08a-21" width="320" height="50" scrolling="no" border="0" marginwidth="0" style="border:none;" frameborder="0"></iframe>
+        Amazon search widget - prepopulated with resource name*@
+    <script type="text/javascript">amzn_assoc_ad_type ="responsive_search_widget"; amzn_assoc_tracking_id ="s08a-21"; amzn_assoc_marketplace ="amazon"; amzn_assoc_region ="GB"; amzn_assoc_placement =""; amzn_assoc_search_type = "search_widget";amzn_assoc_width ="auto"; amzn_assoc_height ="auto"; amzn_assoc_default_search_category =""; amzn_assoc_default_search_key ="@ViewBag.Title.Replace(" ", "_")";amzn_assoc_theme ="light"; amzn_assoc_bg_color ="FFFFFF";</script>
+    <script src="//z-eu.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1&Marketplace=GB"></script>
+
+    if (Model.ArticlesMentioningResource.Count > 0)
+    {
+        <h3>@Model.Resource.ResourceName News</h3>
+
+        @Html.Partial("_ArticlesList", Model.ArticlesMentioningResource
+                    /*, new ViewDataDictionary { { "displayMode", Model.ArticlesDisplayFormat }}*/)
+    }
+
+    <div class="mt-4">
+        @if (Model.Resource.PrimaryTopic != null && Model.Resource.PrimaryTopic.PrimaryWebPage != null)
+        {
+            <a href="/page/@Model.Resource.PrimaryTopic.PrimaryWebPage.UrlName">More @Model.Resource.PrimaryTopic.PrimaryWebPage.WebPageName information, news and resources</a>
+        }
+        @if (Model.Resource.SecondaryTopic != null && Model.Resource.SecondaryTopic.PrimaryWebPage != null)
+        {
+            <br />
+            <a href="/page/@Model.Resource.SecondaryTopic.PrimaryWebPage.UrlName">More @Model.Resource.SecondaryTopic.PrimaryWebPage.WebPageName information, news and resources</a>
+        }
+    </div>
+}

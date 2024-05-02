@@ -1,0 +1,166 @@
+﻿@using Elixir.Models.Utils;
+@model Elixir.ViewModels.WebPageViewModel
+
+
+
+<div class="row d-flex">
+    <div class="col-lg-12 mb-4 mb-lg-0">
+        <div class="cart-table">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="product-remove">&nbsp;</th>
+                            <th class="product-thumbnail">&nbsp;</th>
+                            <th class="product-name">Product</th>
+                            <th class="product-price">SKU</th>
+                            <th class="product-price">Price</th>
+                            <th class="product-quantity">Quantity</th>
+                            <th class="product-subtotal">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var orderProduct in Model.ShopOrderProducts)
+                        {
+                            <tr>
+                                <td class="product-remove">
+                                    @if (Model.IsCartPage)
+                                    {
+                                        <a href="@Url.Action("DeleteItem",new { sku = orderProduct.SKU })"><i class="far fa-trash-alt"></i></a>
+                                        @*@Html.ActionLink("Delete", "DeleteItem", new { sku = orderProduct.SKU }, new { @class = "btn btn-danger" })*@
+                                    }
+                                </td>
+                                <td class="product-thumbnail">
+                                    @if (!string.IsNullOrEmpty(orderProduct.ShopProduct.ImageThumb))
+                                    {
+                                        <a href="/shop/product/@orderProduct.ShopProduct.UrlName"><img src="@("/" + AppConstants.FileSystem.PublicImagesFolderName + "/shop/" + orderProduct.ShopProduct.ImageThumb)" /></a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/shop/product/@orderProduct.ShopProduct.UrlName"><img src="@("/" + AppConstants.FileSystem.PublicImagesFolderName + "/shop/" + AppConstants.DefaultShopProductThumb)" /></a>
+                                    }
+                                </td>
+                                <td class="product-name">
+                                    <a href="/shop/product/@orderProduct.ShopProduct.UrlName">@orderProduct.DnShopProductName</a>
+                                </td>
+                                <td class="product-price">@orderProduct.SKU</td>
+                                <td class="product-price"><span class="amount">£ @orderProduct.PricePaidPerUnit</span></td>
+                                <td class="product-quantity">
+                                    <div class="form-group input-group mb-0">
+                                        @if (Model.IsCartPage)
+                                        {
+                                            <a href="@Url.Action("DecrementItem", new { sku = orderProduct.SKU })">
+                                                <i class="fa fa-minus-circle" style="margin-top: 10px;"></i>
+                                            </a>
+                                        }
+                                        &nbsp;<input class="form-control" type="text" value="@orderProduct.Quantity" readonly />&nbsp;
+                                        @if (Model.IsCartPage)
+                                        {
+                                            <a href="@Url.Action("IncrementItem", new { sku = orderProduct.SKU })">
+                                                <i class="fa fa-plus-circle" style="margin-top: 10px;"></i>
+                                            </a>
+                                        }
+                                    </div>
+                                </td>
+                                @{
+                                    var result = orderProduct.PricePaidPerUnit * orderProduct.Quantity;
+                                    <td class="product-subtotal"><span class="subtotal">£ @result</span></td>
+                                }
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="cart-totals" style="background:#ffffff !important">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr class="order-total">
+                            <th>Total</th>
+                            <td>
+                                <span class="amount text-primary">
+                                    (@Model.TotalQuantity @(Model.TotalQuantity > 1? "items":"item")): £ @Model.TotalAmount
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*@foreach (var orderProduct in Model.ShopOrderProducts)
+    {
+        <div class="row mt-4">
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-12">
+                        @if (!string.IsNullOrEmpty(orderProduct.ShopProduct.ImageThumb))
+                        {
+                            <a href="/shop/product/@orderProduct.ShopProduct.UrlName"><img class="cart-item-image" src="@("/" + AppConstants.FileSystem.PublicImagesFolderName + "/shop/" + orderProduct.ShopProduct.ImageThumb)" /></a>
+                        }
+                        else
+                        {
+                            <a href="/shop/product/@orderProduct.ShopProduct.UrlName"><img class="cart-item-image" src="@("/" + AppConstants.FileSystem.PublicImagesFolderName + "/shop/" + AppConstants.DefaultShopProductThumb)" /></a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="/shop/product/@orderProduct.ShopProduct.UrlName">@orderProduct.DnShopProductName</a>
+                    </div>
+                </div>
+                @if (orderProduct.ShopProductOptionId.HasValue && !string.IsNullOrEmpty(orderProduct.DnShopProductOptionName))
+                {
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <p>@orderProduct.DnShopProductOptionName</p>
+                        </div>
+                    </div>
+                }
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <p>@orderProduct.SKU</p>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <em><strong>£ @orderProduct.PricePaidPerUnit</strong></em>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    @if (Model.IsCartPage)
+                    {
+                        <div class="col-2">
+                            @Html.ActionLink("Delete", "DeleteItem", new { sku = orderProduct.SKU }, new { @class = "btn btn-danger" })
+                        </div>
+                        <div class="col-3">
+                            <input class="form-control" type="text" value="@orderProduct.Quantity" readonly />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-3 offset-3">
+                            <input class="form-control" type="text" value="@orderProduct.Quantity" readonly />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <h4> Total (@Model.TotalQuantity @(Model.TotalQuantity > 1? "items":"item")): £ @Model.TotalAmount</h4>
+        </div>
+    </div>*@

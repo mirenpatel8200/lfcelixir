@@ -1,0 +1,95 @@
+﻿
+@model Elixir.ViewModels.Base.BaseCUWithSelectViewModel<Elixir.Areas.Admin.Models.TopicModel>
+
+@Html.ValidationSummary(true)
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.Id, "ID", new { @class = "col-form-label col-2" })
+    <div class="col-2">
+        @Html.EditorFor(x => x.Model.Id, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.TopicName, "Name *", new { @class = "col-form-label col-md-2" })
+    <div class="col-10 editor-field">
+        @Html.EditorFor(x => x.Model.TopicName, new { htmlAttributes = new { @class = "form-control", spellcheck = "true" } })
+        @Html.ValidationMessageFor(x => x.Model.TopicName)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.DescriptionInternal, "Description (Internal)", new { @class = "col-form-label col-md-2" })
+    <div class="col-10 editor-field">
+        @Html.EditorFor(x => x.Model.DescriptionInternal, new { htmlAttributes = new { @class = "form-control", spellcheck = "true" } })
+        @Html.ValidationMessageFor(x => x.Model.DescriptionInternal)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.PrimaryWebPageId, "Primary Web Page *", new { @class = "col-form-label col-md-2" })
+    <div class="col-10">
+        @Html.DropDownListFor(x => x.Model.PrimaryWebPageId, new SelectList(Model.SelectItems, "Value", "Text"), new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.PrimaryWebPageId)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.BannerImageFileName, "Banner Image", new { @class = "col-2 col-form-label" })
+    <div class="col-8">
+        @Html.EditorFor(x => x.Model.BannerImageFileName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.BannerImageFileName)
+    </div>
+    <div class="col-2">
+        <button type="button" id="btnAddBannerImage" class="btn btn-block btn-default">Select image</button>
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.SocialImageFilename, "Social Image (general)", new { @class = "col-2 col-form-label" })
+    <div class="col-8">
+        @Html.EditorFor(x => x.Model.SocialImageFilename, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.SocialImageFilename)
+    </div>
+    <div class="col-2">
+        <button type="button" id="btnAddSocialImage" class="btn btn-block btn-default">Select image</button>
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.SocialImageFilenameNews, "Social Image (news)", new { @class = "col-2 col-form-label" })
+    <div class="col-8">
+        @Html.EditorFor(x => x.Model.SocialImageFilenameNews, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.SocialImageFilenameNews)
+    </div>
+    <div class="col-2">
+        <button type="button" id="btnAddNewsImage" class="btn btn-block btn-default">Select image</button>
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ThumbnailImageFilename, "Thumbnail Image", new { @class = "col-2 col-form-label" })
+    <div class="col-8">
+        @Html.EditorFor(x => x.Model.ThumbnailImageFilename, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.ThumbnailImageFilename)
+    </div>
+    <div class="col-2">
+        <button type="button" id="btnAddThumbnailImageFilename" class="btn btn-block btn-default">Select image</button>
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.Hashtags, "Hashtags", new { @class = "col-form-label col-md-2" })
+    <div class="col-10 editor-field">
+        @Html.EditorFor(x => x.Model.Hashtags, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.Hashtags)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.NotesInternal, "Notes (Internal)", new { @class = "col-2 col-form-label" })
+    <div class="col-10 editor-field">
+        @Html.TextAreaFor(x => x.Model.NotesInternal, 5, 10, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.NotesInternal)
+    </div>
+</div>

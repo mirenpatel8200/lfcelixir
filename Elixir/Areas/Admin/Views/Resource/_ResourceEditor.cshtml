@@ -1,0 +1,499 @@
+﻿@using Elixir.Models.Utils
+
+@model Elixir.ViewModels.Base.BaseCUWithMultipleSelectViewModel<Elixir.Areas.Admin.Models.ResourceModel>
+
+@Html.ValidationSummary(true)
+@{
+    bool isEdit = Model.Model.Id.HasValue;
+}
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.Id, "ID", new { @class = "col-2 col-form-label" })
+    <div class="col-2">
+        @Html.EditorFor(x => x.Model.Id, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        @Html.ValidationMessageFor(x => x.Model.Id)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.UpdatedDT, "Last updated", new { @class = "col-2 col-form-label" })
+    <div class="col-4">
+        <input type="text" readonly="readonly" class="form-control" value="@Model.Model.UpdatedDT.ToString("yyyy-MM-dd HH:mm:ss")" />
+    </div>
+
+    @Html.LabelFor(x => x.Model.LastUpdatedBy, "Updated by", new { @class = "col-2 col-form-label" })
+    <div class="col-4">
+        @Html.EditorFor(x => x.Model.LastUpdatedBy, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ResourceName, "Name*", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.ResourceName, new { htmlAttributes = new { @class = "form-control", spellcheck = "true" } })
+        @Html.ValidationMessageFor(x => x.Model.ResourceName)
+    </div>
+</div>
+
+<div class="form-group row input-with-right-action">
+    @Html.LabelFor(x => x.Model.UrlName, "URL Name*", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @if (isEdit)
+        {
+            @Html.EditorFor(x => x.Model.UrlName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", spellcheck = "true" } })
+        }
+        else
+        {
+            @Html.EditorFor(x => x.Model.UrlName, new { htmlAttributes = new { @class = "form-control", spellcheck = "true" } })
+        }
+
+        @Html.ValidationMessageFor(x => x.Model.UrlName)
+
+        @if (isEdit == false)
+        {
+            <a href="#">
+                <i class="fas fa-arrow-alt-circle-down"></i>
+            </a>
+        }
+
+    </div>
+</div>
+
+<div class="form-group row">
+
+    @Html.LabelFor(x => x.Model.ExternalUrl, "External URL", new { @class = "col-2 col-form-label" })
+    <div class="col-9">
+        @Html.EditorFor(x => x.Model.ExternalUrl, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.ExternalUrl)
+    </div>
+
+    <div class="col-1">
+        <button type="button" id="checkForDuplicateUrl" class="btn">
+            <i class="fas fa-check"></i>
+        </button>
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ResourceDescriptionInternal, "Description (internal)", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.ResourceDescriptionInternal, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.ResourceDescriptionInternal)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ProductionDate, "Production Date", new { @class = "col-2 col-form-label" })
+    <div class="col-4">
+        @Html.TextBoxFor(x => x.Model.ProductionDate, $"{{0:{DateUtils.DateFormat}}}", new { @class = "form-control datepicker" })
+        @Html.ValidationMessageFor(x => x.Model.ProductionDate)
+    </div>
+
+    @Html.LabelFor(x => x.Model.EndDate, "End Date", new { @class = "col-2 col-form-label" })
+    <div class="col-4">
+        @Html.TextBoxFor(x => x.Model.EndDate, $"{{0:{DateUtils.DateFormat}}}", new { @class = "form-control datepicker" })
+        @Html.ValidationMessageFor(x => x.Model.EndDate)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.PrimaryTopicID, "Primary Topic", new { @class = "col-2 col-form-label" })
+    <div class="col-4 editor-field">
+        @Html.DropDownListFor(x => x.Model.PrimaryTopicID, Model.GetSelectList(nameof(Model.Model.PrimaryTopicID)), "None", new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.PrimaryTopicID)
+    </div>
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsPinnedPrimaryTopic)
+        @Html.LabelFor(x => x.Model.IsPinnedPrimaryTopic, "Pinned", new { @class = "col-form-label" })
+    </div>
+    @Html.LabelFor(x => x.Model.PinnedPrimaryTopicOrder, "Order", new { @class = "col-1 col-form-label" })
+    <div class="col-3">
+        @Html.EditorFor(x => x.Model.PinnedPrimaryTopicOrder, new { htmlAttributes = new { @class = "form-control", @min = "0", @max = "255" } })
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.SecondaryTopicID, "Secondary Topic", new { @class = "col-2 col-form-label" })
+    <div class="col-4 editor-field">
+        @Html.DropDownListFor(x => x.Model.SecondaryTopicID, Model.GetSelectList(nameof(Model.Model.SecondaryTopicID)), "None", new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.SecondaryTopicID)
+    </div>
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsPinnedSecondaryTopic)
+        @Html.LabelFor(x => x.Model.IsPinnedSecondaryTopic, "Pinned", new { @class = "col-form-label" })
+    </div>
+    @Html.LabelFor(x => x.Model.PinnedSecondaryTopicOrder, "Order", new { @class = "col-1 col-form-label" })
+    <div class="col-3">
+        @Html.EditorFor(x => x.Model.PinnedSecondaryTopicOrder, new { htmlAttributes = new { @class = "form-control", @min = "0", @max = "255" } })
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsHumour, "Is Humour", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsHumour)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ResourceDescriptionPublic, "Description (public)", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.ResourceDescriptionPublic, new { htmlAttributes = new { @class = "form-control", spellcheck = "true" } })
+        @Html.ValidationMessageFor(x => x.Model.ResourceDescriptionPublic)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ContentMain, "Content", new { @class = "col-2 col-form-label" })
+    <div class="col-10 editor-field">
+        @Html.TextAreaFor(x => x.Model.ContentMain, 5, 10, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.ContentMain)
+    </div>
+</div>
+
+<!--Country Field-->
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.CountryNameWithId, "Country", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.EditorFor(x => x.Model.CountryNameWithId, new { htmlAttributes = new { @type = "text", data_autocomplete_url = Url.Action("FetchAutocompleteForCountryName", "Country"), @class = "form-control", @placeholder = "type to search" } })
+        @Html.ValidationMessageFor(x => x.Model.CountryNameWithId)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.FacebookHandle, "Facebook Handle", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.FacebookHandle, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.FacebookHandle)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.TwitterHandle, "Twitter Handle", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.TwitterHandle, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.TwitterHandle)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsAcademia, "Retweets?", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.TwitterRetweets)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.YouTubeUrl, "YouTube Url", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.YouTubeUrl, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.YouTubeUrl)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.LinkedInUrl, "LinkedIn Url", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.LinkedInUrl, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.LinkedInUrl)
+    </div>
+</div>
+
+<hr />
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ResourceTypeId, "Type*", new { @class = "col-2 col-form-label" })
+    <div class="col-10 editor-field">
+        @if (isEdit)
+        {
+            @Html.DropDownListFor(x => x.Model.ResourceTypeId, Model.GetSelectList(nameof(Model.Model.ResourceTypeId)), new { @class = "form-control" })
+        }
+        else
+        {
+            @Html.DropDownListFor(x => x.Model.ResourceTypeId, Model.GetSelectList(nameof(Model.Model.ResourceTypeId)), "Please select...", new { @class = "form-control" })
+        }
+
+        @Html.ValidationMessageFor(x => x.Model.ResourceTypeId)
+    </div>
+</div>
+
+<h3>Organisation</h3>
+<div class="form-group row">
+    <div class="offset-2"></div>
+    @Html.ValidationMessageFor(x => x.Model.IsAcademia)
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsAcademia, "Academia", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsAcademia)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsCompany, "Company", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsCompany)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsHealthOrg, "Healthcare", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsHealthOrg)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsInstitute, "Institute", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsInstitute)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsJournal, "Journal", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsJournal)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsPublisher, "Publisher", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsPublisher)
+    </div>
+</div>
+
+<h3>Person</h3>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsAcademic, "Academic", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsAcademic)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsAdvocate, "Advocate", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsAdvocate)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsArtist, "Artist", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsArtist)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsAuthor, "Author", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsAuthor)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsCompanyRep, "Company Rep.", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsCompanyRep)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsHealthPro, "Healthcare", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsHealthPro)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsJournalist, "Journalist", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsJournalist)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsPolitician, "Politician", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsPolitician)
+    </div>
+</div>
+
+<h3>Creation</h3>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsApplication, "Application", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsApplication)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsAudio, "Audio", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsAudio)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsBook, "Book", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsBook)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsCompetition, "Competition", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsCompetition)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsEducation, "Education", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsEducation)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsEvent, "Event", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsEvent)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsFilm, "Film", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsFilm)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsInformation, "Information", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsInformation)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsProduct, "Product", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsProduct)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsResearch, "Research", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsResearch)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsVideo, "Video", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsVideo)
+    </div>
+</div>
+
+<hr />
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.AmazonProductCode, "Amazon code", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.AmazonProductCode, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.AmazonProductCode)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsClubDiscount, "Club Discount", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsClubDiscount)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ParentResourceWithId, "Parent Resource [ID]", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.ParentResourceWithId, new { htmlAttributes = new { @type = "text", data_autocomplete_url = @Url.Action("FetchAutocomplete", "Resource", new { resourceTypes = "Organisation,Person" }), @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Model.ParentResourceWithId)
+    </div>
+</div>
+
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.OrgsMentioned, "Organisations mentioned", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        <div id="tags-orgs-container" class="div-tag-box">
+
+            @Html.EditorFor(x => x.Model.OrgsMentioned,
+                new
+                     {
+                         htmlAttributes = new
+                         {
+                             @id = "inputOrgs",
+                             @type = "text",
+                             @class = "input-simple",
+                             @placeholder = "add more...",
+                data_autocomplete_url = Url.Action("FetchAutocomplete", "Resource", new { resourceTypes = "Organisation" })
+       }
+                     })
+        </div>
+    </div>
+    @Html.HiddenFor(x => x.Model.OrgsMentionedString, new { @id = "orgsToSend" })
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.PeopleMentioned, "People mentioned", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        <div id="tags-people-container" class="div-tag-box">
+
+            @Html.EditorFor(x => x.Model.PeopleMentioned,
+                new
+                     {
+                         htmlAttributes = new
+                         {
+                             @id = "inputPeople",
+                             @type = "text",
+                             @class = "input-simple",
+                             @placeholder = "add more...",
+                    data_autocomplete_url = Url.Action("FetchAutocomplete", "Resource", new { resourceTypes = "Person" })
+                }
+                     })
+        </div>
+    </div>
+    @Html.HiddenFor(x => x.Model.PeopleMentionedString, new { @id = "peopleToSend" })
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.CreationsMentioned, "Creations mentioned", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        <div id="tags-creations-container" class="div-tag-box">
+
+            @Html.EditorFor(x => x.Model.CreationsMentioned,
+                new
+                     {
+                         htmlAttributes = new
+                         {
+                             @id = "inputCreations",
+                             @type = "text",
+                             @class = "input-simple",
+                             @placeholder = "add more...",
+                    data_autocomplete_url = Url.Action("FetchAutocomplete", "Resource", new { resourceTypes = "Creation" })
+                }
+                     })
+        </div>
+    </div>
+    @Html.HiddenFor(x => x.Model.CreationsMentionedString, new { @id = "creationsToSend" })
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.NotesInternal, "Notes (Internal)", new { @class = "col-2 col-form-label" })
+    <div class="col-10 editor-field">
+        @Html.TextAreaFor(x => x.Model.NotesInternal, 5, 10, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.NotesInternal)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsEnabled, "Is Enabled", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsEnabled)
+    </div>
+</div>
+
+@Html.HiddenFor(x => x.Model.IsOrgsMentionedChanged, new { @id = "orgsChanged" })
+@Html.HiddenFor(x => x.Model.IsPeopleMentionedChanged, new { @id = "peopleChanged" })
+@Html.HiddenFor(x => x.Model.IsCreationsMentionedChanged, new { @id = "creationsChanged" })
+@Html.Hidden("autocompleteResources", @Url.Action("FetchAutocomplete", "Resource"), new { @id = "autocompleteResources" })

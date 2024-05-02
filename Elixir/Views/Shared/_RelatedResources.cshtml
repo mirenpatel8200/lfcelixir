@@ -1,0 +1,47 @@
+﻿@using Elixir.Models;
+@model List<Elixir.Models.Resource>
+
+@if (Model.Count > 0)
+{
+    for (int i = 0; i < Model.Count; i++)
+    {
+        if (Model[i].IsVisible)
+        {
+            <p>
+                <img src="~/Images/icons/@Model[i].IconImage" alt="@Model[i].IconImageAltText" />
+
+                @if (Model[i].IsDisableLink && (bool)TempData["IsDisplayAll"] && Request.IsAuthenticated == false)
+                {
+                    <span class="lnkDisabled" data-toggle="popover" data-placement="top" data-content="Get quick access to archived resources with <a href='/page/membership'> FREE membership </a>">@Model[i].ResourceName</span>
+                }
+                else
+                {
+                    <a href="/resources/@Model[i].UrlName">@Model[i].ResourceName</a>
+                }
+
+                @if (!string.IsNullOrEmpty(Model[i].ResourceDescriptionPublic))
+                {
+                    if (Model[i].IsDisableLink && (bool)TempData["IsDisplayAll"] && Request.IsAuthenticated == false)
+                    {
+                        <span class="descriptionDisabled">- @Model[i].ResourceDescriptionPublic</span>
+                    }
+                    else
+                    {
+                        <span>- @Model[i].ResourceDescriptionPublic</span>
+                    }
+                }
+
+                @if (!string.IsNullOrEmpty(Model[i].AmazonProductCode))
+                {
+                    string amazonLink = "https://www.amazon.com/dp/" + @Model[i].AmazonProductCode + "/ref=as_li_ss_tl?ie=UTF8&tag=lfcamzn-20";
+                    <span>
+                        - <a href="@amazonLink" target="_blank">
+                            <img src="~/Images/icons/amazon-view-on-16.png" alt="Amazon" />
+                        </a>
+                    </span>
+                }
+            </p>
+        }
+    }
+}
+

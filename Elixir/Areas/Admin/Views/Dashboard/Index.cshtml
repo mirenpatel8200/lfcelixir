@@ -1,0 +1,157 @@
+﻿@model  Elixir.Areas.Admin.ViewModels.DashboardViewModel
+@{
+    ViewBag.Title = "Elixir Dashboard";
+}
+
+<h1 class="head-title">Elixir Dashboard</h1>
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                Latest Users
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tbody>
+                        @if (Model.Users != null && Model.Users.Count > 0)
+                        {
+                            foreach (var user in Model.Users)
+                            {
+                                <tr>
+                                    <td>
+                                        <a href="/admin/user/edit/@user.Id">@user.IdHashCode</a>
+                                    </td>
+                                    <td>
+                                        @user.UserName
+                                    </td>
+                                    <td>
+                                        @user.UserNameLast
+                                    </td>
+                                    <td>
+                                        @user.EmailAddress
+                                    </td>
+                                    <td>
+                                        @user.Role.RoleName
+                                    </td>
+                                    <td>
+                                        @(user.UpdatedOn.HasValue? user.UpdatedOn.Value.ToString("dd-MMM-yyyy"):"")
+                                    </td>
+                                </tr>
+                            }
+                            <tr>
+                                <td colspan="6">
+                                    <a href="/admin/user">View Users</a>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>No users found!</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                Shop
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tbody>
+                        @if (Model.ShopOrders != null && Model.ShopOrders.Count > 0)
+                        {
+                            foreach (var shopOrder in Model.ShopOrders)
+                            {
+                                <tr>
+                                    <td>
+                                        Order: @shopOrder.IDHashCode
+                                    </td>
+                                    <td>
+                                        @(shopOrder.OrderPlacedOn.HasValue? shopOrder.OrderPlacedOn.Value.ToString("dd-MMM-yyyy"):"N/A")
+                                    </td>
+                                    <td>
+                                        @shopOrder.ItemsTotal @(shopOrder.ItemsTotal > 1 ? "items" : "item")
+                                    </td>
+                                    <td>
+                                        Total = £ @shopOrder.PricePaidTotal
+                                    </td>
+                                    <td>
+                                        @shopOrder.OrderStatusName
+                                    </td>
+                                </tr>
+                            }
+                            <tr>
+                                <td colspan="5">
+                                    <a href="/admin/shop/orders">View Orders</a>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>No orders found!</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                Security
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>Failed login rate threshold:</td>
+                            <td>
+                                <span style="color:@Model.FailedLoginRateColor;">@Model.FailedLoginRateText</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Failed logins (1 hour):</td>
+                            <td>
+                                @Model.FailedLogin1Hour
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Failed logins (24 hour):</td>
+                            <td>
+                                @Model.FailedLogin24Hours
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Failed logins (28 days):</td>
+                            <td>
+                                @Model.FailedLogin28Days
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <a href="/admin/Auditlog/Index">View Audit Log</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

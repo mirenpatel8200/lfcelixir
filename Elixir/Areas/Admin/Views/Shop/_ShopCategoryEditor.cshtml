@@ -1,0 +1,49 @@
+﻿@model Elixir.ViewModels.Base.BaseCUWithMultipleSelectViewModel<Elixir.Areas.Admin.Models.ShopCategoryModel>
+
+@Html.ValidationSummary(true)
+
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ShopCategoryId, "ID", new { @class = "col-2 col-form-label" })
+    <div class="col-2">
+        @Html.EditorFor(x => x.Model.ShopCategoryId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        @Html.ValidationMessageFor(x => x.Model.ShopCategoryId)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.UpdatedOn, "Last updated", new { @class = "col-2 col-form-label" })
+    <div class="col-4">
+        <input type="text" readonly="readonly" class="form-control" value="@(Model.Model.UpdatedOn != null? Convert.ToDateTime(Model.Model.UpdatedOn).ToString("yyyy-MM-dd HH:mm:ss"):"")" />
+    </div>
+
+    @Html.LabelFor(x => x.Model.LastUpdatedBy, "Updated by", new { @class = "col-2 col-form-label" })
+    <div class="col-4">
+        @Html.EditorFor(x => x.Model.LastUpdatedBy, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.ShopCategoryName, "Name*", new { @class = "col-2 col-form-label" })
+    <div class="col-10">
+        @Html.EditorFor(x => x.Model.ShopCategoryName, new { htmlAttributes = new { @class = "form-control", spellcheck = "true" } })
+        @Html.ValidationMessageFor(x => x.Model.ShopCategoryName)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.PrimaryWebPageId, "Primary Web Page *", new { @class = "col-2 col-form-label" })
+    <div class="col-10 editor-field">
+        @Html.DropDownListFor(x => x.Model.PrimaryWebPageId, Model.GetSelectList(nameof(Model.Model.PrimaryWebPage)), "None", new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Model.PrimaryWebPageId)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.IsEnabled, "Is Enabled", new { @class = "col-2 col-form-label" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(x => x.Model.IsEnabled)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(x => x.Model.NotesInternal, "Notes (Internal)", new { @class = "col-2 col-form-label" })
+    <div class="col-10 editor-field">
+        @Html.TextAreaFor(x => x.Model.NotesInternal, 5, 10, new { @class = "form-control", spellcheck = "true" })
+        @Html.ValidationMessageFor(x => x.Model.NotesInternal)
+    </div>
+</div>

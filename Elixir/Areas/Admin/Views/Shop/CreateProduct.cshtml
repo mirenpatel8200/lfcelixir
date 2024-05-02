@@ -1,0 +1,34 @@
+﻿@model Elixir.Areas.Admin.ViewModels.CreateShopProductViewModel
+@{
+    ViewBag.Title = "Create Shop Product";
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Components/Controls/Inputs.css")
+    @Styles.Render("~/bundles/summernote/css")
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/summernote/js")
+    @Scripts.Render("~/Scripts/App/Views/add-edit-shop-product.js")
+    @Scripts.Render("~/Scripts/App/leaveDirtyForm.js")
+}
+
+<h1 class="head-title">Create Shop Product</h1>
+
+@using (Html.BeginForm("CreateProduct", "Shop", FormMethod.Post))
+{
+    @Html.Partial("_ShopProductEditor", Model)
+    <br />
+    <br />
+    <div class="form-group row">
+        <div class="offset-2 col-2">
+            @Html.ActionLink("Cancel", "Product", "Shop", null, new { @class = "btn btn-light skipWarnUnsavedChanges" })
+        </div>
+        <div class="offset-2 col-4">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </div>
+}

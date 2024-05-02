@@ -1,0 +1,168 @@
+﻿@using Elixir.Models.Utils
+
+@model Elixir.Areas.Admin.Views.WebPage.WebPageVmBase
+@{
+    bool isEdit = Model.Id.HasValue;
+}
+<div class="form-group row">
+    @Html.LabelFor(m => m.Id, "ID", new { @class = "col-form-label col-2" })
+    <div class="col-2">
+        @Html.EditorFor(m => m.Id, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(m => m.WebPageName, "Name *", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.EditorFor(m => m.WebPageName, new { htmlAttributes = new { @class = "form-control", spellcheck = "true" } })
+        @Html.ValidationMessageFor(m => m.WebPageName)
+    </div>
+</div>
+
+<div class="form-group row input-with-right-action">
+    @Html.LabelFor(m => m.UrlName, "URL Name *", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @if (isEdit)
+        {
+            @Html.EditorFor(m => m.UrlName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        }
+        else
+        {
+            @Html.EditorFor(m => m.UrlName, new { htmlAttributes = new { @class = "form-control" } })
+        }
+        @Html.ValidationMessageFor(m => m.UrlName)
+
+        @if (isEdit == false)
+        {
+            <a href="#">
+                <i class="fas fa-arrow-alt-circle-down"></i>
+            </a>
+        }
+
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(m => m.WebPageTitle, "Title *", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.EditorFor(m => m.WebPageTitle, new { htmlAttributes = new { @class = "form-control", spellcheck = "true" } })
+        @Html.ValidationMessageFor(m => m.WebPageTitle)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(m => m.MetaDescription, "Meta Description", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.EditorFor(m => m.MetaDescription, new { htmlAttributes = new { @class = "form-control", spellcheck = "true" } })
+        @Html.ValidationMessageFor(m => m.MetaDescription)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(m => m.TypeID, "Web Page Type *", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.DropDownListFor(m => m.TypeID, new SelectList(Model.AvailableWebPageTypes, "Key", "Value"), "Please select...", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.TypeID)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(m => m.PrimaryTopicID, "Primary Topic *", new { @class = "col-2 col-form-label" })
+    <div class="col-10 editor-field">
+        @Html.DropDownListFor(m => m.PrimaryTopicID, Model.PrimaryTopics, "None", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.PrimaryTopicID)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(m => m.SecondaryTopicID, "Secondary Topic", new { @class = "col-2 col-form-label" })
+    <div class="col-10 editor-field">
+        @Html.DropDownListFor(m => m.SecondaryTopicID, Model.SecondaryTopics, "None", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.SecondaryTopicID)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.LabelFor(m => m.ContentMain, "Content Main *", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.TextAreaFor(m => m.ContentMain, 5, 10, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ContentMain)
+    </div>
+</div>
+
+
+<div class="form-group row">
+    @Html.LabelFor(m => m.BannerImageFileName, "Banner Image", new { @class = "col-form-label col-2" })
+    <div class="col-8">
+        @Html.EditorFor(m => m.BannerImageFileName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(m => m.BannerImageFileName)
+    </div>
+    <div class="col-2">
+        <button id="btnAddBannerImage" class="btn btn-block btn-default">Select image</button>
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(m => m.SocialImageFileName, "Social Image filename", new { @class = "col-form-label col-2" })
+    <div class="col-8">
+        @Html.EditorFor(m => m.SocialImageFileName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(m => m.SocialImageFileName)
+    </div>
+    <div class="col-2">
+        <button id="btnAddSocialImage" class="btn btn-block btn-default">Select image</button>
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(m => m.DisplayOrder, "Display Order", new { @class = "col-form-label col-2" })
+    <div class="col-2 editor-field">
+        @Html.EditorFor(m => m.DisplayOrder, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(m => m.DisplayOrder)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(m => m.ParentID, "Parent Page", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.DropDownListFor(m => m.ParentID, new SelectList(Model.AvailableParentPages, "Key", "Value"), "(Choose parent page)", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ParentID)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(m => m.IsSubjectPage, "Is Subject Page", new { @class = "col-form-label col-2" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(m => m.IsSubjectPage)
+    </div>
+
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(m => m.IsEnabled, "Is Enabled", new { @class = "col-form-label col-2" })
+    <div class="col-2 form-checkbox">
+        @Html.CheckBoxFor(m => m.IsEnabled)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(m => m.NotesInternal, "Notes Internal", new { @class = "col-form-label col-2" })
+    <div class="col-10 editor-field">
+        @Html.TextAreaFor(m => m.NotesInternal, 5, 10, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.NotesInternal)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.LabelFor(m => m.PublishedOnDT, "Published On", new { @class = "col-2 col-form-label" })
+    <div class="col-10 editor-field">
+        @Html.TextBoxFor(m => m.PublishedOnDT, $"{{0:{DateUtils.DateFormat}}}", new { @class = "form-control datepicker" })
+        @Html.ValidationMessageFor(m => m.PublishedOnDT)
+    </div>
+</div>
+
+@if (Model.Id.HasValue)
+{
+    <div align="right">
+        @Html.CheckBoxFor(m => m.IsSignificantChange)
+        <label>Significant change (update PublishedUpdatedDT)</label>
+    </div>
+}

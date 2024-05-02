@@ -1,0 +1,160 @@
+﻿@using Elixir.Models.Utils;
+@model Elixir.Areas.Admin.ViewModels.ShopOrderDetailsViewModel
+
+@{
+    ViewBag.Title = "Shop Order Details";
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Pages/Shop.css")
+}
+
+<h1 class="head-title">Shop Order Details</h1>
+
+<div class="row">
+    <div class="col-12">
+        <p><strong> Order number:</strong> @(!string.IsNullOrEmpty(Model.ShopOrder.IDHashCode)? Model.ShopOrder.IDHashCode: "N/A")</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <p><strong> Submitted:</strong> @(Model.ShopOrder.OrderPlacedOn.HasValue? Convert.ToDateTime(Model.ShopOrder.OrderPlacedOn).ToString("dd-MMM-yyyy HH:mm"): "N/A") </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <p><strong> Status:</strong> @(!string.IsNullOrEmpty(Model.ShopOrder.OrderStatusName)? Model.ShopOrder.OrderStatusName: "N/A")</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <p><strong> Email:</strong> @(!string.IsNullOrEmpty(Model.ShopOrder.EmailAddress)? Model.ShopOrder.EmailAddress: "N/A")</p>
+    </div>
+</div>
+
+<div class="row mt-2">
+    <div class="col-12">
+        <h4>Payment(s)</h4>
+    </div>
+</div>
+
+@if (Model.Payments != null && Model.Payments.Count > 0)
+{
+    foreach (var payment in Model.Payments)
+    {
+        <p>
+            @Convert.ToDateTime(payment.PaymentDate).ToString("dd-MMM-yyyy HH:mm:ss") &emsp; @payment.ProcessorName &emsp; £ @payment.Amount &emsp; <label class="control-label">Merchant transaction ID: </label> @payment.PaymentReference
+        </p>
+    }
+}
+else
+{
+    <div class="row">
+        <div class="col-12">
+            <span>No payments found.</span>
+        </div>
+    </div>
+}
+
+@foreach (var orderProduct in Model.ShopOrderProducts)
+{
+    <div class="row mt-4">
+        <div class="col-4">
+            <div class="row">
+                <div class="col-12">
+                    @if (!string.IsNullOrEmpty(orderProduct.ShopProduct.ImageThumb))
+                    {
+                        <a href="/shop/product/@orderProduct.ShopProduct.UrlName"><img class="cart-item-image" src="@("/" + AppConstants.FileSystem.PublicImagesFolderName + "/shop/" + orderProduct.ShopProduct.ImageThumb)" /></a>
+                    }
+                    else
+                    {
+                        <a href="/shop/product/@orderProduct.ShopProduct.UrlName"><img class="cart-item-image" src="@("/" + AppConstants.FileSystem.PublicImagesFolderName + "/shop/" + AppConstants.DefaultShopProductThumb)" /></a>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="row">
+                <div class="col-12">
+                    <a href="/shop/product/@orderProduct.ShopProduct.UrlName">@orderProduct.DnShopProductName</a>
+                </div>
+            </div>
+            @if (orderProduct.ShopProductOptionId.HasValue && !string.IsNullOrEmpty(orderProduct.DnShopProductOptionName))
+            {
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <p>@orderProduct.DnShopProductOptionName</p>
+                    </div>
+                </div>
+            }
+            <div class="row mt-2">
+                <div class="col-12">
+                    <p>@orderProduct.SKU</p>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <em><strong>£ @orderProduct.PricePaidPerUnit</strong></em>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-3">
+                    <span>Quantity</span>
+                </div>
+                <div class="col-2">
+                    <input class="form-control" type="text" value="@orderProduct.Quantity" readonly />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row mt-4">
+    <div class="col-12">
+        <h4> Total (@Model.ShopOrder.ItemsTotal @(Model.ShopOrder.ItemsTotal > 1? "items":"item")): £ @Model.TotalAmount</h4>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <h4> Shipping: £ @Convert.ToDecimal(Model.ShopOrder.ShippingPricePaid).ToString("f2")</h4>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <h4> Order Total: £ @Model.ShopOrder.PricePaidTotal</h4>
+    </div>
+</div>
+
+<div class="row mt-4">
+ 
+    <form action="/admin/shop/order" method="post" style="width:100%">
+        <input type="hidden" id="IDHashCode" name="IDHashCode" value="@Model.ShopOrder.IDHashCode"/>
+        <div class="col-12 row">
+            <div class="col-6">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.NotesPublic, "Customer Notes(displayed To user)", new { @class = "" })
+                    @Html.TextAreaFor(x => x.NotesPublic, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.NotesPublic)
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.NotesInternal, "Notes (Internal)", new { @class = "" })
+                    @Html.TextAreaFor(x => x.NotesInternal, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.NotesInternal)
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4 mb-4">
+            <div class="col-4">
+                @Html.ActionLink("Cancel", "Orders", "Shop", null, new { @class = "btn btn-primary" })
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+

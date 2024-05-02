@@ -1,0 +1,84 @@
+﻿@model Elixir.Areas.Admin.ViewModels.ShopCategoriesViewModel
+@using Elixir.Models.Enums
+@{
+    ViewBag.Title = "Shop Categories";
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Components/datagrid.css")
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/App/tooltip.js")
+}
+
+<h1 class="head-title">Shop Categories</h1>
+
+<div class="row">
+    <div class="col-12">
+        @Html.ActionLink("New", "CreateCategory", "Shop", null, new { @class = "btn btn-primary" })
+    </div>
+</div>
+
+<div class="row table-wrapper">
+    <div class="col-12">
+        <table class="table table-bordered data-grid">
+            <thead>
+                <tr>
+                    <th class="small">
+                        <span class="table-header-text">ID</span>
+                        <a href="@Url.Action("Category", new { sortBy = (int)ShopCategoriesSortOrder.ShopCategoryID, direction = (int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Name</span>
+                        <a href="@Url.Action("Category", new { sortBy = (int)ShopCategoriesSortOrder.ShopCategoryName, direction = (int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Primary Web Page</span>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Updated</span>
+                        <a href="@Url.Action("Category", new { sortBy = (int)ShopCategoriesSortOrder.UpdatedDT, direction = (int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Enabled</span>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Notes</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Models != null && Model.Models.ToList().Count > 0)
+                {
+                    foreach (Elixir.Models.ShopCategory category in Model.Models)
+                    {
+                        <tr>
+                            <td class="small">@category.ShopCategoryId.ToString()</td>
+                            <td class="medium">@Html.ActionLink(category.ShopCategoryName, "EditCategory", new { id = category.ShopCategoryId })</td>
+                            <td>@category.DnPrimaryWebPageName</td>
+                            <td class="medium">@(category.UpdatedOn.HasValue? category.UpdatedOn.Value.ToString("dd-MM-yyyy") : "")</td>
+                            <td class="medium">@Html.CheckBox("is-enabled", category.IsEnabled, new { disabled = "disabled" })</td>
+                            <td class="medium">
+                                @if (String.IsNullOrWhiteSpace(category.NotesInternal) == false)
+                                {
+                                    <span class="notes-holder" data-toggle="tooltip" data-placement="top" title="@category.NotesInternal">
+                                        <i class="fa fa-info-circle"></i>
+                                    </span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

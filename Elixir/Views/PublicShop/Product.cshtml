@@ -1,0 +1,211 @@
+﻿@model Elixir.ViewModels.ShopViewModel
+@using Elixir.Models.Utils
+@using System.Web.Configuration;
+@{
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+    ViewBag.Title = Model.ShopProduct.ShopProductName;
+}
+
+@section Scripts
+{
+    <script>
+        $("#btnAddToCart").click(function () {
+            if (@Model.ShopProductOptions.Count > 0) {
+                if ($("#drpOptionsUnit").val() && $("#drpOptionsUnit").val() > 0)
+                    $(location).attr('href', '/shop/addtocart/' + '@Model.ShopProduct.SKU' + '/' + $("#drpOptionsUnit").val());
+                else
+                    alert("Please select a " + '@Model.ShopProduct.OptionsUnit');
+            } else
+                $(location).attr('href', '/shop/addtocart/' + '@Model.ShopProduct.SKU');
+        });
+    </script>
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Pages/Shop.css")
+}
+
+@if (Convert.ToBoolean(WebConfigurationManager.AppSettings["ShopMaintenanceModeOn"].ToString()))
+{
+    <h1>Shop is currently undergoing maintenance</h1>
+    <div class="row">
+        <div class="col-12">
+            <p>The Live Forever Club shop is currently being updated. Please come back soon.</p>
+            <p>In the meantime, visit the <a href="/page/home"> home page </a> for latest news.</p>
+        </div>
+    </div>
+}
+else
+{
+    if (Model.ShopOrderProducts != null && Model.ShopOrderProducts.Count > 0)
+    {
+        @Html.Partial("_ShopNavigationBar", Model.ShopNavigationBar)
+    }
+
+    if (TempData["PermissionDeniedErrMsg"] != null)
+    {
+        <div class="alert alert-danger mt-4">
+            @TempData["PermissionDeniedErrMsg"].ToString()
+        </div>
+    }
+    <section class="section-ptb">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row d-flex">
+                        <div class="col-sm-12 col-md-12">
+                            <h3 class="mb-4 product-single-title">@Model.ShopProduct.ShopProductName</h3>
+                        </div>
+                        <div class="col-sm-12 col-md-12">
+                            <div class="product-single">
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="product-image mb-4">
+                                            @if (!string.IsNullOrEmpty(Model.ShopProduct.ImageMain))
+                                            {
+                                                <img class="img-fluid mx-auto" src="@("/" + AppConstants.FileSystem.PublicImagesFolderName + "/shop/" + Model.ShopProduct.ImageMain)" />
+                                            }
+                                            else
+                                            {
+                                                <img class="img-fluid mx-auto" src="@("/" + AppConstants.FileSystem.PublicImagesFolderName + "/shop/" + AppConstants.DefaultShopProductMain)" />
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="product-info">
+                                            <div class="product-title">
+                                                <a>
+                                                    <p>@Model.ShopProduct.ShopProductDescription</p>
+                                                </a>
+                                            </div>
+
+                                            <p>@Html.Raw(Model.ShopProduct.ContentMain)</p>
+
+                                            <div class="product-price-cart">
+                                                <div class="product-price my-md-4 my-2">
+                                                    @if (Model.ShopProduct.PriceLongevist.HasValue)
+                                                    {
+                                                        if (Request.IsAuthenticated && User.IsInRole(Elixir.Models.Enums.Roles.Longevist.ToString()))
+                                                        {
+                                                            <em><del><strong style="color:red;">£ @Model.ShopProduct.PriceRRP</strong></del></em><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><em><strong>£ @Model.ShopProduct.PriceLongevist</strong></em>
+                                                            <br />
+                                                            <p style="font-size:14px;color:#626262"><img src="~/Images/icons/LFC-logo-32.png" /> <span>Longevist members save <em>£ @(Model.ShopProduct.PriceRRP - Model.ShopProduct.PriceLongevist)</em></span></p>
+                                                        }
+                                                        else
+                                                        {
+                                                            <em><strong>£ @Model.ShopProduct.PriceRRP</strong></em>
+                                                            <br />
+                                                            <p style="font-size:14px;color:#626262"><img src="~/Images/icons/LFC-logo-32.png" /> <span>Longevist member's price <em>£ @Model.ShopProduct.PriceLongevist</em> - you could save <em>£ @(Model.ShopProduct.PriceRRP - Model.ShopProduct.PriceLongevist)</em></span></p>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <em><strong>£ @Model.ShopProduct.PriceRRP</strong></em>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="product-category my-2">
+                                                <span>Product code: @Model.ShopProduct.SKU</span>
+                                            </div>
+                                            @if (Model.ShopProductOptions != null && Model.ShopProductOptions.Count > 0)
+                                            {
+                                                <div class="form-group row mt-4">
+                                                    @Html.Label(Model.ShopProduct.OptionsUnit, new { @class = "col-2 col-form-label" })
+                                                    <div class="col-5 editor-field">
+                                                        @Html.DropDownList(Model.ShopProduct.OptionsUnit, Model.GetSelectList(nameof(Model.ShopProductOptions)), "Please select...", new { @id = "drpOptionsUnit", @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                            }
+                                            <button type="button" class="btn btn-primary text-white mt-4 @(Model.IsDisableAddToCart? "disable-button":"")" id="btnAddToCart">Add to cart</button>
+                                            @if (Model.ShopProduct.IsLongevistsOnly)
+                                            {
+                                                <div class="row mt-4">
+                                                    <div class="col-12">
+                                                        <p><img src="~/Images/icons/LFC-logo-32.png" /> <span>This product is EXCLUSIVELY available to LONGEVIST members.</span></p>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                    @*<h1>@Model.ShopProduct.ShopProductName</h1>
+                    <div class="row mb-4">
+                        <div class="col-12 text-center">
+                            @if (!string.IsNullOrEmpty(Model.ShopProduct.ImageMain))
+                            {
+                                <img src="@("/" + AppConstants.FileSystem.PublicImagesFolderName + "/shop/" + Model.ShopProduct.ImageMain)" />
+                            }
+                            else
+                            {
+                                <img src="@("/" + AppConstants.FileSystem.PublicImagesFolderName + "/shop/" + AppConstants.DefaultShopProductMain)" />
+                            }
+                            <br />
+                            @if (Model.ShopProduct.PriceLongevist.HasValue)
+                            {
+                                if (Request.IsAuthenticated && User.IsInRole(Elixir.Models.Enums.Roles.Longevist.ToString()))
+                                {
+                                    <em><del><strong style="color:red;">£ @Model.ShopProduct.PriceRRP</strong></del></em><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><em><strong>£ @Model.ShopProduct.PriceLongevist</strong></em>
+                                    <br />
+                                    <p><img src="~/Images/icons/LFC-logo-32.png" /> <span>Longevist members save <em>£ @(Model.ShopProduct.PriceRRP - Model.ShopProduct.PriceLongevist)</em></span></p>
+                                }
+                                else
+                                {
+                                    <em><strong>£ @Model.ShopProduct.PriceRRP</strong></em>
+                                    <br />
+                                    <p><img src="~/Images/icons/LFC-logo-32.png" /> <span>Longevist member's price <em>£ @Model.ShopProduct.PriceLongevist</em> - you could save <em>£ @(Model.ShopProduct.PriceRRP - Model.ShopProduct.PriceLongevist)</em></span></p>
+                                }
+                            }
+                            else
+                            {
+                                <em><strong>£ @Model.ShopProduct.PriceRRP</strong></em>
+                            }
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-12">
+                            <p><em>@Model.ShopProduct.ShopProductDescription</em></p>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <p>@Html.Raw(Model.ShopProduct.ContentMain)</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p> Product code: @Model.ShopProduct.SKU</p>
+                        </div>
+                    </div>
+                    @if (Model.ShopProductOptions != null && Model.ShopProductOptions.Count > 0)
+                    {
+                        <div class="form-group row">
+                            @Html.Label(Model.ShopProduct.OptionsUnit, new { @class = "col-2 col-form-label" })
+                            <div class="col-5 editor-field">
+                                @Html.DropDownList(Model.ShopProduct.OptionsUnit, Model.GetSelectList(nameof(Model.ShopProductOptions)), "Please select...", new { @id = "drpOptionsUnit", @class = "form-control" })
+                            </div>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="button" class="btn btn-primary @(Model.IsDisableAddToCart? "disable-button":"")" id="btnAddToCart">Add to cart</button>
+                        </div>
+                    </div>
+                    @if (Model.ShopProduct.IsLongevistsOnly)
+                    {
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <p><img src="~/Images/icons/LFC-logo-32.png" /> <span>This product is EXCLUSIVELY available to LONGEVIST members.</span></p>
+                            </div>
+                        </div>
+                    }*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+

@@ -1,0 +1,1102 @@
+﻿@using System.Globalization;
+@using Elixir.Helpers;
+@using System.Web.Configuration;
+@using Elixir.Models.Enums;
+@using Elixir.Models;
+@model Elixir.ViewModels.WebPageViewModel
+
+@{
+    ViewBag.Title = Model.WebPage.WebPageTitle;
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+}
+
+@section Scripts
+{
+    @if (Model.IsMembersDirectoryPage || Model.IsFoundingMembersPage)
+    {
+        <script>
+            jQuery(document).find("#aWebsiteUrl").each(function (index, value) {
+                var $a = jQuery(value);
+                var href = $a.attr("href");
+
+                if (!href.includes("https") && !href.includes("http"))
+                    $a.attr("href", "http://" + href);
+            });
+        </script>
+    }
+
+    @if (Model.IsCheckoutPage && Model.ShopOrderProducts != null && Model.ShopOrderProducts.Count > 0)
+    {
+        <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+        <script>
+            var orderTotalAmount = '@Model.OrderTotalAmount';
+            var redirectUrl = '@Request.Url.Scheme' + "://" + '@Request.Url.Authority' + "/shop/paymentwithpaypal?";
+            var environment = '@Model.Environment';
+            var clientId = '@Model.ClientId';
+        </script>
+        @Scripts.Render("~/Scripts/App/paypal-integration.js")
+    }
+
+    @if (Model.IsAccountDetailsPage || Model.IsAccountProfilePage || Model.IsChangePasswordPage || Model.IsShippingDetailsPage || Model.IsRegistrationPage || Model.IsLoginPage)
+    {
+        <script>
+            $(document).ready(function () {
+                checkDirtyForm(false);
+                $("textarea, select").change(function (e) {
+                    checkDirtyForm(true);
+                });
+                $("input").on("input", function () {
+                    checkDirtyForm(true);
+                });
+                $("#btnSave").click(function () {
+                    if (isValid()) {
+                        //don't need warning when clicking on Save/Cancel buttons
+                        checkDirtyForm(false);
+                        submit();
+                    }
+                });
+            });
+
+            function checkDirtyForm(isDirty) {
+                window.onbeforeunload = function () {
+                    if (isDirty)
+                        return "Are you sure you want to navigate away?";
+                };
+            }
+        </script>
+    }
+
+    @if (Model.IsAccountDetailsPage)
+    {
+        <script>
+            $("#frmAccountDetails").keyup(function (e) {
+                if (e.which == 13) {
+                    if (isValid()) {
+                        //don't need warning when clicking on Save/Cancel buttons
+                        checkDirtyForm(false);
+                        submit();
+                    }
+                }
+            });
+            function isValid() {
+                $("#spFirstName").text("");
+                $("#spLastName").text("");
+                $("#spCountryName").text("");
+
+                let isValid = true;
+
+                let firstName = $("#txtFirstName").val();
+                if (!firstName) {
+                    $("#spFirstName").text("First name is required.");
+                    isValid = false;
+                } else {
+                    if (firstName.length > 50) {
+                        $("#spFirstName").text("First name: Length should be less than 50.");
+                        isValid = false;
+                    }
+                }
+
+                let lastName = $("#txtLastName").val();
+                if (lastName && lastName.length > 50) {
+                    $("#spLastName").text("Last name: Length should be less than 50.");
+                    isValid = false;
+                }
+
+                let countryName = $("#txtCountryName").val();
+                if (countryName == null || countryName == "" || countryName.length < 1) {
+                    $("#spCountryName").text("Country name is required.");
+                    isValid = false;
+                }
+                return isValid;
+            }
+            function submit() {
+                $("#frmAccountDetails").submit();
+            }
+        </script>
+    }
+
+    @if (Model.IsAccountProfilePage)
+    {
+        <script>
+            $(document).ready(function () {
+                $("#ViewOnWebsiteButton").click(function () {
+                    var Url = $(this).attr("data-RedirectionUrl");
+                    window.open(Url, '_blank');
+                });
+            });
+            function submitData(e) {
+                if (e.which == 13) {
+                    if (isValid()) {
+                        //don't need warning when clicking on Save/Cancel buttons
+                        checkDirtyForm(false);
+                        submit();
+                    }
+                }
+            }
+            function isValid() {
+                $("#spPublicDescription").text("");
+                let isValid = true;
+
+                let publicDescription = $("#txtPublicDescription").val();
+                if (publicDescription && publicDescription.length > 255) {
+                    $("#spPublicDescription").text("Description: Length should be less than 255.");
+                    isValid = false;
+                }
+                return isValid;
+            }
+            function submit() {
+                $("#frmAccountProfileDetails").submit();
+            }
+        </script>
+    }
+
+    @if (Model.IsChangePasswordPage)
+    {
+        <script>
+            $("#chkHideCurrentPassword").click(function () {
+                var currentPassword = document.getElementById("txtCurrentPassword");
+                if (currentPassword.type === "password") {
+                    currentPassword.type = "text";
+                } else {
+                    currentPassword.type = "password";
+                }
+            });
+
+            $("#chkHideNewPassword").click(function () {
+                var newPassword = document.getElementById("txtNewPassword");
+                if (newPassword.type === "password") {
+                    newPassword.type = "text";
+                } else {
+                    newPassword.type = "password";
+                }
+            });
+
+            $("#frmChangePassword").keyup(function (e) {
+                if (e.which == 13) {
+                    if (isValid()) {
+                        //don't need warning when clicking on Save/Cancel buttons
+                        checkDirtyForm(false);
+                        submit();
+                    }
+                }
+            });
+
+            function isValid() {
+                $("#spCurrentPassword").text("");
+                $("#spNewPassword").text("");
+
+                let isValid = true;
+
+                let currentPassword = $("#txtCurrentPassword").val();
+                if (!currentPassword) {
+                    $("#spCurrentPassword").text("Current Password is required.");
+                    isValid = false;
+                } else {
+                    if (currentPassword.length > 50) {
+                        $("#spCurrentPassword").text("Current Password: Length should be less than 50.");
+                        isValid = false;
+                    }
+                }
+
+                let newPassword = $("#txtNewPassword").val();
+                if (!newPassword) {
+                    $("#spNewPassword").text("New Password is required.");
+                    isValid = false;
+                } else {
+                    if (newPassword.length < 8 || newPassword.length > 50 || !hasLowerCase(newPassword) || !hasUpperCase(newPassword) || !hasDigit(newPassword)) {
+                        $("#spNewPassword").text("New Password must contains 8-50 characters, one Uppercase, one Lowercase and one Digit!");
+                        isValid = false;
+                    }
+                }
+                return isValid;
+            }
+
+            function submit() {
+                $("#frmChangePassword").submit();
+            }
+
+            function hasLowerCase(str) {
+                return (/[a-z]/.test(str));
+            }
+
+            function hasUpperCase(str) {
+                return (/[A-Z]/.test(str));
+            }
+
+            function hasDigit(str) {
+                return (/[0-9]/.test(str));
+            }
+        </script>
+    }
+
+    @if (Model.IsLoginPage)
+    {
+        <script>
+            $("#frmLogin").keyup(function (e) {
+                if (e.which == 13) {
+                    if (isValid()) {
+                        //don't need warning when clicking on Save/Cancel buttons
+                        checkDirtyForm(false);
+                        submit();
+                    }
+                }
+            });
+
+            function isValid() {
+                $("#spEmailAddress").text("");
+                $("#spPassword").text("");
+                let isValid = true;
+
+                let emailAddress = $("#txtEmailAddress").val();
+                if (!emailAddress) {
+                    $("#spEmailAddress").text("Email address is required.");
+                    isValid = false;
+                } else {
+                    let patt = new RegExp(/\w+([-+.']\w+)*@@\w+([-.]\w+)*\.\w+([-.]\w+)*/g);
+                    let result = patt.test(emailAddress);
+                    if (!result) {
+                        $("#spEmailAddress").text("The Email address field is not a valid e-mail address.");
+                        isValid = false;
+                    }
+                }
+                let password = $("#txtPassword").val();
+                if (!password) {
+                    $("#spPassword").text("Password is required.");
+                    isValid = false;
+                }
+                return isValid;
+            }
+
+            function submit() {
+                $("#frmLogin").submit();
+            }
+        </script>
+    }
+
+    @if (Model.IsShippingDetailsPage)
+    {
+        <script>
+            $("#frmShippingDetails").keyup(function (e) {
+                if (e.which == 13) {
+                    if (isValid()) {
+                        //don't need warning when clicking on Save/Cancel buttons
+                        checkDirtyForm(false);
+                        submit();
+                    }
+                }
+            });
+
+            function isValid() {
+                $("#spEmailAddress").text("");
+                $("#spFirstName").text("");
+                $("#spLastName").text("");
+                $("#spAddressLine1").text("");
+                $("#spTown").text("");
+                $("#spPostcode").text("");
+                $("#spCountry").text("");
+
+                let isValid = true;
+
+                let emailAddress = $("#txtEmailAddress").val();
+                if (!emailAddress) {
+                    $("#spEmailAddress").text("Email address is required.");
+                    isValid = false;
+                } else {
+                    let patt = new RegExp(/\w+([-+.']\w+)*@@\w+([-.]\w+)*\.\w+([-.]\w+)*/g);
+                    let result = patt.test(emailAddress);
+                    if (!result) {
+                        $("#spEmailAddress").text("The Email address field is not a valid e-mail address.");
+                        isValid = false;
+                    }
+                }
+
+                let firstName = $("#txtFirstName").val();
+                if (!firstName) {
+                    $("#spFirstName").text("First Name is required.");
+                    isValid = false;
+                }
+
+                let lastName = $("#txtLastName").val();
+                if (!lastName) {
+                    $("#spLastName").text("Last Name is required.");
+                    isValid = false;
+                }
+
+                let addressLine1 = $("#txtAddressLine1").val();
+                if (!addressLine1) {
+                    $("#spAddressLine1").text("Address line 1 is required.");
+                    isValid = false;
+                }
+
+                let town = $("#txtTown").val();
+                if (!town) {
+                    $("#spTown").text("Town is required.");
+                    isValid = false;
+                }
+
+                let postcode = $("#txtPostcode").val();
+                if (!postcode) {
+                    $("#spPostcode").text("Postcode is required.");
+                    isValid = false;
+                } else {
+                    let patt = new RegExp(/^(([A-Z]{1,2}[0-9][A-Z0-9]?|ASCN|STHL|TDCU|BBND|[BFS]IQQ|PCRN|TKCA) ?[0-9][A-Z]{2}|BFPO ?[0-9]{1,4}|(KY[0-9]|MSR|VG|AI)[ -]?[0-9]{4}|[A-Z]{2} ?[0-9]{2}|GE ?CX|GIR ?0A{2}|SAN ?TA1)$/g);
+                    let result = patt.test(postcode);
+                    if (!result) {
+                        $("#spPostcode").text("The Postcode field is not a valid postcode.");
+                        isValid = false;
+                    }
+                }
+
+                let country = $("#txtCountry").val();
+                if (!country) {
+                    $("#spCountry").text("Country is required.");
+                    isValid = false;
+                }
+                return isValid;
+            }
+
+            function submit() {
+                $("#frmShippingDetails").submit();
+            }
+        </script>
+    }
+
+    @if (Model.IsRegistrationPage)
+    {
+        <script>
+            $("#hidePassword").click(function () {
+                var inpPassword = document.getElementById("txtPassword");
+                if (inpPassword.type === "password") {
+                    inpPassword.type = "text";
+                } else {
+                    inpPassword.type = "password";
+                }
+            });
+
+            $("#frmRegistration").keyup(function (e) {
+                if (e.which == 13) {
+                    if (isValid()) {
+                        //don't need warning when clicking on Save/Cancel buttons
+                        checkDirtyForm(false);
+                        submit();
+                    }
+                }
+            });
+
+            function isValid() {
+                $("#spFirstName").text("");
+                $("#spLastName").text("");
+                $("#spEmailAddress").text("");
+                $("#spPassword").text("");
+                $("#spCountryName").text("");
+
+                let isValid = true;
+                let firstName = $("#txtFirstName").val();
+                if (!firstName) {
+                    $("#spFirstName").text("First name is required.");
+                    isValid = false;
+                } else {
+                    if (firstName.length > 50) {
+                        $("#spFirstName").text("First name: Length should be less than 50.");
+                        isValid = false;
+                    }
+                }
+                let lastName = $("#txtLastName").val();
+                if (lastName && lastName.length > 50) {
+                    $("#spLastName").text("Last name: Length should be less than 50.");
+                    isValid = false;
+                }
+                let emailAddress = $("#txtEmailAddress").val();
+                if (!emailAddress) {
+                    $("#spEmailAddress").text("Email address is required.");
+                    isValid = false;
+                } else {
+                    let patt = new RegExp(/\w+([-+.']\w+)*@@\w+([-.]\w+)*\.\w+([-.]\w+)*/g);
+                    let result = patt.test(emailAddress);
+                    if (!result) {
+                        $("#spEmailAddress").text("The Email address field is not a valid e-mail address.");
+                        isValid = false;
+                    }
+                }
+                let password = $("#txtPassword").val();
+                if (!password) {
+                    $("#spPassword").text("Password is required.");
+                    isValid = false;
+                } else {
+                    if (password.length < 8 || password.length > 50 || !hasLowerCase(password) || !hasUpperCase(password) || !hasDigit(password)) {
+                        $("#spPassword").text("Password must contains 8-50 characters, one Uppercase, one Lowercase and one Digit!");
+                        isValid = false;
+                    }
+                }
+                let countryName = $("#txtCountryName").val();
+                if (!countryName) {
+                    $("#spCountryName").text("Country is required.");
+                    isValid = false;
+                }
+                return isValid;
+            }
+
+            function submit() {
+                $("#frmRegistration").submit();
+            }
+
+            function hasLowerCase(str) {
+                return (/[a-z]/.test(str));
+            }
+
+            function hasUpperCase(str) {
+                return (/[A-Z]/.test(str));
+            }
+
+            function hasDigit(str) {
+                return (/[0-9]/.test(str));
+            }
+        </script>
+    }
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Components/LatestArticle.css")
+    @if (Model.WebPage.TypeID == (int)EnumWebPageType.Shop || Model.IsOrderDetailsPage)
+    {
+        @Styles.Render("~/Styles/Pages/Shop.css")
+    }
+    @if (Model.IsAccountDetailsPage || Model.IsAccountProfilePage || Model.IsChangePasswordPage || Model.IsShippingDetailsPage || Model.IsRegistrationPage || Model.IsLoginPage)
+    {
+        @Styles.Render("~/Styles/Components/Controls/Inputs.css")
+    }
+    @if (Model.IsCheckoutPage)
+    {
+        @Styles.Render("~/Styles/loading.css")
+    }
+    <style>
+        .member-name {
+            margin-top: 20px;
+            margin-bottom: 5px;
+            font-weight: 500;
+            font-size: 1.25rem;
+        }
+    </style>
+}
+@if (Convert.ToBoolean(WebConfigurationManager.AppSettings["ShopMaintenanceModeOn"].ToString()) && Model.WebPage.TypeID == (int)EnumWebPageType.Shop)
+{
+    <h1>Shop is currently undergoing maintenance</h1>
+    <div class="row">
+        <div class="col-12">
+            <p>The Live Forever Club shop is currently being updated. Please come back soon.</p>
+            <p>In the meantime, visit the <a href="/page/home"> home page </a> for latest news.</p>
+        </div>
+    </div>
+}
+else
+{
+    if (Model.WebPage.TypeID == (int)EnumWebPageType.Shop)
+    {
+        if (Model.IsShopHomePage || Model.IsCartPage)
+        {
+            if (Model.ShopOrderProducts != null && Model.ShopOrderProducts.Count > 0)
+            {
+                @Html.Partial("_ShopNavigationBar", Model.ShopNavigationBar)
+            }
+        }
+    }
+
+    <h1>@Model.WebPage.WebPageTitle</h1>
+
+    if (Model.HasParent)
+    {
+        <div class="row page-navigation">
+            <div class="col-12">
+                <span>Up to &gt; </span><a href="@Model.LinkToParentUrlName">@Model.LinkToParentText</a>
+            </div>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-12">
+            <p class="page-description">@Html.Raw(Model.WebPage.ContentMain)</p>
+        </div>
+    </div>
+
+    if (Model.HasSubpages)
+    {
+        <p>
+            Read more about:
+            @{
+                var subpagesCount = Model.Subpages.Count();
+            }
+            @for (int i = 0; i < subpagesCount; i++)
+            {
+                var subpage = Model.Subpages.ElementAt(i);
+                <a href="@Url.Action("Index", new { name = subpage.Url })">@(subpage.Title + (i != subpagesCount - 1 ? "," : "."))</a>
+            }
+        </p>
+    }
+
+    if (Model.WebPage.TypeID == (int)EnumWebPageType.Page)
+    {
+        if (Model.IsMembersDirectoryPage)
+        {
+            if (Model.MembersDirectory != null && Model.MembersDirectory.Count > 0)
+            {
+                @Html.Partial("_Members", Model.MembersDirectory)
+            }
+        }
+        else if (Model.IsFoundingMembersPage)
+        {
+            if (Model.FoundingMembers != null && Model.FoundingMembers.Count > 0)
+            {
+                @Html.Partial("_Members", Model.FoundingMembers)
+            }
+        }
+        else if (Model.IsLoginPage)
+        {
+            @Html.Partial("_LoginForm", new Login())
+        }
+        else if (Model.IsRegistrationPage)
+        {
+            @Html.Partial("_RegistrationForm", new Registration { MembershipLevel = (int)Elixir.Models.Enums.Roles.Longevist })
+        }
+        else
+        {
+            if (Model.AllResources != null && Model.AllResources.Count() > 0)
+            {
+                <h3>Resources</h3>
+                <div class="row">
+                    @Html.Partial("_ResourcesListForSubjectPage", Model.AllResources)
+                </div>
+
+                if (!Model.IsHomePage)
+                {
+                    @Html.ActionLink($"More {Model.WebPage.WebPageTitle} resources", "Index", "SubjectResources", new { webPageUrlName = Model.WebPage.UrlName }, new { @class = "more-news" })
+                    <br />
+                    <br />
+                }
+            }
+
+            if (!Model.IsHomePage && Model.WebPage.IsSubjectPage && Model.RelatedBlogPosts.Any())
+            {
+                <div class="row">
+                    <div class="col-12">
+                        <h3>@Model.WebPage.WebPageTitle Blog Posts</h3>
+
+                        @foreach (var relBlogPost in Model.RelatedBlogPosts)
+                        {
+                            var blogDate = relBlogPost.PublishedUpdatedDT.HasValue ?
+                            relBlogPost.PublishedUpdatedDT.Value : relBlogPost.PublishedOnDT;
+
+                            <p>
+                                <!-- @relBlogPost.ThumbnailImageName -->
+                                @Html.ActionLink(relBlogPost.BlogPostTitle, "ViewBlog", "PublicBlog", new { name = relBlogPost.UrlName }, null) <br />
+                                @blogDate.FormatDdMmYyyy(false) @relBlogPost.BlogPostDescriptionPublic
+                            </p>
+                        }
+
+                    </div>
+                </div>
+            }
+
+            if (!Model.IsHomePage)
+            {
+                //<iframe src="https://rcm-eu.amazon-adsystem.com/e/cm?o=2&p=288&l=ez&f=ifr&linkID=63c566045a1fef517bf642616274b556&t=s08a-21&tracking_id=s08a-21" width="320" height="50" scrolling="no" border="0" marginwidth="0" style="border:none;" frameborder="0"></iframe>
+                // Amazon search widget - prepopulated with web page title
+                <script type="text/javascript">amzn_assoc_ad_type ="responsive_search_widget"; amzn_assoc_tracking_id ="s08a-21"; amzn_assoc_marketplace ="amazon"; amzn_assoc_region ="GB"; amzn_assoc_placement =""; amzn_assoc_search_type = "search_widget";amzn_assoc_width ="auto"; amzn_assoc_height ="auto"; amzn_assoc_default_search_category =""; amzn_assoc_default_search_key ="@Model.WebPage.WebPageTitle.Replace(" ", "_")";amzn_assoc_theme ="light"; amzn_assoc_bg_color ="FFFFFF";</script>
+                <script src="//z-eu.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1&Marketplace=GB"></script>
+            }
+
+            if (Model.IsHomePage && Model.LatestResources != null && Model.LatestResources.Count > 0)
+            {
+                <h3>Latest Resources</h3>
+                <div class="row">
+                    @Html.Partial("_ResourcesListForSubjectPage", Model.LatestResources)
+                </div>
+            }
+
+            if (Model.IsHomePage && Model.RecentBlogPosts.Any())
+            {
+                <h3>Latest Blog Posts</h3>
+
+                @Html.Partial("_BlogPostSummaries", Model.RecentBlogPosts)
+            }
+
+            if (Model.HasLatestArticles)
+            {
+                <h2>Recent News</h2>
+                foreach (var article in Model.LatestArticles)
+                {
+                    <div class="latest-article">
+                        <h3>@article.Title</h3>
+                        <p>@article.DnPublisherName <span> - @article.ArticleDate.ToString("dd-MMM-yyyy", CultureInfo.InvariantCulture)</span></p>
+                        <p>@article.Summary</p>
+                        @Html.ActionLink("Read more...", "Index", "PublicArticle", new { name = article.UrlName }, null)
+                    </div>
+                }
+
+                if (!Model.IsHomePage)
+                {
+                    @Html.ActionLink($"More {Model.WebPage.WebPageTitle} News", "Index", "SubjectNews", new { webPageUrlName = Model.WebPage.UrlName }, new { @class = "more-news" })
+                }
+            }
+        }
+    }
+    else if (Model.WebPage.TypeID == (int)EnumWebPageType.Shop)
+    {
+        if (Model.IsShopHomePage)
+        {
+            @Html.Partial("_ShopProducts", Model)
+        }
+        else if (Model.IsCartPage)
+        {
+            if (Model.ShopOrderProducts != null && Model.ShopOrderProducts.Count > 0)
+            {
+
+                <section class="">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                @Html.Partial("_ReviewProducts", Model)
+
+
+                                @if (Model.ShopNavigationBar.IsOnlyMembershipProducts)
+                                {
+                                    @*<div class="row mt-4">
+                                            <div class="col-12">
+                                                @Html.ActionLink("Checkout", "Shop", new { name = "checkout" }, new { @class = "btn btn-primary" })
+                                            </div>
+                                        </div>*@
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="cart-totals">
+                                                <div class="text-left">
+                                                    @Html.ActionLink("Checkout", "Shop", new { name = "checkout" }, new { @class = "btn btn-primary text-white checkout-button" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    @*<div class="row mt-4">
+                                            <div class="col-12">
+                                                @Html.ActionLink("Shipping details", "Shop", new { name = "shipping" }, new { @class = "btn btn-primary" })
+                                            </div>
+                                        </div>*@
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="cart-totals">
+                                                <div class="text-left">
+                                                    @Html.ActionLink("Shipping details", "Shop", new { name = "shipping" }, new { @class = "btn btn-primary text-white checkout-button" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <p>Price and availability are subject to change. The shopping cart is an order form that will be confirmed upon order acceptance by the company.</p>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-12">
+                        <p>You don't have anything in your cart at the moment.</p>
+                    </div>
+                </div>
+            }
+        }
+        else if (Model.IsCheckoutPage)
+        {
+            if (TempData["CheckoutErrMsg"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["CheckoutErrMsg"].ToString()
+                </div>
+            }
+
+            if (Model.ShopOrderProducts != null && Model.ShopOrderProducts.Count > 0)
+            {
+                @Html.Partial("_ReviewProducts", Model)
+
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <h4> Shipping: £ @Convert.ToDecimal(Model.ShippingAmount).ToString("f2")</h4>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <h4> Order Total: £ @Model.OrderTotalAmount</h4>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <h4>Shipping Details</h4>
+                    </div>
+                </div>
+
+                <div class="form-group row mt-2">
+                    <div class="col-6">
+                        <input class="form-control text-box single-line" readonly="readonly" type="email" value="@Model.ShippingDetails.EmailAddress">
+                    </div>
+                </div>
+
+                if (!Model.IsOnlyMembershipProducts)
+                {
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <input class="form-control text-box single-line" readonly="readonly" type="text" value="@($"{Model.ShippingDetails.FirstName} {Model.ShippingDetails.LastName}")">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <input class="form-control text-box single-line" readonly="readonly" type="text" value="@Model.ShippingDetails.AddressLine1">
+                        </div>
+                    </div>
+
+                    if (!string.IsNullOrEmpty(Model.ShippingDetails.AddressLine2))
+                    {
+                        <div class="form-group row">
+                            <div class="col-6">
+                                <input class="form-control text-box single-line" readonly="readonly" type="text" value="@Model.ShippingDetails.AddressLine2">
+                            </div>
+                        </div>
+                    }
+
+                    if (!string.IsNullOrEmpty(Model.ShippingDetails.AddressLine3))
+                    {
+                        <div class="form-group row">
+                            <div class="col-6">
+                                <input class="form-control text-box single-line" readonly="readonly" type="text" value="@Model.ShippingDetails.AddressLine3">
+                            </div>
+                        </div>
+                    }
+
+                    if (!string.IsNullOrEmpty(Model.ShippingDetails.Town))
+                    {
+                        <div class="form-group row">
+                            <div class="col-6">
+                                <input class="form-control text-box single-line" readonly="readonly" type="text" value="@Model.ShippingDetails.Town">
+                            </div>
+                        </div>
+                    }
+
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <input class="form-control text-box single-line" readonly="readonly" type="text" value="@Model.ShippingDetails.Postcode">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <input class="form-control text-box single-line" readonly="readonly" type="text" value="@Model.ShippingDetails.Country">
+                        </div>
+                    </div>
+
+                    if (!string.IsNullOrEmpty(Model.ShippingDetails.ContactTelephoneNumber))
+                    {
+                        <div class="form-group row">
+                            <div class="col-6">
+                                <input class="form-control text-box single-line" readonly="readonly" type="text" value="@Model.ShippingDetails.ContactTelephoneNumber">
+                            </div>
+                        </div>
+                    }
+
+                    <div class="row">
+                        <div class="col-12">
+                            <span>Something incorrect? <a href="/shop/shipping">Change your shipping details.</a></span>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-12">
+                            <span>No physical shipment is required for this order.</span>
+                        </div>
+                    </div>
+                }
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <h4>Payment</h4>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <p>We will send an email confirming payment for these items. Once approved, we will then send you an order confirmation. To add more to cart, <a href="/shop/home">return to shop.</a></p>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <input id="IsAcceptTermsAndConditions" name="IsAcceptTermsAndConditions" type="checkbox"> Accept terms and conditions (<a href="/page/webterms" target="_blank">view here</a>)
+                    </div>
+                </div>
+
+                if (!string.IsNullOrEmpty(Model.WarningMessage))
+                {
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <p style="color:red;">@Model.WarningMessage - please <a href='mailto:webmaster@liveforever.club'>contact the webmaster</a></p>
+                        </div>
+                    </div>
+                }
+
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <div id="paypal-button" class="disable-payment"></div>
+                    </div>
+                </div>
+
+                <div class="row" id="notice">
+                    <div class="col-12">
+                        <span>Please accept terms and conditions to enable payment.</span>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-12">
+                        <p>You don't have anything in your cart at the moment.</p>
+                    </div>
+                </div>
+            }
+        }
+        else if (Model.IsAcknowledgementPage)
+        {
+            <div class="row mt-5">
+                <div class="col-12">
+                    <p>
+                        <label class="control-label">Order: </label> @Model.IdHashCode &emsp; @Convert.ToDateTime(Model.OrderPlacedOn).ToString("dd-MMM-yyyy") &emsp; @Model.TotalQuantity @(Model.TotalQuantity > 1 ? "items" : "item") &emsp; Total = £ @Model.OrderTotalAmount &emsp; @Model.OrderStatus
+                    </p>
+                </div>
+            </div>
+        }
+        else if (Model.IsShippingDetailsPage)
+        {
+            if (Model.ShopOrderProducts != null && Model.ShopOrderProducts.Count > 0)
+            {
+                @Html.Partial("_ShippingDetails", Model.ShippingDetails)
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-12">
+                        <p>You don't have anything in your cart at the moment.</p>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            @Html.Partial("_ShopProducts", Model)
+        }
+    }
+    else if (Model.WebPage.TypeID == (int)EnumWebPageType.Account)
+    {
+        if (Model.IsAccountHomePage)
+        {
+            <div class="row">
+                <div class="col-3">
+                    <p class="btn btn-default">Member level:</p>
+                </div>
+                <div class="col-9" style="margin-top: 5px;">
+                    @Model.MembershipLevel &nbsp;
+                    @{
+                        if (!string.IsNullOrEmpty(Model.MembershipLevel) && Model.MembershipLevel == "Supporter")
+                        {
+                            <a href="/shop/product/membership-new">Upgrade to Longevist membership</a>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <p class="btn btn-default">Member number:</p>
+                </div>
+                <div class="col-9" style="margin-top: 5px;">
+                    @Model.MembershipNumber &nbsp; @(Model.IsFoundingMember ? Html.Raw("<img src='/images/icons/founding-member-32.png'/> Thank you for being a founder member!") : Html.Raw(""))
+                    @{
+                        if (Model.IsFoundingMember)
+                        {
+
+                        }
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <p class="btn btn-default">Expiry date:</p>
+                </div>
+                <div class="col-9" style="margin-top: 5px;">
+                    @(!string.IsNullOrEmpty(Model.ExpiryDate) ? Model.ExpiryDate : "N/A")
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <button class="btn btn-default" onclick="window.location.href='/account/details'"> Personal details</button>
+                </div>
+                <div class="col-9" style="margin-top: 5px;">
+                    Update your name, location and password
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-3">
+                    <button class="btn btn-default" onclick="window.location.href='/account/profile'"> Profile</button>
+                </div>
+                <div class="col-9" style="margin-top: 5px;">
+                    Update your bio and links
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-3">
+                    <button class="btn btn-default" onclick="window.location.href='/account/orders'"> My orders</button>
+                </div>
+                <div class="col-9" style="margin-top: 5px;">
+                    View your shopping history
+                </div>
+            </div>
+        }
+        else if (Model.IsShopOrdersPage)
+        {
+            if (Model.TotalShopOrders != null && Model.TotalShopOrders.Count > 0)
+            {
+                if (Model.UserShopCart != null)
+                {
+                    <div class="row">
+                        <div class="col-12">
+                            <p>
+                                <label class="control-label">Order: </label> <a href="/shop/cart">N/A</a> &emsp; @Convert.ToDateTime(Model.UserShopCart.UpdatedOn).ToString("dd-MMM-yyyy") &emsp; @Model.UserShopCart.ItemsTotal @(Model.UserShopCart.ItemsTotal > 1 ? "items" : "item") &emsp; Total = £ @Model.UserShopCart.PricePaidTotal &emsp; @Model.UserShopCart.OrderStatusName
+                            </p>
+                        </div>
+                    </div>
+                }
+                if (Model.ShopOrders != null && Model.ShopOrders.Count > 0)
+                {
+                    foreach (var shopOrder in Model.ShopOrders)
+                    {
+                        <div class="row">
+                            <div class="col-12">
+                                <p>
+                                    <label class="control-label">Order: </label> <a href="/account/order/@shopOrder.IDHashCode">@shopOrder.IDHashCode</a> &emsp; @Convert.ToDateTime(shopOrder.OrderPlacedOn).ToString("dd-MMM-yyyy") &emsp; @shopOrder.ItemsTotal @(shopOrder.ItemsTotal > 1 ? "items" : "item") &emsp; Total = £ @shopOrder.PricePaidTotal &emsp; @shopOrder.OrderStatusName
+                                </p>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-12">
+                        <p>No orders found.</p>
+                    </div>
+                </div>
+            }
+        }
+        else if (Model.IsAccountDetailsPage)
+        {
+            <div class="row mb-2">
+                <div class="col-12">
+                    <button class="btn btn-default" onclick="window.location.href='/account/home'"> < Back to account</button>
+                </div>
+            </div>
+
+            @Html.Partial("_AccountDetailsForm", Model.AccountDetails)
+        }
+        else if (Model.IsAccountProfilePage)
+        {
+            <div class="row mb-2">
+                <div class="col-12">
+                    <button class="btn btn-default" onclick="window.location.href='/account/home'"> < Back to account</button>
+                </div>
+            </div>
+
+            @Html.Partial("_AccountProfileDetailsForm", Model.AccountProfileDetails)
+        }
+        else if (Model.IsChangePasswordPage)
+        {
+            <div class="row mb-2">
+                <div class="col-12">
+                    <button class="btn btn-default" onclick="window.location.href='/account/home'"> < Back to account</button>
+                </div>
+            </div>
+
+            @Html.Partial("_ChangePasswordForm", new ChangePassword())
+        }
+        else if (Model.IsOrderDetailsPage)
+        {
+            <div class="row mt-2">
+                <div class="col-12">
+                    <p><strong> Order number:</strong> @(!string.IsNullOrEmpty(Model.IdHashCode) ? Model.IdHashCode : "N/A")</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <p><strong> Submitted:</strong> @(Model.OrderPlacedOn.HasValue ? Convert.ToDateTime(Model.OrderPlacedOn).ToString("dd-MMM-yyyy HH:mm") : "N/A") </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <p><strong> Status:</strong> @(!string.IsNullOrEmpty(Model.OrderStatus) ? Model.OrderStatus : "N/A")</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <p><strong> Notes:</strong> @(!string.IsNullOrEmpty(Model.NotesPublic) ? Model.NotesPublic : "None")</p>
+                </div>
+            </div>
+
+            @Html.Partial("_ReviewProducts", Model)
+
+            <div class="row mt-2">
+                <div class="col-12">
+                    <h4> Shipping: £ @Convert.ToDecimal(Model.ShippingAmount).ToString("f2")</h4>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-12">
+                    <h4> Order Total: £ @Model.OrderTotalAmount</h4>
+                </div>
+            </div>
+        }
+    }
+    else if (Model.WebPage.TypeID == (int)EnumWebPageType.Events)
+    {
+        if (Model.IsEventsHomePage)
+        {
+            if (Model.CurrentEventResources != null && Model.CurrentEventResources.Count > 0)
+            {
+                <div class="mt-4">
+                    <div class="row">
+                        @Html.Partial("_ResourcesListForSubjectPage", Model.CurrentEventResources)
+                    </div>
+                </div>
+            }
+
+            if (Model.PastEventResources != null && Model.PastEventResources.Count > 0)
+            {
+                <div class="mt-4">
+                    <h3 class="mb-3">Past Events</h3>
+                    <div class="row">
+                        @Html.Partial("_ResourcesListForSubjectPage", Model.PastEventResources)
+                    </div>
+                </div>
+            }
+        }
+    }
+}

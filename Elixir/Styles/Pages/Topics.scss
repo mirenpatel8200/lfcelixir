@@ -1,0 +1,17 @@
+﻿.data-grid {
+    th:first-child {
+        width: 80px;
+    }
+
+    td:first-child {
+        width: 80px;
+    }
+
+    th:last-child {
+        min-width: 160px;
+    }
+
+    td:last-child {
+        min-width: 160px;
+    }
+}

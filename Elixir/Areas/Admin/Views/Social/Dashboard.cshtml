@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Social Dashboard";
+}
+
+@section Styles
+{
+    @Styles.Render(
+        "~/Styles/Pages/SocialDashboard.css"
+        )
+}
+
+@section Scripts
+{
+    @Scripts.Render(
+        "~/Scripts/App/Core/buffer-client.js",
+        "~/Scripts/App/Views/social-dashboard.js"
+        )
+}
+
+<h1 class="head-title">@ViewBag.Title</h1>
+
+<div class="card">
+    <div class="card-header">
+        Buffer
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Connection test</h5>
+        <p class="card-text">Check the connection to Buffer by getting Pending Posts</p>
+        <button class="btn btn-primary" id="get-pending-posts">Get Pending Posts</button>
+        <div class="code-container hidden">
+            <code class="code-pre"></code>
+        </div>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Posts</h5>
+        <p class="card-text">Manage Buffer posts</p>
+        @Html.ActionLink("New Post", "CreatePost", null, new { @class="btn btn-primary" })
+    </div>
+</div>
+

@@ -1,0 +1,116 @@
+﻿@model Elixir.Models.SearchResult
+
+@{
+    if (Request.QueryString["query"] == null)
+    {
+        ViewBag.Title = "Search";
+    }
+    else
+    {
+        if (Model.DisplayAll)
+        {
+            ViewBag.Title = Model.TermsSearched + " Live Forever Club archive search";
+        }
+        else
+        {
+            ViewBag.Title = Model.TermsSearched + " Search Results";
+        }
+    }
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Components/LatestArticle.css")
+}
+@section Scripts {
+    @Scripts.Render("~/Scripts/App/Views/search-page.js")
+}
+@if (Request.QueryString["query"] == null)
+{
+    <h1>Search</h1>
+    <p>Enter one or more words below - search will match content with ALL of these words</p>
+    using (Html.BeginForm("Index", "Search", FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                <div class="form-group">
+                    <input type="text" name="query" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary search-button">Search</button>
+                </div>
+            </div>
+        </div>
+        <p>Or go back to <a href="/">Home page</a></p>
+    }
+
+    <h1>Advanced Search</h1>
+    <p>Coming soon for members only</p>
+}
+
+
+else
+{
+    if (Model.TermsSearched == "")
+    {
+        <h1>No search query entered</h1>
+        <h2>Please use search box in navigation bar</h2>
+    }
+    else
+    {
+        if (Model.ErrorOnSearch)
+        {
+            <h1 style="color:red">Some error occured on search</h1>
+            <h3 style="color:red">@Model.ErrorMessage</h3>
+        }
+        else
+        {
+
+            <h1>@Model.TermsSearched Search Results</h1>
+
+            <h2>@Model.TermsSearched Web Pages</h2>
+
+            @Html.Partial("_WebPagesList", Model.WebPagesFound)
+
+                if (Model.DisplayAll == false)
+                {
+                <p><a href="/search?query=@(Model.TermsSearched)&display=all">Display all matching web pages</a></p>
+                }
+
+            <h2>@Model.TermsSearched Blog Posts</h2>
+
+            @Html.Partial("_BlogPostsList", Model.BlogPostsFound)
+
+                if (Model.DisplayAll == false)
+                {
+                <p><a href="/search?query=@(Model.TermsSearched)&display=all">Display all matching blog posts</a></p>
+                }
+
+            @*Amazon search widget - prepopulated with resource name*@
+            <script type="text/javascript">amzn_assoc_ad_type ="responsive_search_widget"; amzn_assoc_tracking_id ="s08a-21"; amzn_assoc_marketplace ="amazon"; amzn_assoc_region ="GB"; amzn_assoc_placement =""; amzn_assoc_search_type = "search_widget";amzn_assoc_width ="auto"; amzn_assoc_height ="auto"; amzn_assoc_default_search_category =""; amzn_assoc_default_search_key ="@Model.TermsSearched.Replace(" ", "_")";amzn_assoc_theme ="light"; amzn_assoc_bg_color ="FFFFFF";</script>
+            <script src="//z-eu.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1&Marketplace=GB"></script>
+
+            <h2>@Model.TermsSearched Resources</h2>
+            <div class="row">
+                @Html.Partial("_ResourcesListForSubjectPage", Model.ResourcesFound)
+            </div>
+
+                if (Model.DisplayAll == false)
+                {
+                <p><a href="/search?query=@(Model.TermsSearched)&display=all">Display all matching resources</a></p>
+                }
+
+            <h2>@Model.TermsSearched News Articles</h2>
+
+            @Html.Partial("_ArticlesList", Model.ArticlesFound)
+
+                if (Model.DisplayAll == false)
+                {
+                <p><a href="/search?query=@(Model.TermsSearched)&display=all">Display all matching news articles</a></p>
+                }
+
+                <p><a href="@Url.Action("Index", "Search")">New Search</a></p>
+        }
+    }
+}

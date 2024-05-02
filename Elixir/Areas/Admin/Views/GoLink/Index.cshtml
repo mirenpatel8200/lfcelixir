@@ -1,0 +1,85 @@
+﻿@using Elixir.Helpers
+@using Elixir.Models.Enums
+@model Elixir.Areas.Admin.Views.GoLink.GoLinksListViewModel
+
+@{
+    ViewBag.Title = "Go Links";
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Components/datagrid.css")
+}
+
+<h1 class="head-title">@ViewBag.Title</h1>
+
+<div class="row">
+    <div class="col-1">
+        @Html.ActionLink("New", "Create", "GoLink", null, new { @class = "btn btn-primary" })
+    </div>
+    <div class="col-11">
+        @Html.ActionLink("Log", "Log", "GoLinkLog", null, new { @class = "btn btn-light" })
+    </div>
+</div>
+
+<div class="row table-wrapper">
+    <div class="col-12">
+        <table class="table table-bordered data-grid">
+            <thead>
+                <tr>
+                    <th class="small">
+                        <span class="table-header-text">ID</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)GoLinksSortOrder.GoLinkID, direction = (int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Title</span>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Short Code</span>
+                        <a href="@Url.Action("Index", new { sortBy = (int)GoLinksSortOrder.ShortCode, direction = (int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Destination URL</span>
+                    </th>
+                    <th class="small">
+                        <span class="table-header-text">Book</span>
+                    </th>
+                    <th class="small">
+                        <span class="table-header-text">Affiliate</span>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Created</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var goLinkModel in Model.Models)
+                {
+                    <tr>
+                        <td class="small">
+                            @goLinkModel.Id
+                        </td>
+                        <td>
+                            @goLinkModel.GoLinkTitle
+                        </td>
+                        <td>
+                            @Html.ActionLink(goLinkModel.ShortCode, "Edit", new RouteValueDictionary(new { id = goLinkModel.Id }))
+                        </td>
+                        <td>
+                            <a href="@goLinkModel.DestinationUrl" target="_blank">@goLinkModel.DestinationUrl</a>
+                        </td>
+                        <td class="small">@Html.CheckBox("is-book", goLinkModel.IsBookLink, new { disabled = "disabled" })</td>
+                        <td class="small">@Html.CheckBox("is-affiliate", goLinkModel.IsAffiliateLink, new { disabled = "disabled" })</td>
+                        <td class="medium">
+                            @goLinkModel.Created.FormatDdMmYyyy()
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

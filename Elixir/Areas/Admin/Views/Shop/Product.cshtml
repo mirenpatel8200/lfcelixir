@@ -1,0 +1,92 @@
+﻿@model Elixir.Areas.Admin.ViewModels.ShopProductsViewModel
+@using Elixir.Models.Enums
+@{
+    ViewBag.Title = "Shop Products";
+}
+
+@section Styles
+{
+    @Styles.Render("~/Styles/Components/datagrid.css")
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/App/tooltip.js")
+}
+
+<h1 class="head-title">Shop Products</h1>
+
+<div class="row">
+    <div class="col-12">
+        @Html.ActionLink("New", "CreateProduct", "Shop", null, new { @class = "btn btn-primary" })
+    </div>
+</div>
+
+<div class="row table-wrapper">
+    <div class="col-12">
+        <table class="table table-bordered data-grid">
+            <thead>
+                <tr>
+                    <th class="small">
+                        <span class="table-header-text">ID</span>
+                        <a href="@Url.Action("Product", new { sortBy = (int)ShopProductsSortOrder.ShopProductID, direction = (int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th>
+                        <span class="table-header-text">Name</span>
+                        <a href="@Url.Action("Product", new { sortBy = (int)ShopProductsSortOrder.ShopProductName, direction = (int)Model.SortDirection })" class="sort-action">
+                            <i class="fa fa-sort action-sort"></i>
+                        </a>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">RRP</span>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Stock</span>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Enabled</span>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Notes</span>
+                    </th>
+                    <th class="medium">
+                        <span class="table-header-text">Actions</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Models != null && Model.Models.ToList().Count > 0)
+                {
+                    foreach (Elixir.Models.ShopProduct product in Model.Models)
+                    {
+                        <tr>
+                            <td class="small">@product.ShopProductId.ToString()</td>
+                            <td>@Html.ActionLink(product.ShopProductName, "EditProduct", new { id = product.ShopProductId })</td>
+                            <td class="medium">@product.PriceRRP</td>
+                            <td class="medium">@product.StockLevel</td>
+                            <td class="medium">@Html.CheckBox("is-enabled", product.IsEnabled, new { disabled = "disabled" })</td>
+                            <td class="medium">
+                                @if (String.IsNullOrWhiteSpace(product.NotesInternal) == false)
+                                {
+                                    <span class="notes-holder" data-toggle="tooltip" data-placement="top" title="@product.NotesInternal">
+                                        <i class="fa fa-info-circle"></i>
+                                    </span>
+                                }
+                            </td>
+                            <td class="medium">
+                                <a href="@Url.Action("Product", "PublicShop" , new { area = "" , name = product.UrlName })" target="_blank">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="@Url.Action("Options", "Shop" , new { area = "Admin" , shopProductId = product.ShopProductId })">
+                                    <i class="fas fa-list-ul"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

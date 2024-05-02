@@ -1,0 +1,23 @@
+﻿@model Elixir.Areas.Admin.ViewModels.WebSiteViewModel
+
+<h1 class="head-title">Web Site Admin</h1>
+
+<h6>Sitemap files information</h6>
+@foreach (var si in Model.SitemapInfo)
+{
+    <div class="row">
+        <div class="col-12">
+            File "@si.FileName" @(si.Exists ? "exists: ": "does not exist.")
+            @if (si.Exists)
+            {
+                <a href="@si.FileUrlPath" target="_blank">@si.FileName</a>
+            }
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-12">
+        @Html.ActionLink("Generate sitemap files", "GenerateSiteMap", new { hash = Model.ValidationHash }, new { @class = "btn btn-success", target = "_blank" })
+    </div>
+</div>
